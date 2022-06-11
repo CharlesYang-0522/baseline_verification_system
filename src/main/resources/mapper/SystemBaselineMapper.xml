@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team_three.base_check.mapper.SystemBaselineMapper">
+
+    <resultMap type="com.team_three.base_check.pojo.SystemBaseline" id="SystemBaselineMap">
+        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="oscaption" column="OSCaption" jdbcType="VARCHAR"/>
+        <result property="osversion" column="OSVersion" jdbcType="VARCHAR"/>
+        <result property="diskcaption" column="DiskCaption" jdbcType="VARCHAR"/>
+        <result property="interfacetype" column="InterfaceType" jdbcType="VARCHAR"/>
+        <result property="networkcaption" column="NetworkCaption" jdbcType="VARCHAR"/>
+        <result property="ipaddress" column="IPAddress" jdbcType="VARCHAR"/>
+        <result property="macaddress" column="MACAddress" jdbcType="VARCHAR"/>
+        <result property="updatehotfixid" column="UpdateHotFixID" jdbcType="VARCHAR"/>
+        <result property="installedon" column="InstalledOn" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <sql id="Beas_Column_List">
+        mac, OSCaption, OSVersion, DiskCaption, InterfaceType, NetworkCaption, IPAddress, MACAddress, UpdateHotFixID, InstalledOn        
+    </sql>
+
+    <!--查询所有主键和名称-->
+    <select id="selectAll" resultMap="SystemBaselineMap">
+        select
+            <include refid="Beas_Column_List"/>
+        from baseline_check.system_baseline
+        <where>
+            <if test="oscaption != null and oscaption != ''">
+                OSCaption = #{oscaption},
+            </if>
+            <if test="osversion != null and osversion != ''">
+                OSVersion = #{osversion},
+            </if>
+            <if test="diskcaption != null and diskcaption != ''">
+                DiskCaption = #{diskcaption},
+            </if>
+            <if test="interfacetype != null and interfacetype != ''">
+                InterfaceType = #{interfacetype},
+            </if>
+            <if test="networkcaption != null and networkcaption != ''">
+                NetworkCaption = #{networkcaption},
+            </if>
+            <if test="ipaddress != null and ipaddress != ''">
+                IPAddress = #{ipaddress},
+            </if>
+            <if test="macaddress != null and macaddress != ''">
+                MACAddress = #{macaddress},
+            </if>
+            <if test="updatehotfixid != null and updatehotfixid != ''">
+                UpdateHotFixID = #{updatehotfixid},
+            </if>
+            <if test="installedon != null and installedon != ''">
+                InstalledOn = #{installedon},
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="selectByMac" resultMap="SystemBaselineMap">
+        select
+            <include refid="Beas_Column_List"/>
+        from baseline_check.system_baseline
+        where mac = #{mac}
+    </select>
+    
+    <!--根据条件查询当前表的满足条件的个数-->
+    <select id="selectCount" resultType="int">
+        select
+          count(mac)
+        from baseline_check.system_baseline
+        <where>
+            <if test="name != null and name != ''">
+                mac = #{mac}
+            </if>
+        </where>
+    </select>
+    
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectByPage" resultMap="SystemBaselineMap">
+        select
+            <include refid="Beas_Column_List"/>
+        from baseline_check.system_baseline
+        <where>
+            <if test="name != null and name != ''">
+                mac like "%"#{name}"%"
+            </if>
+        </where>
+        limit #{index},10;
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="com.team_three.base_check.pojo.SystemBaseline">
+        insert into baseline_check.system_baseline(mac, OSCaption, OSVersion, DiskCaption, InterfaceType, NetworkCaption, IPAddress, MACAddress, UpdateHotFixID, InstalledOn)
+        values (#{mac}, #{oscaption}, #{osversion}, #{diskcaption}, #{interfacetype}, #{networkcaption}, #{ipaddress}, #{macaddress}, #{updatehotfixid}, #{installedon})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByMac" parameterType="com.team_three.base_check.pojo.SystemBaseline">
+        update baseline_check.system_baseline
+        <set>
+            <if test="oscaption != null and oscaption != ''">
+                OSCaption = #{oscaption},
+            </if>
+            <if test="osversion != null and osversion != ''">
+                OSVersion = #{osversion},
+            </if>
+            <if test="diskcaption != null and diskcaption != ''">
+                DiskCaption = #{diskcaption},
+            </if>
+            <if test="interfacetype != null and interfacetype != ''">
+                InterfaceType = #{interfacetype},
+            </if>
+            <if test="networkcaption != null and networkcaption != ''">
+                NetworkCaption = #{networkcaption},
+            </if>
+            <if test="ipaddress != null and ipaddress != ''">
+                IPAddress = #{ipaddress},
+            </if>
+            <if test="macaddress != null and macaddress != ''">
+                MACAddress = #{macaddress},
+            </if>
+            <if test="updatehotfixid != null and updatehotfixid != ''">
+                UpdateHotFixID = #{updatehotfixid},
+            </if>
+            <if test="installedon != null and installedon != ''">
+                InstalledOn = #{installedon},
+            </if>
+        </set>
+        where mac = #{mac}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteByMac">
+        delete from baseline_check.system_baseline where mac = #{mac}
+    </delete>
+
+</mapper>

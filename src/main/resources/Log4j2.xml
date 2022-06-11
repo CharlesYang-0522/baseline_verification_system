@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+status 八个级别：ALL,TRACE, DEBUG, INFO, WARN, ERROR ,FATAL,OFF
+通常使用WARN级别
+monitorInterval 自动检测配置文件的时间间隔（单位：秒）
+-->
+<configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <!--
+            日志输出格式，每个转换说明符以百分号(%)开头，'%'后面的转换字符有如下:
+            p (level) 日志级别
+            c（logger） Logger的Name
+            C (class) Logger调用者的全限定类名
+            d (date) 日期
+            highlight 高亮颜色
+            l (location) 调用位置
+            L (line) 行号
+            m (msg/message) 输出的内容
+            M (methode) 调用方法 ***
+            maker marker的全限定名
+            n 输出平台相关的换行符,如'\n' '\r\n'
+            pid (processId) 进程ID
+            level （p）日志级别
+            r JVM启动后经过的微秒
+            t (tn/thread/threadName) 线程名称
+            T (tid/threadId) 线程ID
+            tp (threadPriority) 线程优先级
+            x (NDC) 线程Context堆栈
+        -->
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss,SSS}|%p|%c|%L|%m%n</Property>
+        <Property name="logPath">logs</Property>
+    </Properties>
+    <Appenders>
+        <!--
+            设置在控制台打印日志
+            将输出写到 System.err 或 System.out 。如果想将输出写到System.out，设置Console标签下的target为 SYSTEM_OUT ；
+            如果想将输出写到System.err，设置Console标签下的target为 SYSTEM_ERR
+            -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+        <!--
+            设置级别为 DEBUG 日志输出到 debug.log 中
+            日志写入策略 immediateFlush log4j2接收到日志事件时，是否立即将日志刷到磁盘。默认为true 。
+            异步日志将会自动批量刷新到磁盘，所以这里设置为false
+        -->
+        <RollingFile name="debug"
+                     immediateFlush="true"
+                     fileName="${logPath}/debug.log"
+                     filePattern="${logPath}/debug-%d{yyyy-MM-dd}.log">
+            <Filters>
+                <!--设置只输出级别为 debug 的日志-->
+                <ThresholdFilter level="DEBUG"/>
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <!--
+                    按天生成日志文件
+                    单位：以文件命名中的时间精度来确定单位。比如 yyyy-MM-dd 单位为天，yyyy-MM-dd-HH 单位为小时
+                    interval：时间间隔
+                -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <!-- 最多保存日志文件的数目 -->
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+        <RollingFile name="info"
+                     immediateFlush="true"
+                     fileName="${logPath}/info.log"
+                     filePattern="${logPath}/info-%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="60"/>
+        </RollingFile>
+        <RollingFile name="warn"
+                     immediateFlush="true"
+                     fileName="${logPath}/warn.log"
+                     filePattern="${logPath}/warn-%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="60"/>
+        </RollingFile>
+        <RollingFile name="error"
+                     immediateFlush="true"
+                     fileName="${logPath}/error.log"
+                     filePattern="${logPath}/error-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Filters>
+                <ThresholdFilter level="ERROR"/>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="60"/>
+        </RollingFile>
+        <!-- 设置 task_suc 日志 -->
+        <RollingFile name="task_suc"
+                     immediateFlush="true"
+                     fileName="${logPath}/task_suc.log"
+                     filePattern="${logPath}/task_suc-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="90"/>
+        </RollingFile>
+        <!-- 设置 task_fail 日志 -->
+        <RollingFile name="task_fail"
+                     immediateFlush="true"
+                     fileName="${logPath}/task_fail.log"
+                     filePattern="${logPath}/task_fail-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="90"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.gxa.scdx" level="DEBUG" additivity="true">
+            <AppenderRef ref="debug"/>
+            <AppenderRef ref="info"/>
+            <AppenderRef ref="warn"/>
+            <AppenderRef ref="error"/>
+        </Logger>
+        <!-- org.springframework 只输出 ERROR 级别以上的日志 -->
+        <Logger name="org.springframework" level="info"/>
+        <!-- org.apache 只输出 ERROR 级别以上的日志 -->
+        <Logger name="org.apache" level="info"/>
+        <!-- task_suc 日志 -->
+        <Logger name="task_suc" additivity="true">
+            <AppenderRef ref="task_suc"/>
+        </Logger>
+        <!-- task_fail 日志 -->
+        <Logger name="task_fail" additivity="true">
+            <AppenderRef ref="task_fail"/>
+        </Logger>
+        <Root level="DEBUG">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</configuration>

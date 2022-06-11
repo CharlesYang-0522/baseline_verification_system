@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Pignose Calender -->
+    <link href="../plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="../plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="../plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="#">
+                    <b class="logo-abbr"><img src="../images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="../images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="../images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">    
+            <div class="header-content clearfix">
+                
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <!-- <div class="header-left">
+                    
+                </div> -->
+                <div class="header-right">
+                    <ul class="clearfix">
+                        <li class="icons dropdown d-none d-md-flex">
+                            <a href="javascript:void(0)" class="log-user">
+                                <span>Username</span>  
+                            </a>
+                        </li>
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="../images/user/1.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li><a href="/userProfile/selectUser"><i class="icon-user"></i> <span>基础信息</span></a></li>
+                                        <hr class="my-2">
+                                        <li><a href="/logout"><i class="icon-key"></i> <span>退出</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">用户信息</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/userProfile/selectUser">基础信息</a></li>
+                            <li><a href="/Record/hardwareBaseline">硬件配置</a></li>
+                            <li><a href="/Record/systemBaseline">系统信息</a></li>
+                            <li><a href="/Record/accountBaseline">账户信息</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">基线扫描</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="#">扫描结果</a></li>
+                            <li><a href="#">历史结果</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="http://1.15.143.8:5212/s/7qcX" aria-expanded="false" target="_blank">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">客户端下载</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="row page-titles mx-0">
+                <div class="col p-md-0">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media align-items-center mb-4">
+                            <img class="mr-3" src="../images/user/form-user.png" width="80" height="80" alt="">
+                            <div class="media-body">
+                                <h3 class="mb-0" th:text="${profile.username}"></h3>
+                                <p class="text-muted mb-0">注册用户</p>
+                            </div>
+                        </div>
+
+                        <h4>设备MAC地址</h4>
+                        <td th:if="${profile.mac eq null}">
+                        </td>
+                        <p class="text-muted" th:if="${profile.mac eq null}">未绑定设备</p>
+                        <p class="text-muted" th:text="${profile.mac}"></p>
+                        <ul class="card-profile__info">
+                            <li><strong class="text-dark mr-4">最近检测时间</strong> <span th:text="${#dates.format(profile.updateTime,'yyyy-MM-dd HH:mm:ss')}"></span></li>
+                        </ul>
+
+                        <div class="bootstrap-modal">
+                            <!-- Button trigger modal -->
+                            <div class="col-12 text-center">
+                                <button class="btn btn-danger px-5" data-toggle="modal" data-target="#bind">绑定设备</button>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="bind">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">绑定设备</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" action="/bindMac" id="bindMac">
+                                                <div class="form-group">
+                                                    <label for="mac" class="col-form-label">Mac地址:</label>
+                                                    <input type="text" class="form-control" id="mac" name="mac">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                            <button type="button" class="btn btn-primary" onclick="save();">保存</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="../plugins/common/common.min.js"></script>
+    <script src="../js/custom.min.js"></script>
+    <script src="../js/settings.js"></script>
+    <script src="../js/gleek.js"></script>
+    <script src="../js/styleSwitcher.js"></script>
+
+    <!-- Chartjs -->
+    <script src="../plugins/chart.js/Chart.bundle.min.js"></script>
+    <!-- Circle progress -->
+    <script src="../plugins/circle-progress/circle-progress.min.js"></script>
+    <!-- Datamap -->
+    <script src="../plugins/d3v3/index.js"></script>
+    <script src="../plugins/topojson/topojson.min.js"></script>
+    <script src="../plugins/datamaps/datamaps.world.min.js"></script>
+    <!-- Morrisjs -->
+    <script src="../plugins/raphael/raphael.min.js"></script>
+    <script src="../plugins/morris/morris.min.js"></script>
+    <!-- Pignose Calender -->
+    <script src="../plugins/moment/moment.min.js"></script>
+    <script src="../plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+    <!-- ChartistJS -->
+    <script src="../plugins/chartist/js/chartist.min.js"></script>
+    <script src="../plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+
+    <script src="./js/dashboard/dashboard-1.js"></script>
+
+    <script th:inline="javascript">
+        function save(){
+            $("#bindMac").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。
+        }
+    </script>
+
+    <script th:inline="javascript">
+        window.onload= function (){
+            var msg = [[${msg}]];
+            if (msg == "Mac already exist"){
+                sweetAlert("Oops...", "Mac already exist!", "error");
+            }
+            if (msg == "success"){
+                sweetAlert("Success!", "Mac has been bound", "success");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

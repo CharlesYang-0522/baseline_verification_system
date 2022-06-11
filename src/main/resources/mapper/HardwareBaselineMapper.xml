@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team_three.base_check.mapper.HardwareBaselineMapper">
+
+    <resultMap type="com.team_three.base_check.pojo.HardwareBaseline" id="HardwareBaselineMap">
+        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="infoOs" column="info_os" jdbcType="VARCHAR"/>
+        <result property="infoVersion" column="info_version" jdbcType="VARCHAR"/>
+        <result property="infoFullname" column="info_fullname" jdbcType="VARCHAR"/>
+        <result property="infoOsArchitecture" column="info_os_architecture" jdbcType="VARCHAR"/>
+        <result property="infoMuLanguages" column="info_mu_languages" jdbcType="VARCHAR"/>
+        <result property="infoSerialnumber" column="info_SerialNumber" jdbcType="VARCHAR"/>
+        <result property="infoCpuCount" column="info_cpu_count" jdbcType="VARCHAR"/>
+        <result property="infoMainboard" column="info_mainboard" jdbcType="VARCHAR"/>
+        <result property="infoBoardModel" column="info_board_model" jdbcType="VARCHAR"/>
+        <result property="infoSystemtype" column="info_systemtype" jdbcType="VARCHAR"/>
+        <result property="infoPhysicalMemory" column="info_physical_memory" jdbcType="VARCHAR"/>
+        <result property="infoCpuName" column="info_cpu_name" jdbcType="VARCHAR"/>
+        <result property="infoClockSpeed" column="info_clock_speed" jdbcType="VARCHAR"/>
+        <result property="infoNumberCore" column="info_number_core" jdbcType="VARCHAR"/>
+        <result property="infoDataWidth" column="info_data_width" jdbcType="VARCHAR"/>
+        <result property="infoSocketDesigination" column="info_socket_desigination" jdbcType="VARCHAR"/>
+        <result property="infoL2Cache" column="info_l2_cache" jdbcType="VARCHAR"/>
+        <result property="infoL3Cache" column="info_l3_cache" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <sql id="Beas_Column_List">
+        mac, info_os, info_version, info_fullname, info_os_architecture, info_mu_languages, info_SerialNumber, info_cpu_count, info_mainboard, info_board_model, info_systemtype, info_physical_memory, info_cpu_name, info_clock_speed, info_number_core, info_data_width, info_socket_desigination, info_l2_cache, info_l3_cache
+    </sql>
+
+    <!--查询所有主键和名称-->
+    <select id="selectAll" resultMap="HardwareBaselineMap">
+        select
+            <include refid="Beas_Column_List"/>
+        from baseline_check.hardware_baseline
+        <where>
+            <if test="mac != null and mac != ''">
+                mac = #{mac},
+            </if>
+            <if test="infoOs != null and infoOs != ''">
+                info_os = #{infoOs},
+            </if>
+            <if test="infoVersion != null and infoVersion != ''">
+                info_version = #{infoVersion},
+            </if>
+            <if test="infoFullname != null and infoFullname != ''">
+                info_fullname = #{infoFullname},
+            </if>
+            <if test="infoOsArchitecture != null and infoOsArchitecture != ''">
+                info_os_architecture = #{infoOsArchitecture},
+            </if>
+            <if test="infoMuLanguages != null and infoMuLanguages != ''">
+                info_mu_languages = #{infoMuLanguages},
+            </if>
+            <if test="infoSerialnumber != null and infoSerialnumber != ''">
+                info_SerialNumber = #{infoSerialnumber},
+            </if>
+            <if test="infoCpuCount != null and infoCpuCount != ''">
+                info_cpu_count = #{infoCpuCount},
+            </if>
+            <if test="infoMainboard != null and infoMainboard != ''">
+                info_mainboard = #{infoMainboard},
+            </if>
+            <if test="infoBoardModel != null and infoBoardModel != ''">
+                info_board_model = #{infoBoardModel},
+            </if>
+            <if test="infoSystemtype != null and infoSystemtype != ''">
+                info_systemtype = #{infoSystemtype},
+            </if>
+            <if test="infoPhysicalMemory != null and infoPhysicalMemory != ''">
+                info_physical_memory = #{infoPhysicalMemory},
+            </if>
+            <if test="infoCpuName != null and infoCpuName != ''">
+                info_cpu_name = #{infoCpuName},
+            </if>
+            <if test="infoClockSpeed != null and infoClockSpeed != ''">
+                info_clock_speed = #{infoClockSpeed},
+            </if>
+            <if test="infoNumberCore != null and infoNumberCore != ''">
+                info_number_core = #{infoNumberCore},
+            </if>
+            <if test="infoDataWidth != null and infoDataWidth != ''">
+                info_data_width = #{infoDataWidth},
+            </if>
+            <if test="infoSocketDesigination != null and infoSocketDesigination != ''">
+                info_socket_desigination = #{infoSocketDesigination},
+            </if>
+            <if test="infoL2Cache != null and infoL2Cache != ''">
+                info_l2_cache = #{infoL2Cache},
+            </if>
+            <if test="infoL3Cache != null and infoL3Cache != ''">
+                info_l3_cache = #{infoL3Cache},
+            </if>
+        </where>
+    </select>
+
+    <!--查询单个-->
+    <select id="selectByMac" resultMap="HardwareBaselineMap">
+        select
+            <include refid="Beas_Column_List"/>
+        from baseline_check.hardware_baseline
+        where  mac = #{mac}
+    </select>
+    
+    <!--根据条件查询当前表的满足条件的个数-->
+    <select id="selectCount" resultType="int">
+        select
+          count(mac)
+        from baseline_check.hardware_baseline
+        <where>
+            <if test="name != null and name != ''">
+                mac like "%"#{mac}"%"
+            </if>
+        </where>
+    </select>
+    
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectByPage" resultMap="HardwareBaselineMap">
+        select
+            <include refid="Beas_Column_List"/>
+        from baseline_check.hardware_baseline
+        <where>
+            <if test="name != null and name != ''">
+                mac like "%"#{name}"%"
+            </if>
+        </where>
+        limit #{index},10;
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="com.team_three.base_check.pojo.HardwareBaseline">
+        insert into baseline_check.hardware_baseline(mac, info_os, info_version, info_fullname, info_os_architecture, info_mu_languages, info_SerialNumber, info_cpu_count, info_mainboard, info_board_model, info_systemtype, info_physical_memory, info_cpu_name, info_clock_speed, info_number_core, info_data_width, info_socket_desigination, info_l2_cache, info_l3_cache)
+        values (#{mac}, #{infoOs}, #{infoVersion}, #{infoFullname}, #{infoOsArchitecture}, #{infoMuLanguages}, #{infoSerialnumber}, #{infoCpuCount}, #{infoMainboard}, #{infoBoardModel}, #{infoSystemtype}, #{infoPhysicalMemory}, #{infoCpuName}, #{infoClockSpeed}, #{infoNumberCore}, #{infoDataWidth}, #{infoSocketDesigination}, #{infoL2Cache}, #{infoL3Cache})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateById" parameterType="com.team_three.base_check.pojo.HardwareBaseline">
+        update baseline_check.hardware_baseline
+        <set>
+            <if test="mac != null and mac != ''">
+                mac = #{mac},
+            </if>
+            <if test="infoOs != null and infoOs != ''">
+                info_os = #{infoOs},
+            </if>
+            <if test="infoVersion != null and infoVersion != ''">
+                info_version = #{infoVersion},
+            </if>
+            <if test="infoFullname != null and infoFullname != ''">
+                info_fullname = #{infoFullname},
+            </if>
+            <if test="infoOsArchitecture != null and infoOsArchitecture != ''">
+                info_os_architecture = #{infoOsArchitecture},
+            </if>
+            <if test="infoMuLanguages != null and infoMuLanguages != ''">
+                info_mu_languages = #{infoMuLanguages},
+            </if>
+            <if test="infoSerialnumber != null and infoSerialnumber != ''">
+                info_SerialNumber = #{infoSerialnumber},
+            </if>
+            <if test="infoCpuCount != null and infoCpuCount != ''">
+                info_cpu_count = #{infoCpuCount},
+            </if>
+            <if test="infoMainboard != null and infoMainboard != ''">
+                info_mainboard = #{infoMainboard},
+            </if>
+            <if test="infoBoardModel != null and infoBoardModel != ''">
+                info_board_model = #{infoBoardModel},
+            </if>
+            <if test="infoSystemtype != null and infoSystemtype != ''">
+                info_systemtype = #{infoSystemtype},
+            </if>
+            <if test="infoPhysicalMemory != null and infoPhysicalMemory != ''">
+                info_physical_memory = #{infoPhysicalMemory},
+            </if>
+            <if test="infoCpuName != null and infoCpuName != ''">
+                info_cpu_name = #{infoCpuName},
+            </if>
+            <if test="infoClockSpeed != null and infoClockSpeed != ''">
+                info_clock_speed = #{infoClockSpeed},
+            </if>
+            <if test="infoNumberCore != null and infoNumberCore != ''">
+                info_number_core = #{infoNumberCore},
+            </if>
+            <if test="infoDataWidth != null and infoDataWidth != ''">
+                info_data_width = #{infoDataWidth},
+            </if>
+            <if test="infoSocketDesigination != null and infoSocketDesigination != ''">
+                info_socket_desigination = #{infoSocketDesigination},
+            </if>
+            <if test="infoL2Cache != null and infoL2Cache != ''">
+                info_l2_cache = #{infoL2Cache},
+            </if>
+            <if test="infoL3Cache != null and infoL3Cache != ''">
+                info_l3_cache = #{infoL3Cache},
+            </if>
+        </set>
+        where  = #{}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteByMac">
+        delete from baseline_check.hardware_baseline where mac = #{mac}
+    </delete>
+
+</mapper>
