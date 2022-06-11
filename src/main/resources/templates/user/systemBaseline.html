@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon.png">
     <!-- Pignose Calender -->
     <link href="../plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -148,92 +148,52 @@
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Record</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Hardware Baseline</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">System Baseline</a></li>
                     </ol>
                 </div>
             </div>
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">硬件配置</h4>
+                        <h4 class="card-title">系统信息</h4>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped verticle-middle">
                                 <tbody>
                                 <tr>
-                                    <td>系统版本</td>
-                                    <td th:text="${hardwareBaseline?.infoOs}"></td>
+                                    <td>OSCaption</td>
+                                    <td th:text="${systemBaseline?.oscaption}"></td>
                                 </tr>
                                 <tr>
-                                    <td>可更新版本</td>
-                                    <td th:text="${hardwareBaseline?.infoVersion}"></td>
+                                    <td>OSVersion</td>
+                                    <td th:text="${systemBaseline?.osversion}"></td>
                                 </tr>
                                 <tr>
-                                    <td>计算机名称</td>
-                                    <td th:text="${hardwareBaseline?.infoFullname}"></td>
+                                    <td>DiskCaption</td>
+                                    <td th:text="${systemBaseline?.diskcaption}"></td>
                                 </tr>
                                 <tr>
-                                    <td>MAC地址</td>
-                                    <td th:text="${hardwareBaseline?.mac}"></td>
+                                    <td>InterfaceType</td>
+                                    <td th:text="${systemBaseline?.interfacetype}"></td>
                                 </tr>
                                 <tr>
-                                    <td>操作系统类型</td>
-                                    <td th:text="${hardwareBaseline?.infoOsArchitecture}"></td>
+                                    <td>NetworkCaption</td>
+                                    <td th:text="${systemBaseline?.networkcaption}"></td>
                                 </tr>
                                 <tr>
-                                    <td>操作系统语言</td>
-                                    <td th:text="${hardwareBaseline?.infoMuLanguages}"></td>
+                                    <td>IPAddress</td>
+                                    <td th:text="${systemBaseline?.ipaddress}"></td>
                                 </tr>
                                 <tr>
-                                    <td>操作系统序列号</td>
-                                    <td th:text="${hardwareBaseline?.infoSerialnumber}"></td>
+                                    <td>MACAddress</td>
+                                    <td th:text="${systemBaseline?.macaddress}"></td>
                                 </tr>
                                 <tr>
-                                    <td>CPU数量</td>
-                                    <td th:text="${hardwareBaseline?.infoCpuCount}"></td>
+                                    <td>UpdateHotFixID</td>
+                                    <td th:text="${systemBaseline?.updatehotfixid}"></td>
                                 </tr>
                                 <tr>
-                                    <td>CPU类型</td>
-                                    <td th:text="${hardwareBaseline?.infoCpuName}"></td>
-                                </tr>
-                                <tr>
-                                    <td>核心数量</td>
-                                    <td th:text="${hardwareBaseline?.infoNumberCore}"></td>
-                                </tr>
-                                <tr>
-                                    <td>CPU数据宽度</td>
-                                    <td th:text="${hardwareBaseline?.infoDataWidth}"></td>
-                                </tr>
-                                <tr>
-                                    <td>CPU二级缓存</td>
-                                    <td th:text="${hardwareBaseline?.infoL2Cache}"></td>
-                                </tr>
-                                <tr>
-                                    <td>CPU三级缓存</td>
-                                    <td th:text="${hardwareBaseline?.infoL3Cache}"></td>
-                                </tr>
-                                <tr>
-                                    <td>主板厂商</td>
-                                    <td th:text="${hardwareBaseline?.infoMainboard}"></td>
-                                </tr>
-                                <tr>
-                                    <td>主板型号</td>
-                                    <td th:text="${hardwareBaseline?.infoBoardModel}"></td>
-                                </tr>
-                                <tr>
-                                    <td>主板架构类型</td>
-                                    <td th:text="${hardwareBaseline?.infoSystemtype}"></td>
-                                </tr>
-                                <tr>
-                                    <td>主板CPU接口</td>
-                                    <td th:text="${hardwareBaseline?.infoSocketDesigination}"></td>
-                                </tr>
-                                <tr>
-                                    <td>内存容量</td>
-                                    <td th:text="${hardwareBaseline?.infoPhysicalMemory}"></td>
-                                </tr>
-                                <tr>
-                                    <td>操作系统主频</td>
-                                    <td th:text="${hardwareBaseline?.infoClockSpeed}"></td>
+                                    <td>InstalledOn</td>
+                                    <td th:text="${systemBaseline?.installedon}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -293,7 +253,7 @@
 
 
 
-    <script src="./js/dashboard/dashboard-1.js"></script>
+    <script src="../../static/js/dashboard/dashboard-1.js"></script>
 
 </body>
 

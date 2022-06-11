@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon.png">
     <!-- Pignose Calender -->
     <link href="../plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -105,7 +105,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
+        <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
@@ -147,61 +147,96 @@
             <div class="row page-titles mx-0">
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Record</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Hardware Baseline</a></li>
                     </ol>
                 </div>
             </div>
-
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body">
-                        <div class="media align-items-center mb-4">
-                            <img class="mr-3" src="../images/user/form-user.png" width="80" height="80" alt="">
-                            <div class="media-body">
-                                <h3 class="mb-0" th:text="${profile.username}"></h3>
-                                <p class="text-muted mb-0">注册用户</p>
-                            </div>
-                        </div>
-
-                        <h4>设备MAC地址</h4>
-                        <td th:if="${profile.mac eq null}">
-                        </td>
-                        <p class="text-muted" th:if="${profile.mac eq null}">未绑定设备</p>
-                        <p class="text-muted" th:text="${profile.mac}"></p>
-                        <ul class="card-profile__info">
-                            <li><strong class="text-dark mr-4">最近检测时间</strong> <span th:text="${#dates.format(profile.updateTime,'yyyy-MM-dd HH:mm:ss')}"></span></li>
-                        </ul>
-
-                        <div class="bootstrap-modal">
-                            <!-- Button trigger modal -->
-                            <div class="col-12 text-center">
-                                <button class="btn btn-danger px-5" data-toggle="modal" data-target="#bind">绑定设备</button>
-                            </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="bind">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">绑定设备</h5>
-                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" action="/bindMac" id="bindMac">
-                                                <div class="form-group">
-                                                    <label for="mac" class="col-form-label">Mac地址:</label>
-                                                    <input type="text" class="form-control" id="mac" name="mac">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                                            <button type="button" class="btn btn-primary" onclick="save();">保存</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <h4 class="card-title">硬件配置</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped verticle-middle">
+                                <tbody>
+                                <tr>
+                                    <td>系统版本</td>
+                                    <td th:text="${hardwareBaseline?.infoOs}"></td>
+                                </tr>
+                                <tr>
+                                    <td>可更新版本</td>
+                                    <td th:text="${hardwareBaseline?.infoVersion}"></td>
+                                </tr>
+                                <tr>
+                                    <td>计算机名称</td>
+                                    <td th:text="${hardwareBaseline?.infoFullname}"></td>
+                                </tr>
+                                <tr>
+                                    <td>MAC地址</td>
+                                    <td th:text="${hardwareBaseline?.mac}"></td>
+                                </tr>
+                                <tr>
+                                    <td>操作系统类型</td>
+                                    <td th:text="${hardwareBaseline?.infoOsArchitecture}"></td>
+                                </tr>
+                                <tr>
+                                    <td>操作系统语言</td>
+                                    <td th:text="${hardwareBaseline?.infoMuLanguages}"></td>
+                                </tr>
+                                <tr>
+                                    <td>操作系统序列号</td>
+                                    <td th:text="${hardwareBaseline?.infoSerialnumber}"></td>
+                                </tr>
+                                <tr>
+                                    <td>CPU数量</td>
+                                    <td th:text="${hardwareBaseline?.infoCpuCount}"></td>
+                                </tr>
+                                <tr>
+                                    <td>CPU类型</td>
+                                    <td th:text="${hardwareBaseline?.infoCpuName}"></td>
+                                </tr>
+                                <tr>
+                                    <td>核心数量</td>
+                                    <td th:text="${hardwareBaseline?.infoNumberCore}"></td>
+                                </tr>
+                                <tr>
+                                    <td>CPU数据宽度</td>
+                                    <td th:text="${hardwareBaseline?.infoDataWidth}"></td>
+                                </tr>
+                                <tr>
+                                    <td>CPU二级缓存</td>
+                                    <td th:text="${hardwareBaseline?.infoL2Cache}"></td>
+                                </tr>
+                                <tr>
+                                    <td>CPU三级缓存</td>
+                                    <td th:text="${hardwareBaseline?.infoL3Cache}"></td>
+                                </tr>
+                                <tr>
+                                    <td>主板厂商</td>
+                                    <td th:text="${hardwareBaseline?.infoMainboard}"></td>
+                                </tr>
+                                <tr>
+                                    <td>主板型号</td>
+                                    <td th:text="${hardwareBaseline?.infoBoardModel}"></td>
+                                </tr>
+                                <tr>
+                                    <td>主板架构类型</td>
+                                    <td th:text="${hardwareBaseline?.infoSystemtype}"></td>
+                                </tr>
+                                <tr>
+                                    <td>主板CPU接口</td>
+                                    <td th:text="${hardwareBaseline?.infoSocketDesigination}"></td>
+                                </tr>
+                                <tr>
+                                    <td>内存容量</td>
+                                    <td th:text="${hardwareBaseline?.infoPhysicalMemory}"></td>
+                                </tr>
+                                <tr>
+                                    <td>操作系统主频</td>
+                                    <td th:text="${hardwareBaseline?.infoClockSpeed}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -256,25 +291,9 @@
     <script src="../plugins/chartist/js/chartist.min.js"></script>
     <script src="../plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
 
-    <script src="./js/dashboard/dashboard-1.js"></script>
 
-    <script th:inline="javascript">
-        function save(){
-            $("#bindMac").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。
-        }
-    </script>
 
-    <script th:inline="javascript">
-        window.onload= function (){
-            var msg = [[${msg}]];
-            if (msg == "Mac already exist"){
-                sweetAlert("Oops...", "Mac already exist!", "error");
-            }
-            if (msg == "success"){
-                sweetAlert("Success!", "Mac has been bound", "success");
-            }
-        }
-    </script>
+    <script src="../../static/js/dashboard/dashboard-1.js"></script>
 
 </body>
 

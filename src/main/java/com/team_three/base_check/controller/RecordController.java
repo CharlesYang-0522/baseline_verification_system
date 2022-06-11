@@ -8,7 +8,6 @@ import com.team_three.base_check.service.impl.AccountBaselineServiceImpl;
 import com.team_three.base_check.service.impl.HardwareBaselineServiceImpl;
 import com.team_three.base_check.service.impl.SystemBaselineServiceImpl;
 import com.team_three.base_check.service.impl.UserProfileServiceImpl;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -47,7 +46,7 @@ public class RecordController {
         String mac = userProfile.getMac();
         HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
         model.addAttribute("hardwareBaseline",result);
-        ModelAndView mv = new ModelAndView("hardwareBaseline");
+        ModelAndView mv = new ModelAndView("/user/hardwareBaseline");
         return mv;
     }
 
@@ -58,7 +57,7 @@ public class RecordController {
         String mac = userProfile.getMac();
         HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
         model.addAttribute("hardwareBaseline",result);
-        ModelAndView mv = new ModelAndView("hardwareBaseline");
+        ModelAndView mv = new ModelAndView("/user/hardwareBaseline");
         return mv;
     }
 
@@ -73,7 +72,7 @@ public class RecordController {
         String mac = userProfile.getMac();
         List<AccountBaseline> result = this.accountBaselineService.selectByMac(mac);
         model.addAttribute("accounts",result);
-        ModelAndView mv = new ModelAndView("accountBaseline");
+        ModelAndView mv = new ModelAndView("/user/accountBaseline");
         return mv;
     }
 
@@ -88,7 +87,7 @@ public class RecordController {
         String mac = userProfile.getMac();
         SystemBaseline result = this.systemBaselineService.selectByMac(mac);
         model.addAttribute("systemBaseline",result);
-        ModelAndView mv = new ModelAndView("systemBaseline");
+        ModelAndView mv = new ModelAndView("/user/systemBaseline");
         return mv;
     }
 

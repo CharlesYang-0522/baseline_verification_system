@@ -50,7 +50,7 @@ public class UserProfileController {
             model.addAttribute("msg",msg);
         }
         model.addAttribute("profile",userProfile);
-        return new ModelAndView("user-profile");
+        return new ModelAndView("/user/user-profile");
     }
 
 }
