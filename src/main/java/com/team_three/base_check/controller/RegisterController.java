@@ -31,7 +31,7 @@ public class RegisterController {
 
     @PostMapping("/toRegister")
     public ModelAndView toRegister(@RequestParam String username, @RequestParam String password,@RequestParam String passwordConfirm, Model model) {
-        //先取得用户的名字，密码，这两个是画面传进来的参数，放在User里
+
         if(!password.equals(passwordConfirm)){
             model.addAttribute("msg","Password unconfirmed");
             ModelAndView mv = new ModelAndView("page-register");

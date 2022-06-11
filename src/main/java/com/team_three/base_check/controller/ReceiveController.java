@@ -10,7 +10,6 @@ import com.team_three.base_check.service.impl.AccountBaselineServiceImpl;
 import com.team_three.base_check.service.impl.HardwareBaselineServiceImpl;
 import com.team_three.base_check.service.impl.SystemBaselineServiceImpl;
 import com.team_three.base_check.service.impl.UserProfileServiceImpl;
-import com.team_three.base_check.vo.UserVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -130,7 +129,7 @@ public class ReceiveController {
         systemBaselineService.insert(systemBaseline);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("code", 200);   // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
+        map.put("code", 200);
         map.put("msg", json.getString("describe") + "上传成功");
         return map;
     }
