@@ -29,10 +29,7 @@ public class ShiroConfiguration {
         return new UserRealm();
     }
 
-    /**
-     * cookie对象;
-     * @return
-     */
+    //cookie对象
     public SimpleCookie rememberMeCookie(){
         System.out.println("ShiroConfiguration rememberMeCookie--------------------------------------------");
         //这个参数是cookie的名称
@@ -42,10 +39,7 @@ public class ShiroConfiguration {
         return simpleCookie;
     }
 
-    /**
-     * cookie管理对象;记住我功能
-     * @return
-     */
+    //cookie管理对象;记住我功能
     public CookieRememberMeManager rememberMeManager(){
         System.out.println("ShiroConfiguration rememberMeManager--------------------------------------------");
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
@@ -82,34 +76,29 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setFilters(filters);
 
         Map<String, String> map = new LinkedHashMap<>();
-        map.put("/page-login.html","anon");
+        map.put("/page-login.html","anon"); // anon 代表放行
         map.put("/page-register.html","anon");
         map.put("/index.html","anon");
         map.put("/index","anon");
-        map.put("/login","anon");
         map.put("/receive/**","anon");
-        map.put("/register","anon");
+        map.put("/login","anon");
         map.put("/toLogin","anon");
+        map.put("/register","anon");
         map.put("/toRegister","anon");
-        map.put("/login/**","anon");
         map.put("/css/**","anon");
         map.put("/icons/**","anon");
         map.put("/images/**","anon");
-        map.put("/js/**","anon");             // anon 代表放行
+        map.put("/js/**","anon");
         map.put("/plugins/**","anon");
         map.put("/swagger-resources/**","anon");
         map.put("/webjars/**","anon");
         map.put("/v2/**","anon");
         map.put("/swagger-ui.html/**","anon");
-        map.put("/register","anon");
-        map.put("/autherror.html","anon");
         map.put("/logout","logout");         // logout是shiro的登出操作
-        map.put("/user","authc");
-        map.put("/userProfile/**","authc");
-        map.put("/admin","roles[admin]");   // roles[*] 是shiro中的权限认证控制
-        //需添加其他admin限制的内容
-        //对所有用户认证
+
         map.put("/**","authc");             // authc代表shiro必须登录认证成功，才能访问
+
+        map.put("/admin","roles[admin]");   // roles[*] 是shiro中的权限认证控制
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
         //首页
