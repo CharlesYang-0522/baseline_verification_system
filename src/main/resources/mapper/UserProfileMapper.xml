@@ -38,6 +38,13 @@
         from baseline_check.user_profile
         where id = #{id}
     </select>
+
+    <select id="selectByMac" resultMap="UserProfileMap">
+        select
+        <include refid="Beas_Column_List"/>
+        from baseline_check.user_profile
+        where mac = #{mac}
+    </select>
     
     <!--根据条件查询当前表的满足条件的个数-->
     <select id="selectCount" resultType="int">

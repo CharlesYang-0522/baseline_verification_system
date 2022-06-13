@@ -3,25 +3,33 @@
 <mapper namespace="com.team_three.base_check.mapper.HardwareBaselineMapper">
 
     <resultMap type="com.team_three.base_check.pojo.HardwareBaseline" id="HardwareBaselineMap">
+    <result property="mac" column="mac" jdbcType="VARCHAR"/>
+    <result property="infoOs" column="info_os" jdbcType="VARCHAR"/>
+    <result property="infoVersion" column="info_version" jdbcType="VARCHAR"/>
+    <result property="infoFullname" column="info_fullname" jdbcType="VARCHAR"/>
+    <result property="infoOsArchitecture" column="info_os_architecture" jdbcType="VARCHAR"/>
+    <result property="infoMuLanguages" column="info_mu_languages" jdbcType="VARCHAR"/>
+    <result property="infoSerialnumber" column="info_SerialNumber" jdbcType="VARCHAR"/>
+    <result property="infoCpuCount" column="info_cpu_count" jdbcType="VARCHAR"/>
+    <result property="infoMainboard" column="info_mainboard" jdbcType="VARCHAR"/>
+    <result property="infoBoardModel" column="info_board_model" jdbcType="VARCHAR"/>
+    <result property="infoSystemtype" column="info_systemtype" jdbcType="VARCHAR"/>
+    <result property="infoPhysicalMemory" column="info_physical_memory" jdbcType="VARCHAR"/>
+    <result property="infoCpuName" column="info_cpu_name" jdbcType="VARCHAR"/>
+    <result property="infoClockSpeed" column="info_clock_speed" jdbcType="VARCHAR"/>
+    <result property="infoNumberCore" column="info_number_core" jdbcType="VARCHAR"/>
+    <result property="infoDataWidth" column="info_data_width" jdbcType="VARCHAR"/>
+    <result property="infoSocketDesigination" column="info_socket_desigination" jdbcType="VARCHAR"/>
+    <result property="infoL2Cache" column="info_l2_cache" jdbcType="VARCHAR"/>
+    <result property="infoL3Cache" column="info_l3_cache" jdbcType="VARCHAR"/>
+</resultMap>
+
+    <resultMap type="com.team_three.base_check.vo.UserHardwareVO" id="UserHardware">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="mac" column="mac" jdbcType="VARCHAR"/>
-        <result property="infoOs" column="info_os" jdbcType="VARCHAR"/>
-        <result property="infoVersion" column="info_version" jdbcType="VARCHAR"/>
-        <result property="infoFullname" column="info_fullname" jdbcType="VARCHAR"/>
-        <result property="infoOsArchitecture" column="info_os_architecture" jdbcType="VARCHAR"/>
-        <result property="infoMuLanguages" column="info_mu_languages" jdbcType="VARCHAR"/>
-        <result property="infoSerialnumber" column="info_SerialNumber" jdbcType="VARCHAR"/>
-        <result property="infoCpuCount" column="info_cpu_count" jdbcType="VARCHAR"/>
-        <result property="infoMainboard" column="info_mainboard" jdbcType="VARCHAR"/>
-        <result property="infoBoardModel" column="info_board_model" jdbcType="VARCHAR"/>
-        <result property="infoSystemtype" column="info_systemtype" jdbcType="VARCHAR"/>
-        <result property="infoPhysicalMemory" column="info_physical_memory" jdbcType="VARCHAR"/>
         <result property="infoCpuName" column="info_cpu_name" jdbcType="VARCHAR"/>
-        <result property="infoClockSpeed" column="info_clock_speed" jdbcType="VARCHAR"/>
-        <result property="infoNumberCore" column="info_number_core" jdbcType="VARCHAR"/>
-        <result property="infoDataWidth" column="info_data_width" jdbcType="VARCHAR"/>
-        <result property="infoSocketDesigination" column="info_socket_desigination" jdbcType="VARCHAR"/>
-        <result property="infoL2Cache" column="info_l2_cache" jdbcType="VARCHAR"/>
-        <result property="infoL3Cache" column="info_l3_cache" jdbcType="VARCHAR"/>
+        <result property="infoBoardModel" column="info_board_model" jdbcType="VARCHAR"/>
+        <result property="infoPhysicalMemory" column="info_physical_memory" jdbcType="VARCHAR"/>
     </resultMap>
     
     <sql id="Beas_Column_List">
@@ -100,6 +108,14 @@
             <include refid="Beas_Column_List"/>
         from baseline_check.hardware_baseline
         where  mac = #{mac}
+    </select>
+
+    <select id="selectAllByUser" resultMap="UserHardware">
+        select
+        username, baseline_check.user_profile.mac, info_cpu_name, info_board_model, info_physical_memory
+        from baseline_check.user_profile
+        LEFT JOIN baseline_check.hardware_baseline
+        ON  baseline_check.user_profile.mac = baseline_check.hardware_baseline.mac
     </select>
     
     <!--根据条件查询当前表的满足条件的个数-->

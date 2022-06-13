@@ -1,6 +1,7 @@
 package com.team_three.base_check.mapper;
 
 import com.team_three.base_check.pojo.HardwareBaseline;
+import com.team_three.base_check.vo.UserHardwareVO;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public interface HardwareBaselineMapper {
      * @return  返回所有数据
      */
     List<HardwareBaseline> selectAll();
+
+    List<UserHardwareVO> selectAllByUser();
 
     /**
      * 通过ID查询单条数据

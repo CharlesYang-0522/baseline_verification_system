@@ -26,6 +26,8 @@ public interface UserProfileMapper {
      */
     UserProfile selectById(@Param("id") Integer id);
 
+    UserProfile selectByMac(@Param("mac") String mac);
+
     /**
      * 根据模糊条件查询总个数
      *

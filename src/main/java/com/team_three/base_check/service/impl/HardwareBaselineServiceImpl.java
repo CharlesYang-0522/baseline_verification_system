@@ -2,6 +2,7 @@ package com.team_three.base_check.service.impl;
 
 import com.team_three.base_check.pojo.HardwareBaseline;
 import com.team_three.base_check.mapper.HardwareBaselineMapper;
+import com.team_three.base_check.vo.UserHardwareVO;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -33,13 +34,12 @@ public class HardwareBaselineServiceImpl {
      * 查询所有数据
      * @return  返回所有数据
      */
-    public Map<String, Object> selectAll() {
-        Map<String, Object> map = new HashMap<>();
-        // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
-        map.put("code", 200);
-        map.put("msg", "查询成功");
-        map.put("list", this.hardwareBaselineMapper.selectAll());
-        return map;
+    public List<HardwareBaseline> selectAll() {
+        return this.hardwareBaselineMapper.selectAll();
+    }
+
+    public List<UserHardwareVO> selectAllByUser() {
+        return this.hardwareBaselineMapper.selectAllByUser();
     }
 
     /**

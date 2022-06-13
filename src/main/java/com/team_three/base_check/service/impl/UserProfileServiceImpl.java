@@ -58,6 +58,11 @@ public class UserProfileServiceImpl {
         return userProfile;
     }
 
+    public UserProfile selectByMac(String mac) {
+        UserProfile userProfile = this.userProfileMapper.selectByMac(mac);
+        return userProfile;
+    }
+
     /**
      * 查询分页数据
      *
