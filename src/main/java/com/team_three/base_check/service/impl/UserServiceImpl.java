@@ -6,6 +6,7 @@ import com.team_three.base_check.service.UserService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Map;
  * @version 1.0
  */
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl {
     @Resource
     private UserMapper userMapper;
 
@@ -33,13 +34,8 @@ public class UserServiceImpl implements UserService {
      * 查询所有数据
      * @return  返回所有数据
      */
-    public Map<String, Object> selectAll() {
-        Map<String, Object> map = new HashMap<>();
-        // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
-        map.put("code", 200);
-        map.put("msg", "查询成功");
-        map.put("list", this.userMapper.selectAll());
-        return map;
+    public List<User> selectAll() {
+        return this.userMapper.selectAll();
     }
 
     /**

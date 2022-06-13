@@ -18,7 +18,6 @@ public interface UserProfileMapper {
      * @return  返回所有数据
      */
     List<UserProfile> selectAll();
-
     /**
      * 通过ID查询单条数据
      *
