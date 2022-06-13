@@ -1,9 +1,6 @@
 package com.team_three.base_check.controller;
 
-import com.team_three.base_check.pojo.AccountBaseline;
-import com.team_three.base_check.pojo.HardwareBaseline;
-import com.team_three.base_check.pojo.SystemBaseline;
-import com.team_three.base_check.pojo.UserProfile;
+import com.team_three.base_check.pojo.*;
 import com.team_three.base_check.service.impl.AccountBaselineServiceImpl;
 import com.team_three.base_check.service.impl.HardwareBaselineServiceImpl;
 import com.team_three.base_check.service.impl.SystemBaselineServiceImpl;
@@ -37,12 +34,8 @@ public class RecordController {
 
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.GET)
     public ModelAndView hardwareBaseline(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object object = subject.getSession().getAttribute("user");
-        Map map = new BeanMap(object);
-        Object id1 = map.get("id");
-        Integer id = Integer.parseInt(String.valueOf(id1));
-        UserProfile userProfile = this.userProfileService.selectById(id);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        UserProfile userProfile = this.userProfileService.selectById(user.getId());
         String mac = userProfile.getMac();
         HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
         model.addAttribute("hardwareBaseline",result);
@@ -63,12 +56,8 @@ public class RecordController {
 
     @RequestMapping(value = "/accountBaseline", method = RequestMethod.GET)
     public ModelAndView accountBaseline(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object object = subject.getSession().getAttribute("user");
-        Map map = new BeanMap(object);
-        Object id1 = map.get("id");
-        Integer id = Integer.parseInt(String.valueOf(id1));
-        UserProfile userProfile = this.userProfileService.selectById(id);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        UserProfile userProfile = this.userProfileService.selectById(user.getId());
         String mac = userProfile.getMac();
         List<AccountBaseline> result = this.accountBaselineService.selectByMac(mac);
         model.addAttribute("accounts",result);
@@ -78,12 +67,8 @@ public class RecordController {
 
     @RequestMapping(value = "/systemBaseline", method = RequestMethod.GET)
     public ModelAndView systemBaseline(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object object = subject.getSession().getAttribute("user");
-        Map map = new BeanMap(object);
-        Object id1 = map.get("id");
-        Integer id = Integer.parseInt(String.valueOf(id1));
-        UserProfile userProfile = this.userProfileService.selectById(id);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        UserProfile userProfile = this.userProfileService.selectById(user.getId());
         String mac = userProfile.getMac();
         SystemBaseline result = this.systemBaselineService.selectByMac(mac);
         model.addAttribute("systemBaseline",result);

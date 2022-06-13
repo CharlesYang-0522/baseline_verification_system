@@ -82,12 +82,8 @@ public class RegisterController {
             ModelAndView mv = new ModelAndView("redirect:/userProfile/selectUser");
             return mv;
         }
-        Subject subject = SecurityUtils.getSubject();
-        Object object = subject.getSession().getAttribute("user");
-        Map map = new BeanMap(object);
-        Object id1 = map.get("id");
-        Integer id = Integer.parseInt(String.valueOf(id1));
-        userProfileService.updateMac(mac, id);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        userProfileService.updateMac(mac, user.getId());
         redirectAttribute.addAttribute("msg","success");
         ModelAndView mv = new ModelAndView("redirect:/userProfile/selectUser");
         return mv;

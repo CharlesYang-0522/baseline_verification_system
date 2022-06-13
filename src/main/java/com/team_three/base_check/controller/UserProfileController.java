@@ -1,5 +1,6 @@
 package com.team_three.base_check.controller;
 
+import com.team_three.base_check.pojo.User;
 import com.team_three.base_check.pojo.UserProfile;
 import com.team_three.base_check.service.impl.UserProfileServiceImpl;
 import org.apache.shiro.SecurityUtils;
@@ -36,16 +37,12 @@ public class UserProfileController {
      * 服务对象
      */
     @Resource
-    private UserProfileServiceImpl userProfileServiceImpl;
+    private UserProfileServiceImpl userProfileService;
 
     @RequestMapping(value = "/selectUser", method = RequestMethod.GET)
     public ModelAndView selectUser(@RequestParam(value = "msg", required = false) String msg, Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object object = subject.getSession().getAttribute("user");
-        Map map = new BeanMap(object);
-        Object id1 = map.get("id");
-        Integer id = Integer.parseInt(String.valueOf(id1));
-        UserProfile userProfile = this.userProfileServiceImpl.selectById(id);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        UserProfile userProfile = this.userProfileService.selectById(user.getId());
         if(msg != null){
             model.addAttribute("msg",msg);
         }
