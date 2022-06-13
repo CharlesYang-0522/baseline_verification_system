@@ -9,10 +9,7 @@ import org.apache.commons.beanutils.BeanMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -31,6 +28,16 @@ public class RecordController {
     @Resource
     private UserProfileServiceImpl userProfileService;
 
+    @RequestMapping(value = "/userProfile", method = RequestMethod.GET)
+    public ModelAndView userProfile(@RequestParam(value = "msg", required = false) String msg, Model model) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        UserProfile userProfile = this.userProfileService.selectById(user.getId());
+        if(msg != null){
+            model.addAttribute("msg",msg);
+        }
+        model.addAttribute("profile",userProfile);
+        return new ModelAndView("/user/user-profile");
+    }
 
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.GET)
     public ModelAndView hardwareBaseline(Model model) {

@@ -79,13 +79,13 @@ public class RegisterController {
 
         if(userProfileService.existMac(mac) != 0){
             redirectAttribute.addAttribute("msg","Mac already exist");
-            ModelAndView mv = new ModelAndView("redirect:/userProfile/selectUser");
+            ModelAndView mv = new ModelAndView("redirect:/Record/userProfile");
             return mv;
         }
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         userProfileService.updateMac(mac, user.getId());
         redirectAttribute.addAttribute("msg","success");
-        ModelAndView mv = new ModelAndView("redirect:/userProfile/selectUser");
+        ModelAndView mv = new ModelAndView("redirect:/Record/userProfile");
         return mv;
     }
 }

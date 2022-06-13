@@ -27,7 +27,7 @@ public class LoginController {
                 return mv;
             }
             else{
-                ModelAndView mv = new ModelAndView("redirect:/userProfile/selectUser");
+                ModelAndView mv = new ModelAndView("redirect:/Record/userProfile");
                 return mv;
             }
         } catch (UnknownAccountException e) {
