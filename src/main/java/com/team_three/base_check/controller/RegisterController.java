@@ -25,7 +25,7 @@ import java.util.Map;
 public class RegisterController {
 
     @Resource
-    private UserService userService;
+    private UserServiceImpl userService;
     @Resource
     private UserProfileServiceImpl userProfileService;
 
