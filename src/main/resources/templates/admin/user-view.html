@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <link href="../plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
 
 </head>
 
@@ -150,6 +151,7 @@
                                     <th scope="col">Username</th>
                                     <th scope="col">Mac</th>
                                     <th scope="col">Last Update</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -157,6 +159,14 @@
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.mac}"></td>
                                     <td th:text="${user.updateTime}"></td>
+                                    <td><span>
+                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                                        </a>
+                                        <a th:href="@{/delete/deleteUser/{id}(id = ${user.id})}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            <i class="fa fa-close color-danger"></i>
+                                        </a>
+                                    </span></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -214,9 +224,22 @@
     <script src="../plugins/chartist/js/chartist.min.js"></script>
     <script src="../plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
 
-
+    <script src="../plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="../plugins/sweetalert/js/sweetalert.init.js"></script>
 
     <script src="../../static/js/dashboard/dashboard-1.js"></script>
+
+    <script th:inline="javascript">
+        window.onload= function (){
+            var msg = [[${msg}]];
+            if (msg == "success"){
+                sweetAlert("Success!", "User deleted!", "success");
+            }
+            if (msg == "error"){
+                sweetAlert("Oops...", "Something went wrong!", "error");
+            }
+        }
+    </script>
 
 </body>
 

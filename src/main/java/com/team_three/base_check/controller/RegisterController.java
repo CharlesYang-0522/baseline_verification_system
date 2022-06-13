@@ -85,7 +85,6 @@ public class RegisterController {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         userProfileService.updateMac(mac, user.getId());
         redirectAttribute.addAttribute("msg","success");
-        ModelAndView mv = new ModelAndView("redirect:/Record/userProfile");
-        return mv;
+        return new ModelAndView("redirect:/Record/userProfile");
     }
 }

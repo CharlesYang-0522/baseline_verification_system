@@ -112,12 +112,8 @@ public class UserServiceImpl {
      * @param id 主键
      * @return 是否成功
      */
-    public Map<String, Object> deleteById(String id) {
-        this.userMapper.deleteById(id);
-        Map<String, Object> map = new HashMap<>();
-        map.put("code", 200);   // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
-        map.put("msg", "删除成功");
-        return map;
+    public int deleteById(Integer id) {
+        return this.userMapper.deleteById(id);
     }
 
     public User getUser(String username){

@@ -6,19 +6,16 @@ import com.team_three.base_check.service.impl.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
-public class AdminController {
-
+@RequestMapping("/delete")
+public class DeleteController {
     @Resource
     private HardwareBaselineServiceImpl hardwareBaselineService;
     @Resource
@@ -30,18 +27,19 @@ public class AdminController {
     @Resource
     private UserServiceImpl userService;
 
-    @RequestMapping(value = "/allUser", method = RequestMethod.GET)
-    public ModelAndView userProfile(@RequestParam(value = "msg", required = false) String msg, Model model) {
+    @RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteUser(@PathVariable Integer id, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
-            List<UserProfile> list= userProfileService.selectAll();
-            System.out.println(msg);
-            if(msg != null){
-                model.addAttribute("msg",msg);
-                System.out.println("msg put");
+            int affectUser = userService.deleteById(id);
+            int affectUserProfile = userProfileService.deleteById(id);
+            if(affectUser != 0 && affectUserProfile != 0){
+                redirectAttribute.addAttribute("msg","success");
             }
-            model.addAttribute("allUser",list);
-            return new ModelAndView("/admin/user-view");
+            else{
+                redirectAttribute.addAttribute("msg","error");
+            }
+            return new ModelAndView("redirect:/admin/allUser");
         }
         else{
             return new ModelAndView(("/error/AuthorityError"));
