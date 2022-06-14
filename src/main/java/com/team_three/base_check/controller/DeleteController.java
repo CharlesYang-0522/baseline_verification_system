@@ -45,4 +45,40 @@ public class DeleteController {
             return new ModelAndView(("/error/AuthorityError"));
         }
     }
+
+    @RequestMapping(value = "/deleteHardwareRecord/{mac}", method = RequestMethod.GET)
+    public ModelAndView deleteHardware(@PathVariable String mac, RedirectAttributes redirectAttribute) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            int affectRoles = hardwareBaselineService.deleteByMac(mac);
+            if(affectRoles != 0){
+                redirectAttribute.addAttribute("msg","success");
+            }
+            else{
+                redirectAttribute.addAttribute("msg","error");
+            }
+            return new ModelAndView("redirect:/admin/hardwareBaseline");
+        }
+        else{
+            return new ModelAndView(("/error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = "/deleteSystemRecord/{mac}", method = RequestMethod.GET)
+    public ModelAndView deleteSystem(@PathVariable String mac, RedirectAttributes redirectAttribute) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            int affectRoles = systemBaselineService.deleteByMac(mac);
+            if(affectRoles != 0){
+                redirectAttribute.addAttribute("msg","success");
+            }
+            else{
+                redirectAttribute.addAttribute("msg","error");
+            }
+            return new ModelAndView("redirect:/admin/hardwareBaseline");
+        }
+        else{
+            return new ModelAndView(("/error/AuthorityError"));
+        }
+    }
 }

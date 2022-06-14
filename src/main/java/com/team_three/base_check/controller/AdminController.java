@@ -1,10 +1,12 @@
 package com.team_three.base_check.controller;
 
 import com.team_three.base_check.pojo.HardwareBaseline;
+import com.team_three.base_check.pojo.SystemBaseline;
 import com.team_three.base_check.pojo.User;
 import com.team_three.base_check.pojo.UserProfile;
 import com.team_three.base_check.service.impl.*;
 import com.team_three.base_check.vo.UserHardwareVO;
+import com.team_three.base_check.vo.UserSystemVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.ui.Model;
@@ -63,7 +65,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/userHardwareRecord/{mac}", method = RequestMethod.GET)
-    public ModelAndView deleteUser(@PathVariable String mac, Model model) {
+    public ModelAndView userHardwareRecord(@PathVariable String mac, Model model) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
             HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
@@ -71,6 +73,37 @@ public class AdminController {
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("hardwareBaseline",result);
             return new ModelAndView("/admin/userHardware");
+        }
+        else{
+            return new ModelAndView(("/error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = "/systemBaseline", method = RequestMethod.GET)
+    public ModelAndView systemBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            List<UserSystemVO> list= systemBaselineService.selectAllByUser();
+            if(msg != null){
+                model.addAttribute("msg",msg);
+            }
+            model.addAttribute("systemBaseline",list);
+            return new ModelAndView("/admin/systemBaseline");
+        }
+        else{
+            return new ModelAndView(("/error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = "/userSystemRecord/{mac}", method = RequestMethod.GET)
+    public ModelAndView userSystemRecord(@PathVariable String mac, Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            SystemBaseline result = this.systemBaselineService.selectByMac(mac);
+            UserProfile userProfile = this.userProfileService.selectByMac(mac);
+            model.addAttribute("username",userProfile.getUsername());
+            model.addAttribute("systemBaseline",result);
+            return new ModelAndView("/admin/userSystem");
         }
         else{
             return new ModelAndView(("/error/AuthorityError"));

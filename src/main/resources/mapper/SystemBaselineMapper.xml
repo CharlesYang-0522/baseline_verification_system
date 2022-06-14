@@ -14,6 +14,14 @@
         <result property="updatehotfixid" column="UpdateHotFixID" jdbcType="VARCHAR"/>
         <result property="installedon" column="InstalledOn" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <resultMap type="com.team_three.base_check.vo.UserSystemVO" id="UserSystem">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="oscaption" column="OSCaption" jdbcType="VARCHAR"/>
+        <result property="osversion" column="OSVersion" jdbcType="VARCHAR"/>
+        <result property="updatehotfixid" column="UpdateHotFixID" jdbcType="VARCHAR"/>
+    </resultMap>
     
     <sql id="Beas_Column_List">
         mac, OSCaption, OSVersion, DiskCaption, InterfaceType, NetworkCaption, IPAddress, MACAddress, UpdateHotFixID, InstalledOn        
@@ -61,6 +69,14 @@
             <include refid="Beas_Column_List"/>
         from baseline_check.system_baseline
         where mac = #{mac}
+    </select>
+
+    <select id="selectAllByUser" resultMap="UserSystem">
+        select
+        username, baseline_check.user_profile.mac, OSCaption, OSVersion, UpdateHotFixID
+        from baseline_check.user_profile
+        LEFT JOIN baseline_check.system_baseline
+        ON  baseline_check.user_profile.mac = baseline_check.system_baseline.mac
     </select>
     
     <!--根据条件查询当前表的满足条件的个数-->

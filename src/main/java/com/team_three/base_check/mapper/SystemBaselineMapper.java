@@ -1,6 +1,8 @@
 package com.team_three.base_check.mapper;
 
 import com.team_three.base_check.pojo.SystemBaseline;
+import com.team_three.base_check.vo.UserHardwareVO;
+import com.team_three.base_check.vo.UserSystemVO;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -18,6 +20,8 @@ public interface SystemBaselineMapper {
      * @return  返回所有数据
      */
     List<SystemBaseline> selectAll();
+
+    List<UserSystemVO> selectAllByUser();
 
     /**
      * 通过ID查询单条数据

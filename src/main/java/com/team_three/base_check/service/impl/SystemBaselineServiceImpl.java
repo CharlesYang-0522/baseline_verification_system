@@ -2,9 +2,12 @@ package com.team_three.base_check.service.impl;
 
 import com.team_three.base_check.pojo.SystemBaseline;
 import com.team_three.base_check.mapper.SystemBaselineMapper;
+import com.team_three.base_check.vo.UserHardwareVO;
+import com.team_three.base_check.vo.UserSystemVO;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +42,10 @@ public class SystemBaselineServiceImpl {
         map.put("msg", "查询成功");
         map.put("list", this.systemBaselineMapper.selectAll());
         return map;
+    }
+
+    public List<UserSystemVO> selectAllByUser() {
+        return this.systemBaselineMapper.selectAllByUser();
     }
 
     /**
@@ -110,11 +117,7 @@ public class SystemBaselineServiceImpl {
      * @param mac 主键
      * @return 是否成功
      */
-    public Map<String, Object> deleteByMac(String mac) {
-        this.systemBaselineMapper.deleteByMac(mac);
-        Map<String, Object> map = new HashMap<>();
-        map.put("code", 200);   // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
-        map.put("msg", "删除成功");
-        return map;
+    public int deleteByMac(String mac) {
+        return this.systemBaselineMapper.deleteByMac(mac);
     }
 }
