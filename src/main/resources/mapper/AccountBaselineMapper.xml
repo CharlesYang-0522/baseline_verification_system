@@ -12,6 +12,14 @@
         <result property="sid" column="sid" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <resultMap type="com.team_three.base_check.vo.UserAccountVO" id="UserAccount">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="domain" column="domain" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="account" column="account" jdbcType="BIGINT"/>
+    </resultMap>
     
     <sql id="Beas_Column_List">
         caption, mac, description, domain, name, passwordRequired, sid, status        
@@ -53,6 +61,15 @@
             <include refid="Beas_Column_List"/>
         from baseline_check.account_baseline
         where mac = #{mac}
+    </select>
+
+    <select id="selectAllByUser" resultMap="UserAccount">
+        select
+        MAX(username) AS username,baseline_check.account_baseline.mac,Max(domain) AS domain, MAX(name) AS name,count(name) AS account
+        FROM baseline_check.user_profile
+        LEFT JOIN baseline_check.account_baseline
+        ON  baseline_check.user_profile.mac = baseline_check.account_baseline.mac
+		GROUP BY baseline_check.account_baseline.mac
     </select>
     
     <!--根据条件查询当前表的满足条件的个数-->
@@ -118,6 +135,10 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete from baseline_check.account_baseline where caption = #{caption}
+    </delete>
+
+    <delete id="deleteByMac">
+        delete from baseline_check.account_baseline where mac = #{mac}
     </delete>
 
 </mapper>

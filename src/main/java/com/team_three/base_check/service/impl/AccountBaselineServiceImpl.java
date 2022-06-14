@@ -2,6 +2,8 @@ package com.team_three.base_check.service.impl;
 
 import com.team_three.base_check.pojo.AccountBaseline;
 import com.team_three.base_check.mapper.AccountBaselineMapper;
+import com.team_three.base_check.vo.UserAccountVO;
+import com.team_three.base_check.vo.UserHardwareVO;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -29,6 +31,9 @@ public class AccountBaselineServiceImpl {
         return this.accountBaselineMapper.selectCount(caption);
     }
 
+    public List<UserAccountVO> selectAllByUser() {
+        return this.accountBaselineMapper.selectAllByUser();
+    }
     /**
      * 查询所有数据
      * @return  返回所有数据
@@ -111,5 +116,8 @@ public class AccountBaselineServiceImpl {
         map.put("code", 200);   // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
         map.put("msg", "删除成功");
         return map;
+    }
+    public int deleteByMac(String mac) {
+        return this.accountBaselineMapper.deleteByMac(mac);
     }
 }

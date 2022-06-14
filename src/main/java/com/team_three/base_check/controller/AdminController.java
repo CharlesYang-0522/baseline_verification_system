@@ -1,10 +1,8 @@
 package com.team_three.base_check.controller;
 
-import com.team_three.base_check.pojo.HardwareBaseline;
-import com.team_three.base_check.pojo.SystemBaseline;
-import com.team_three.base_check.pojo.User;
-import com.team_three.base_check.pojo.UserProfile;
+import com.team_three.base_check.pojo.*;
 import com.team_three.base_check.service.impl.*;
+import com.team_three.base_check.vo.UserAccountVO;
 import com.team_three.base_check.vo.UserHardwareVO;
 import com.team_three.base_check.vo.UserSystemVO;
 import org.apache.shiro.SecurityUtils;
@@ -112,6 +110,41 @@ public class AdminController {
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("systemBaseline",result);
             return new ModelAndView("/admin/userSystem");
+        }
+        else{
+            return new ModelAndView(("/error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = "/accountBaseline", method = RequestMethod.GET)
+    public ModelAndView accountBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            List<UserAccountVO> list= accountBaselineService.selectAllByUser();
+            if(msg != null){
+                model.addAttribute("msg",msg);
+            }
+            model.addAttribute("accountBaseline",list);
+            return new ModelAndView("/admin/accountBaseline");
+        }
+        else{
+            return new ModelAndView(("/error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = {"/userAccountRecord/{mac}", "/userAccountRecord/"}, method = RequestMethod.GET)
+    public ModelAndView userAccountRecord(@PathVariable(value = "mac", required = false) String mac, Model model, RedirectAttributes redirectAttribute) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            if(mac == null){
+                redirectAttribute.addAttribute("msg","Mac Unbound");
+                return new ModelAndView("redirect:/admin/accountBaseline");
+            }
+            List<AccountBaseline> result = this.accountBaselineService.selectByMac(mac);
+            UserProfile userProfile = this.userProfileService.selectByMac(mac);
+            model.addAttribute("username",userProfile.getUsername());
+            model.addAttribute("accountBaseline",result);
+            return new ModelAndView("/admin/userAccount");
         }
         else{
             return new ModelAndView(("/error/AuthorityError"));

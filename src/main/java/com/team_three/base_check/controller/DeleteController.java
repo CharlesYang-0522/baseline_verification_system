@@ -81,4 +81,22 @@ public class DeleteController {
             return new ModelAndView(("/error/AuthorityError"));
         }
     }
+
+    @RequestMapping(value = "/deleteAccountRecord/{mac}", method = RequestMethod.GET)
+    public ModelAndView deleteAccount(@PathVariable String mac, RedirectAttributes redirectAttribute) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            int affectRoles = accountBaselineService.deleteByMac(mac);
+            if(affectRoles != 0){
+                redirectAttribute.addAttribute("msg","success");
+            }
+            else{
+                redirectAttribute.addAttribute("msg","error");
+            }
+            return new ModelAndView("redirect:/admin/accountBaseline");
+        }
+        else{
+            return new ModelAndView(("/error/AuthorityError"));
+        }
+    }
 }

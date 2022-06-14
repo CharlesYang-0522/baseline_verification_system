@@ -1,6 +1,8 @@
 package com.team_three.base_check.mapper;
 
 import com.team_three.base_check.pojo.AccountBaseline;
+import com.team_three.base_check.vo.UserAccountVO;
+import com.team_three.base_check.vo.UserHardwareVO;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -18,6 +20,8 @@ public interface AccountBaselineMapper {
      * @return  返回所有数据
      */
     List<AccountBaseline> selectAll();
+
+    List<UserAccountVO> selectAllByUser();
 
     List<AccountBaseline> selectByMac(@Param("mac") String mac);
 
@@ -59,5 +63,7 @@ public interface AccountBaselineMapper {
      * @return 影响行数
      */
     int deleteById(@Param("id") String caption);
+
+    int deleteByMac(@Param("mac") String mac);
 
 }
