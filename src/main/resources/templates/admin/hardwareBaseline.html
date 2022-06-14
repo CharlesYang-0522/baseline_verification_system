@@ -248,6 +248,21 @@
 
     <script src="../../static/js/dashboard/dashboard-1.js"></script>
 
+    <script th:inline="javascript">
+        window.onload= function (){
+            var msg = [[${msg}]];
+            if (msg == "success"){
+                sweetAlert("Success!", "User deleted!", "success");
+            }
+            if (msg == "error"){
+                sweetAlert("Oops...", "Something went wrong!", "error");
+            }
+            if (msg == "Mac Unbound"){
+                sweetAlert("Oops...", "User Mac Unbound", "error");
+            }
+        }
+    </script>
+
 </body>
 
 </html>

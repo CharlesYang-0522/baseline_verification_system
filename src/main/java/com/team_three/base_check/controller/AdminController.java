@@ -64,10 +64,14 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/userHardwareRecord/{mac}", method = RequestMethod.GET)
-    public ModelAndView userHardwareRecord(@PathVariable String mac, Model model) {
+    @RequestMapping(value = {"/userHardwareRecord/{mac}","/userHardwareRecord/"}, method = RequestMethod.GET)
+    public ModelAndView userHardwareRecord(@PathVariable(value = "mac", required = false) String mac, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
+            if(mac == null){
+                redirectAttribute.addAttribute("msg","Mac Unbound");
+                return new ModelAndView("redirect:/admin/hardwareBaseline");
+            }
             HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
             UserProfile userProfile = this.userProfileService.selectByMac(mac);
             model.addAttribute("username",userProfile.getUsername());
@@ -95,10 +99,14 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/userSystemRecord/{mac}", method = RequestMethod.GET)
-    public ModelAndView userSystemRecord(@PathVariable String mac, Model model) {
+    @RequestMapping(value = {"/userSystemRecord/{mac}", "/userSystemRecord/"}, method = RequestMethod.GET)
+    public ModelAndView userSystemRecord(@PathVariable(value = "mac", required = false) String mac, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
+            if(mac == null){
+                redirectAttribute.addAttribute("msg","Mac Unbound");
+                return new ModelAndView("redirect:/admin/systemBaseline");
+            }
             SystemBaseline result = this.systemBaselineService.selectByMac(mac);
             UserProfile userProfile = this.userProfileService.selectByMac(mac);
             model.addAttribute("username",userProfile.getUsername());
