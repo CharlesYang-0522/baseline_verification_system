@@ -65,11 +65,11 @@
 
     <select id="selectAllByUser" resultMap="UserAccount">
         select
-        MAX(username) AS username,baseline_check.account_baseline.mac,Max(domain) AS domain, MAX(name) AS name,count(name) AS account
+        MAX(username) AS username,baseline_check.user_profile.mac,Max(domain) AS domain, MAX(name) AS name,count(name) AS account
         FROM baseline_check.user_profile
         LEFT JOIN baseline_check.account_baseline
         ON  baseline_check.user_profile.mac = baseline_check.account_baseline.mac
-		GROUP BY baseline_check.account_baseline.mac
+		GROUP BY baseline_check.user_profile.mac
     </select>
     
     <!--根据条件查询当前表的满足条件的个数-->
