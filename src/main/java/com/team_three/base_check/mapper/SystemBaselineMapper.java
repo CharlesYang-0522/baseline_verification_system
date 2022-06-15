@@ -36,7 +36,7 @@ public interface SystemBaselineMapper {
      *
      * @return 返回查询到的总个数
      */
-    int selectCount(String mac);
+    int selectCount(String machineguid);
 
     /**
      * 通过实体作为筛选条件查询

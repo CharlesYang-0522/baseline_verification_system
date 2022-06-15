@@ -85,7 +85,7 @@
           count(machineguid)
         from baseline_check.system_baseline
         <where>
-            <if test="name != null and name != ''">
+            <if test="machineguid != null and machineguid != ''">
                 machineguid = #{machineguid}
             </if>
         </where>
