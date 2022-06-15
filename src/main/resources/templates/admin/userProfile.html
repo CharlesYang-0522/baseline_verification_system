@@ -169,9 +169,6 @@
                                             <td th:text="${user.mac}"></td>
                                             <td th:text="${user.updateTime}"></td>
                                             <td><span>
-                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                    <i class="fa fa-pencil color-muted m-r-5"></i>
-                                                </a>
                                                 <a th:href="@{/delete/deleteUser/{id}(id = ${user.id})}" data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <i class="fa fa-close color-danger"></i>
                                                 </a>

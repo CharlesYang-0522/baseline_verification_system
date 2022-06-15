@@ -46,16 +46,20 @@ public class DeleteController {
         }
     }
 
-    @RequestMapping(value = "/deleteHardwareRecord/{mac}", method = RequestMethod.GET)
-    public ModelAndView deleteHardware(@PathVariable String mac, RedirectAttributes redirectAttribute) {
+    @RequestMapping(value = {"/deleteHardwareRecord/{mac}", "/deleteHardwareRecord/"}, method = RequestMethod.GET)
+    public ModelAndView deleteHardware(@PathVariable(value = "mac", required = false) String mac, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
+            if(mac == null){
+                redirectAttribute.addAttribute("msg","Mac Unbound");
+                return new ModelAndView("redirect:/admin/hardwareBaseline");
+            }
             int affectRoles = hardwareBaselineService.deleteByMac(mac);
             if(affectRoles != 0){
                 redirectAttribute.addAttribute("msg","success");
             }
             else{
-                redirectAttribute.addAttribute("msg","error");
+                redirectAttribute.addAttribute("msg","No record");
             }
             return new ModelAndView("redirect:/admin/hardwareBaseline");
         }
@@ -64,34 +68,42 @@ public class DeleteController {
         }
     }
 
-    @RequestMapping(value = "/deleteSystemRecord/{mac}", method = RequestMethod.GET)
-    public ModelAndView deleteSystem(@PathVariable String mac, RedirectAttributes redirectAttribute) {
+    @RequestMapping(value = {"/deleteSystemRecord/{mac}", "/deleteSystemRecord/"}, method = RequestMethod.GET)
+    public ModelAndView deleteSystem(@PathVariable(value = "mac", required = false) String mac, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
+            if(mac == null){
+                redirectAttribute.addAttribute("msg","Mac Unbound");
+                return new ModelAndView("redirect:/admin/systemBaseline");
+            }
             int affectRoles = systemBaselineService.deleteByMac(mac);
             if(affectRoles != 0){
                 redirectAttribute.addAttribute("msg","success");
             }
             else{
-                redirectAttribute.addAttribute("msg","error");
+                redirectAttribute.addAttribute("msg","No record");
             }
-            return new ModelAndView("redirect:/admin/hardwareBaseline");
+            return new ModelAndView("redirect:/admin/systemBaseline");
         }
         else{
             return new ModelAndView(("error/AuthorityError"));
         }
     }
 
-    @RequestMapping(value = "/deleteAccountRecord/{mac}", method = RequestMethod.GET)
-    public ModelAndView deleteAccount(@PathVariable String mac, RedirectAttributes redirectAttribute) {
+    @RequestMapping(value = {"/deleteAccountRecord/{mac}", "/deleteAccountRecord/"}, method = RequestMethod.GET)
+    public ModelAndView deleteAccount(@PathVariable(value = "mac", required = false) String mac, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
+            if(mac == null){
+                redirectAttribute.addAttribute("msg","Mac Unbound");
+                return new ModelAndView("redirect:/admin/accountBaseline");
+            }
             int affectRoles = accountBaselineService.deleteByMac(mac);
             if(affectRoles != 0){
                 redirectAttribute.addAttribute("msg","success");
             }
             else{
-                redirectAttribute.addAttribute("msg","error");
+                redirectAttribute.addAttribute("msg","No record");
             }
             return new ModelAndView("redirect:/admin/accountBaseline");
         }
