@@ -36,7 +36,7 @@ public class RecordController {
             model.addAttribute("msg",msg);
         }
         model.addAttribute("profile",userProfile);
-        return new ModelAndView("/user/user-profile");
+        return new ModelAndView("user/user-profile");
     }
 
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.GET)
@@ -46,7 +46,7 @@ public class RecordController {
         String mac = userProfile.getMac();
         HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
         model.addAttribute("hardwareBaseline",result);
-        ModelAndView mv = new ModelAndView("/user/hardwareBaseline");
+        ModelAndView mv = new ModelAndView("user/hardwareBaseline");
         return mv;
     }
 
@@ -57,7 +57,7 @@ public class RecordController {
         String mac = userProfile.getMac();
         HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
         model.addAttribute("hardwareBaseline",result);
-        ModelAndView mv = new ModelAndView("/user/hardwareBaseline");
+        ModelAndView mv = new ModelAndView("user/hardwareBaseline");
         return mv;
     }
 
@@ -68,7 +68,7 @@ public class RecordController {
         String mac = userProfile.getMac();
         List<AccountBaseline> result = this.accountBaselineService.selectByMac(mac);
         model.addAttribute("accounts",result);
-        ModelAndView mv = new ModelAndView("/user/accountBaseline");
+        ModelAndView mv = new ModelAndView("user/accountBaseline");
         return mv;
     }
 
@@ -79,7 +79,7 @@ public class RecordController {
         String mac = userProfile.getMac();
         SystemBaseline result = this.systemBaselineService.selectByMac(mac);
         model.addAttribute("systemBaseline",result);
-        ModelAndView mv = new ModelAndView("/user/systemBaseline");
+        ModelAndView mv = new ModelAndView("user/systemBaseline");
         return mv;
     }
 

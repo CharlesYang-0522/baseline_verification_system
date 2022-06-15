@@ -42,7 +42,7 @@ public class DeleteController {
             return new ModelAndView("redirect:/admin/allUser");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -60,7 +60,7 @@ public class DeleteController {
             return new ModelAndView("redirect:/admin/hardwareBaseline");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -78,7 +78,7 @@ public class DeleteController {
             return new ModelAndView("redirect:/admin/hardwareBaseline");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -96,7 +96,7 @@ public class DeleteController {
             return new ModelAndView("redirect:/admin/accountBaseline");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 }

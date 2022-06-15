@@ -39,10 +39,10 @@ public class AdminController {
                 model.addAttribute("msg",msg);
             }
             model.addAttribute("allUser",list);
-            return new ModelAndView("/admin/userProfile");
+            return new ModelAndView("admin/userProfile");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -55,10 +55,10 @@ public class AdminController {
                 model.addAttribute("msg",msg);
             }
             model.addAttribute("hardwareBaseline",list);
-            return new ModelAndView("/admin/hardwareBaseline");
+            return new ModelAndView("admin/hardwareBaseline");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -74,10 +74,10 @@ public class AdminController {
             UserProfile userProfile = this.userProfileService.selectByMac(mac);
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("hardwareBaseline",result);
-            return new ModelAndView("/admin/userHardware");
+            return new ModelAndView("admin/userHardware");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -90,10 +90,10 @@ public class AdminController {
                 model.addAttribute("msg",msg);
             }
             model.addAttribute("systemBaseline",list);
-            return new ModelAndView("/admin/systemBaseline");
+            return new ModelAndView("admin/systemBaseline");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -109,10 +109,10 @@ public class AdminController {
             UserProfile userProfile = this.userProfileService.selectByMac(mac);
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("systemBaseline",result);
-            return new ModelAndView("/admin/userSystem");
+            return new ModelAndView("admin/userSystem");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -125,10 +125,10 @@ public class AdminController {
                 model.addAttribute("msg",msg);
             }
             model.addAttribute("accountBaseline",list);
-            return new ModelAndView("/admin/accountBaseline");
+            return new ModelAndView("admin/accountBaseline");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 
@@ -144,10 +144,10 @@ public class AdminController {
             UserProfile userProfile = this.userProfileService.selectByMac(mac);
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("accountBaseline",result);
-            return new ModelAndView("/admin/userAccount");
+            return new ModelAndView("admin/userAccount");
         }
         else{
-            return new ModelAndView(("/error/AuthorityError"));
+            return new ModelAndView(("error/AuthorityError"));
         }
     }
 }
