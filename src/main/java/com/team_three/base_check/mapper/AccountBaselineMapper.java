@@ -23,7 +23,7 @@ public interface AccountBaselineMapper {
 
     List<UserAccountVO> selectAllByUser();
 
-    List<AccountBaseline> selectByMac(@Param("mac") String mac);
+    List<AccountBaseline> selectByMachineGuid(@Param("machineguid") String machineguid);
 
     /**
      * 根据模糊条件查询总个数
@@ -64,6 +64,6 @@ public interface AccountBaselineMapper {
      */
     int deleteById(@Param("id") String caption);
 
-    int deleteByMac(@Param("mac") String mac);
+    int deleteByMachineGuid(@Param("machineguid") String machineguid);
 
 }

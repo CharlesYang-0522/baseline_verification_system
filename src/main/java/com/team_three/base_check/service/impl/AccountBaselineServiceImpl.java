@@ -47,8 +47,8 @@ public class AccountBaselineServiceImpl {
         return map;
     }
 
-    public List<AccountBaseline> selectByMac(String mac) {
-        return this.accountBaselineMapper.selectByMac(mac);
+    public List<AccountBaseline> selectByMachineGuid(String machineGuid) {
+        return this.accountBaselineMapper.selectByMachineGuid(machineGuid);
     }
 
     /**
@@ -117,7 +117,7 @@ public class AccountBaselineServiceImpl {
         map.put("msg", "删除成功");
         return map;
     }
-    public int deleteByMac(String mac) {
-        return this.accountBaselineMapper.deleteByMac(mac);
+    public int deleteByMachineGuid(String machineGuid) {
+        return this.accountBaselineMapper.deleteByMachineGuid(machineGuid);
     }
 }

@@ -171,10 +171,10 @@
                                             <td th:text="${s.osversion}"></td>
                                             <td th:text="${s.updatehotfixid}"></td>
                                             <td><span>
-                                                <a th:href="@{/admin/userSystemRecord/{mac}(mac = ${s.mac})}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <a th:href="@{/admin/userSystemRecord/{machineGuid}(machineGuid = ${s.machineguid})}" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-pencil color-muted m-r-5"></i>
                                                 </a>
-                                                <a th:href="@{/delete/deleteSystemRecord/{mac}(mac = ${s.mac})}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <a th:href="@{/delete/deleteSystemRecord/{machineGuid}(machineGuid = ${s.machineguid})}" data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <i class="fa fa-close color-danger"></i>
                                                 </a>
                                             </span></td>
@@ -255,8 +255,8 @@
             if (msg == "error"){
                 sweetAlert("Oops...", "Something went wrong!", "error");
             }
-            if (msg == "Mac Unbound"){
-                sweetAlert("Oops...", "User Mac Unbound", "error");
+            if (msg == "MachineGuid Unbound"){
+                sweetAlert("Oops...", "User MachineGuid Unbound", "error");
             }
             if (msg == "No record"){
                 sweetAlert("Oops...", "No record of this user", "error");

@@ -33,17 +33,17 @@ public class ReceiveController {
 
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.POST)
     public Map<String, Object> HardwareBaseline(@RequestBody JSONObject json) throws Exception {
-        if(hardwareBaselineService.selectCount(json.getString("mac")) != 0){
+        if(hardwareBaselineService.selectCount(json.getString("MachineGuid")) != 0){
             System.out.println(hardwareBaselineService.selectCount(json.getString("mac")));
             Map<String, Object> map = new HashMap<>();
             map.put("code", 400);
             map.put("msg", "Mac地址已存在");
             return map;
         }
-        System.out.println(json.getString("mac"));
-        System.out.println(hardwareBaselineService.selectCount(json.getString("mac")));
+        System.out.println(json.getString("MachineGuid"));
+        System.out.println(hardwareBaselineService.selectCount(json.getString("MachineGuid")));
         HardwareBaseline hardwareBaseline = new HardwareBaseline();
-        hardwareBaseline.setMac(json.getString("mac"));
+        hardwareBaseline.setMachineguid(json.getString("MachineGuid"));
         hardwareBaseline.setInfoOs(json.getString("info_os"));
         hardwareBaseline.setInfoVersion(json.getString("info_version"));
         hardwareBaseline.setInfoFullname(json.getString("info_fullname"));
@@ -73,7 +73,7 @@ public class ReceiveController {
 
     @RequestMapping(value = "/accountBaseline", method = RequestMethod.POST)
     public Map<String, Object> AccountBaseline(@RequestBody JSONObject json) throws Exception {
-        System.out.println("mac:" + json.getString("mac"));
+        System.out.println("MachineGuid:" + json.getString("MachineGuid"));
         System.out.println("type:" + json.getString("type"));
         System.out.println("describe:" + json.getString("describe"));
         JSONObject object= JSONObject.parseObject(json.toString());
@@ -89,7 +89,7 @@ public class ReceiveController {
             }
             System.out.println(accountBaselineService.selectCount(list.get(i).get("Caption").toString()));
             AccountBaseline accountBaseline = new AccountBaseline();
-            accountBaseline.setMac(json.getString("mac"));
+            accountBaseline.setMachineguid(json.getString("MachineGuid"));
             accountBaseline.setCaption(list.get(i).get("Caption").toString());
             accountBaseline.setDescription(list.get(i).get("Description").toString());
             accountBaseline.setDomain(list.get(i).get("Domain").toString());
@@ -108,15 +108,15 @@ public class ReceiveController {
 
     @RequestMapping(value = "/systemBaseline", method = RequestMethod.POST)
     public Map<String, Object> SystemBaseline(@RequestBody JSONObject json) throws Exception {
-        if(systemBaselineService.selectCount(json.getString("mac")) != 0){
-            System.out.println(systemBaselineService.selectCount(json.getString("mac")));
+        if(systemBaselineService.selectCount(json.getString("MachineGuid")) != 0){
+            System.out.println(systemBaselineService.selectCount(json.getString("MachineGuid")));
             Map<String, Object> map = new HashMap<>();
             map.put("code", 400);
             map.put("msg", "Mac地址已存在");
             return map;
         }
         SystemBaseline systemBaseline = new SystemBaseline();
-        systemBaseline.setMac(json.getString("mac"));
+        systemBaseline.setMachineguid(json.getString("MachineGuid"));
         systemBaseline.setOscaption(json.getString("OSCaption"));
         systemBaseline.setOsversion(json.getString("OSVersion"));
         systemBaseline.setDiskcaption(json.getString("DiskCaption"));

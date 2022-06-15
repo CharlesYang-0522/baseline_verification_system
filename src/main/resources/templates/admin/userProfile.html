@@ -158,7 +158,7 @@
                                         <thead>
                                         <tr>
                                             <th scope="col">Username</th>
-                                            <th scope="col">Mac</th>
+                                            <th scope="col">MachineGuid</th>
                                             <th scope="col">Last Update</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -166,7 +166,7 @@
                                         <tbody>
                                         <tr th:each="user:${allUser}">
                                             <td th:text="${user.username}"></td>
-                                            <td th:text="${user.mac}"></td>
+                                            <td th:text="${user.machineguid}"></td>
                                             <td th:text="${user.updateTime}"></td>
                                             <td><span>
                                                 <a th:href="@{/delete/deleteUser/{id}(id = ${user.id})}" data-toggle="tooltip" data-placement="top" title="Delete">

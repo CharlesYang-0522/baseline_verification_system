@@ -5,12 +5,12 @@
     <resultMap type="com.team_three.base_check.pojo.UserProfile" id="UserProfileMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
-        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
     
     <sql id="Beas_Column_List">
-        id, username, mac, update_time        
+        id, username, machineguid, update_time
     </sql>
 
     <!--查询所有主键和名称-->
@@ -22,8 +22,8 @@
             <if test="username != null and username != ''">
                 username = #{username},
             </if>
-            <if test="mac != null and mac != ''">
-                mac = #{mac},
+            <if test="machineguid != null and machineguid != ''">
+                machineguid = #{machineguid},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime},
@@ -39,11 +39,11 @@
         where id = #{id}
     </select>
 
-    <select id="selectByMac" resultMap="UserProfileMap">
+    <select id="selectByMachineGuid" resultMap="UserProfileMap">
         select
         <include refid="Beas_Column_List"/>
         from baseline_check.user_profile
-        where mac = #{mac}
+        where machineguid = #{machineguid}
     </select>
     
     <!--根据条件查询当前表的满足条件的个数-->
@@ -58,13 +58,13 @@
         </where>
     </select>
 
-    <select id="existMac" resultType="int">
+    <select id="existMachine" resultType="int">
         select
         count(id)
         from baseline_check.user_profile
         <where>
             <if test="name != null and name != ''">
-                mac = #{mac}
+                machineguid = #{machineguid}
             </if>
         </where>
     </select>
@@ -84,8 +84,8 @@
 
     <!--新增所有列-->
     <insert id="insert" parameterType="com.team_three.base_check.pojo.UserProfile">
-        insert into baseline_check.user_profile(id, username, mac, update_time)
-        values (#{id}, #{username}, #{mac}, #{updateTime})
+        insert into baseline_check.user_profile(id, username, machineguid, update_time)
+        values (#{id}, #{username}, #{machineguid}, #{updateTime})
     </insert>
 
     <!--通过主键修改数据-->
@@ -96,7 +96,7 @@
                 username = #{username},
             </if>
             <if test="mac != null and mac != ''">
-                mac = #{mac},
+                machineguid = #{machineguid},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime},
@@ -105,11 +105,11 @@
         where id = #{id}
     </update>
 
-    <update id="updateMac">
+    <update id="updateMachineGuid">
         update baseline_check.user_profile
         <set>
-            <if test="mac != null and mac != ''">
-                mac = #{mac},
+            <if test="machineguid != null and machineguid != ''">
+                machineguid = #{machineguid},
             </if>
         </set>
         where id = #{id}

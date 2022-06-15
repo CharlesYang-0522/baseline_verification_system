@@ -35,8 +35,8 @@ public class UserProfileServiceImpl {
         return map;
     }
 
-    public int existMac(String mac) {
-        return this.userProfileMapper.existMac(mac);
+    public int existMachine(String machineGuid) {
+        return this.userProfileMapper.existMachine(machineGuid);
     }
 
     /**
@@ -58,8 +58,8 @@ public class UserProfileServiceImpl {
         return userProfile;
     }
 
-    public UserProfile selectByMac(String mac) {
-        UserProfile userProfile = this.userProfileMapper.selectByMac(mac);
+    public UserProfile selectByMachineGuid(String machineGuid) {
+        UserProfile userProfile = this.userProfileMapper.selectByMachineGuid(machineGuid);
         return userProfile;
     }
 
@@ -116,8 +116,8 @@ public class UserProfileServiceImpl {
         return map;
     }
 
-    public int updateMac(String mac, Integer id) {
-        return this.userProfileMapper.updateMac(mac, id);
+    public int updateMachineGuid(String machineGuid, Integer id) {
+        return this.userProfileMapper.updateMachineGuid(machineGuid, id);
     }
 
     /**

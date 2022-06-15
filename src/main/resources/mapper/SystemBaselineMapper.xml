@@ -3,7 +3,7 @@
 <mapper namespace="com.team_three.base_check.mapper.SystemBaselineMapper">
 
     <resultMap type="com.team_three.base_check.pojo.SystemBaseline" id="SystemBaselineMap">
-        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
         <result property="oscaption" column="OSCaption" jdbcType="VARCHAR"/>
         <result property="osversion" column="OSVersion" jdbcType="VARCHAR"/>
         <result property="diskcaption" column="DiskCaption" jdbcType="VARCHAR"/>
@@ -17,14 +17,14 @@
 
     <resultMap type="com.team_three.base_check.vo.UserSystemVO" id="UserSystem">
         <result property="username" column="username" jdbcType="VARCHAR"/>
-        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
         <result property="oscaption" column="OSCaption" jdbcType="VARCHAR"/>
         <result property="osversion" column="OSVersion" jdbcType="VARCHAR"/>
         <result property="updatehotfixid" column="UpdateHotFixID" jdbcType="VARCHAR"/>
     </resultMap>
     
     <sql id="Beas_Column_List">
-        mac, OSCaption, OSVersion, DiskCaption, InterfaceType, NetworkCaption, IPAddress, MACAddress, UpdateHotFixID, InstalledOn        
+        machineguid, OSCaption, OSVersion, DiskCaption, InterfaceType, NetworkCaption, IPAddress, MACAddress, UpdateHotFixID, InstalledOn
     </sql>
 
     <!--查询所有主键和名称-->
@@ -64,29 +64,29 @@
     </select>
 
     <!--查询单个-->
-    <select id="selectByMac" resultMap="SystemBaselineMap">
+    <select id="selectByMachineGuid" resultMap="SystemBaselineMap">
         select
             <include refid="Beas_Column_List"/>
         from baseline_check.system_baseline
-        where mac = #{mac}
+        where machineguid = #{machineguid}
     </select>
 
     <select id="selectAllByUser" resultMap="UserSystem">
         select
-        username, baseline_check.user_profile.mac, OSCaption, OSVersion, UpdateHotFixID
+        username, baseline_check.user_profile.machineguid, OSCaption, OSVersion, UpdateHotFixID
         from baseline_check.user_profile
         LEFT JOIN baseline_check.system_baseline
-        ON  baseline_check.user_profile.mac = baseline_check.system_baseline.mac
+        ON  baseline_check.user_profile.machineguid = baseline_check.system_baseline.machineguid
     </select>
     
     <!--根据条件查询当前表的满足条件的个数-->
     <select id="selectCount" resultType="int">
         select
-          count(mac)
+          count(machineguid)
         from baseline_check.system_baseline
         <where>
             <if test="name != null and name != ''">
-                mac = #{mac}
+                machineguid = #{machineguid}
             </if>
         </where>
     </select>
@@ -98,7 +98,7 @@
         from baseline_check.system_baseline
         <where>
             <if test="name != null and name != ''">
-                mac like "%"#{name}"%"
+                machineguid like "%"#{name}"%"
             </if>
         </where>
         limit #{index},10;
@@ -106,12 +106,12 @@
 
     <!--新增所有列-->
     <insert id="insert" parameterType="com.team_three.base_check.pojo.SystemBaseline">
-        insert into baseline_check.system_baseline(mac, OSCaption, OSVersion, DiskCaption, InterfaceType, NetworkCaption, IPAddress, MACAddress, UpdateHotFixID, InstalledOn)
-        values (#{mac}, #{oscaption}, #{osversion}, #{diskcaption}, #{interfacetype}, #{networkcaption}, #{ipaddress}, #{macaddress}, #{updatehotfixid}, #{installedon})
+        insert into baseline_check.system_baseline(machineguid, OSCaption, OSVersion, DiskCaption, InterfaceType, NetworkCaption, IPAddress, MACAddress, UpdateHotFixID, InstalledOn)
+        values (#{machineguid}, #{oscaption}, #{osversion}, #{diskcaption}, #{interfacetype}, #{networkcaption}, #{ipaddress}, #{macaddress}, #{updatehotfixid}, #{installedon})
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="updateByMac" parameterType="com.team_three.base_check.pojo.SystemBaseline">
+    <update id="updateByMachineGuid" parameterType="com.team_three.base_check.pojo.SystemBaseline">
         update baseline_check.system_baseline
         <set>
             <if test="oscaption != null and oscaption != ''">
@@ -142,12 +142,12 @@
                 InstalledOn = #{installedon},
             </if>
         </set>
-        where mac = #{mac}
+        where machineguid = #{machineguid}
     </update>
 
     <!--通过主键删除-->
-    <delete id="deleteByMac">
-        delete from baseline_check.system_baseline where mac = #{mac}
+    <delete id="deleteByMachineGuid">
+        delete from baseline_check.system_baseline where machineguid = #{machineguid}
     </delete>
 
 </mapper>

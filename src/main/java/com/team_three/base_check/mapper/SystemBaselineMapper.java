@@ -29,7 +29,7 @@ public interface SystemBaselineMapper {
      * @param mac 主键
      * @return 实例对象
      */
-    SystemBaseline selectByMac(@Param("mac") String mac);
+    SystemBaseline selectByMachineGuid(@Param("machineguid") String machineguid);
 
     /**
      * 根据模糊条件查询总个数
@@ -60,7 +60,7 @@ public interface SystemBaselineMapper {
      * @param systemBaseline 实例对象
      * @return 影响行数
      */
-    int updateByMac(SystemBaseline systemBaseline);
+    int updateByMachienGuid(SystemBaseline systemBaseline);
 
     /**
      * 通过主键删除数据
@@ -68,6 +68,6 @@ public interface SystemBaselineMapper {
      * @param mac 主键
      * @return 影响行数
      */
-    int deleteByMac(@Param("mac") String mac);
+    int deleteByMachineGuid(@Param("machineguid") String machineguid);
 
 }

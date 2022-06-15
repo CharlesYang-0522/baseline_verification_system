@@ -26,8 +26,8 @@ public class HardwareBaselineServiceImpl {
      *
      * @return 返回查询到的总个数
      */
-    public int selectCount(String mac) {
-        return this.hardwareBaselineMapper.selectCount(mac);
+    public int selectCount(String machineGuid) {
+        return this.hardwareBaselineMapper.selectCount(machineGuid);
     }
 
     /**
@@ -46,8 +46,8 @@ public class HardwareBaselineServiceImpl {
      * 通过Mac查询多条数据
      * @return 实例对象
      */
-    public HardwareBaseline selectByMac(String mac) {
-        HardwareBaseline result= this.hardwareBaselineMapper.selectByMac(mac);
+    public HardwareBaseline selectByMachineGuid(String machineGuid) {
+        HardwareBaseline result= this.hardwareBaselineMapper.selectByMachineGuid(machineGuid);
         return result;
     }
 
@@ -93,7 +93,7 @@ public class HardwareBaselineServiceImpl {
     /**
      * @return 是否成功
      */
-    public int deleteByMac(String mac) {
-        return this.hardwareBaselineMapper.deleteByMac(mac);
+    public int deleteByMachineGuid(String machineGuid) {
+        return this.hardwareBaselineMapper.deleteByMachineGuid(machineGuid);
     }
 }

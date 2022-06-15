@@ -74,16 +74,16 @@ public class RegisterController {
         return mv;
     }
 
-    @PostMapping(value = "/bindMac")
-    public ModelAndView bindMac(@RequestParam String mac, RedirectAttributes redirectAttribute){
+    @PostMapping(value = "/bindMachineGuid")
+    public ModelAndView bindMac(@RequestParam String machineGuid, RedirectAttributes redirectAttribute){
 
-        if(userProfileService.existMac(mac) != 0){
-            redirectAttribute.addAttribute("msg","Mac already exist");
+        if(userProfileService.existMachine(machineGuid) != 0){
+            redirectAttribute.addAttribute("msg","MachineGuid already exist");
             ModelAndView mv = new ModelAndView("redirect:/Record/userProfile");
             return mv;
         }
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        userProfileService.updateMac(mac.toLowerCase().replace("-",":"), user.getId());
+        userProfileService.updateMachineGuid(machineGuid, user.getId());
         redirectAttribute.addAttribute("msg","success");
         return new ModelAndView("redirect:/Record/userProfile");
     }

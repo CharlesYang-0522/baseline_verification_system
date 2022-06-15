@@ -26,7 +26,7 @@ public interface UserProfileMapper {
      */
     UserProfile selectById(@Param("id") Integer id);
 
-    UserProfile selectByMac(@Param("mac") String mac);
+    UserProfile selectByMachineGuid(@Param("machineguid") String machineguid);
 
     /**
      * 根据模糊条件查询总个数
@@ -35,7 +35,7 @@ public interface UserProfileMapper {
      */
     int selectCount(String name);
 
-    int existMac(String mac);
+    int existMachine(String machineguid);
 
     /**
      * 通过实体作为筛选条件查询
@@ -61,7 +61,7 @@ public interface UserProfileMapper {
      */
     int updateById(UserProfile userProfile);
 
-    int updateMac(@Param("mac") String mac, @Param("id") Integer id);
+    int updateMachineGuid(@Param("machineguid") String machineguid, @Param("id") Integer id);
 
     /**
      * 通过主键删除数据

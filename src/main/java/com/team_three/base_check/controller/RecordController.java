@@ -43,8 +43,8 @@ public class RecordController {
     public ModelAndView hardwareBaseline(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         UserProfile userProfile = this.userProfileService.selectById(user.getId());
-        String mac = userProfile.getMac();
-        HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
+        String machineGuid = userProfile.getMachineguid();
+        HardwareBaseline result = this.hardwareBaselineService.selectByMachineGuid(machineGuid);
         model.addAttribute("hardwareBaseline",result);
         ModelAndView mv = new ModelAndView("user/hardwareBaseline");
         return mv;
@@ -54,8 +54,8 @@ public class RecordController {
     public ModelAndView hardwareBaseline(@PathVariable String id,Model model) {
         Integer uid = Integer.parseInt(id);
         UserProfile userProfile = this.userProfileService.selectById(uid);
-        String mac = userProfile.getMac();
-        HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
+        String machineGuid = userProfile.getMachineguid();
+        HardwareBaseline result = this.hardwareBaselineService.selectByMachineGuid(machineGuid);
         model.addAttribute("hardwareBaseline",result);
         ModelAndView mv = new ModelAndView("user/hardwareBaseline");
         return mv;
@@ -65,8 +65,8 @@ public class RecordController {
     public ModelAndView accountBaseline(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         UserProfile userProfile = this.userProfileService.selectById(user.getId());
-        String mac = userProfile.getMac();
-        List<AccountBaseline> result = this.accountBaselineService.selectByMac(mac);
+        String machineGuid = userProfile.getMachineguid();
+        List<AccountBaseline> result = this.accountBaselineService.selectByMachineGuid(machineGuid);
         model.addAttribute("accounts",result);
         ModelAndView mv = new ModelAndView("user/accountBaseline");
         return mv;
@@ -76,8 +76,8 @@ public class RecordController {
     public ModelAndView systemBaseline(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         UserProfile userProfile = this.userProfileService.selectById(user.getId());
-        String mac = userProfile.getMac();
-        SystemBaseline result = this.systemBaselineService.selectByMac(mac);
+        String machineGuid = userProfile.getMachineguid();
+        SystemBaseline result = this.systemBaselineService.selectByMachineGuid(machineGuid);
         model.addAttribute("systemBaseline",result);
         ModelAndView mv = new ModelAndView("user/systemBaseline");
         return mv;

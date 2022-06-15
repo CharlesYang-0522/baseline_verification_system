@@ -14,8 +14,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class SystemBaseline implements Serializable {
     private static final long serialVersionUID = 825276735426771318L;
     
-	@ApiModelProperty(name = "mac",notes = "${column.comment}",dataType = "String",required = true)
-    private String mac;
+	@ApiModelProperty(name = "machineguid",notes = "${column.comment}",dataType = "String",required = true)
+    private String machineguid;
     
 	@ApiModelProperty(name = "oscaption",notes = "${column.comment}",dataType = "String",required = true)
     private String oscaption;
@@ -44,13 +44,13 @@ public class SystemBaseline implements Serializable {
 	@ApiModelProperty(name = "installedon",notes = "${column.comment}",dataType = "String",required = true)
     private String installedon;
 
-        
-    public String getMac() {
-        return mac;
+
+    public String getMachineguid() {
+        return machineguid;
     }
 
-    public void setMac(String mac) {
-        this.mac = mac;
+    public void setMachineguid(String machineguid) {
+        this.machineguid = machineguid;
     }
         
     public String getOscaption() {

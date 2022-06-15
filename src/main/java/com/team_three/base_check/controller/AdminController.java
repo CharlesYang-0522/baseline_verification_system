@@ -62,16 +62,16 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = {"/userHardwareRecord/{mac}","/userHardwareRecord/"}, method = RequestMethod.GET)
-    public ModelAndView userHardwareRecord(@PathVariable(value = "mac", required = false) String mac, Model model, RedirectAttributes redirectAttribute) {
+    @RequestMapping(value = {"/userHardwareRecord/{machineGuid}","/userHardwareRecord/"}, method = RequestMethod.GET)
+    public ModelAndView userHardwareRecord(@PathVariable(value = "machineGuid", required = false) String machineGuid, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
-            if(mac == null){
-                redirectAttribute.addAttribute("msg","Mac Unbound");
+            if(machineGuid == null){
+                redirectAttribute.addAttribute("msg","MachineGuid Unbound");
                 return new ModelAndView("redirect:/admin/hardwareBaseline");
             }
-            HardwareBaseline result = this.hardwareBaselineService.selectByMac(mac);
-            UserProfile userProfile = this.userProfileService.selectByMac(mac);
+            HardwareBaseline result = this.hardwareBaselineService.selectByMachineGuid(machineGuid);
+            UserProfile userProfile = this.userProfileService.selectByMachineGuid(machineGuid);
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("hardwareBaseline",result);
             return new ModelAndView("admin/userHardware");
@@ -97,16 +97,16 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = {"/userSystemRecord/{mac}", "/userSystemRecord/"}, method = RequestMethod.GET)
-    public ModelAndView userSystemRecord(@PathVariable(value = "mac", required = false) String mac, Model model, RedirectAttributes redirectAttribute) {
+    @RequestMapping(value = {"/userSystemRecord/{machineGuid}", "/userSystemRecord/"}, method = RequestMethod.GET)
+    public ModelAndView userSystemRecord(@PathVariable(value = "machineGuid", required = false) String machineGuid, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
-            if(mac == null){
-                redirectAttribute.addAttribute("msg","Mac Unbound");
+            if(machineGuid == null){
+                redirectAttribute.addAttribute("msg","MachineGuid Unbound");
                 return new ModelAndView("redirect:/admin/systemBaseline");
             }
-            SystemBaseline result = this.systemBaselineService.selectByMac(mac);
-            UserProfile userProfile = this.userProfileService.selectByMac(mac);
+            SystemBaseline result = this.systemBaselineService.selectByMachineGuid(machineGuid);
+            UserProfile userProfile = this.userProfileService.selectByMachineGuid(machineGuid);
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("systemBaseline",result);
             return new ModelAndView("admin/userSystem");
@@ -132,16 +132,19 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = {"/userAccountRecord/{mac}", "/userAccountRecord/"}, method = RequestMethod.GET)
-    public ModelAndView userAccountRecord(@PathVariable(value = "mac", required = false) String mac, Model model, RedirectAttributes redirectAttribute) {
+    @RequestMapping(value = {"/userAccountRecord/{machineGuid}", "/userAccountRecord/"}, method = RequestMethod.GET)
+    public ModelAndView userAccountRecord(@PathVariable(value = "machineGuid", required = false) String machineGuid, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
-            if(mac == null){
-                redirectAttribute.addAttribute("msg","Mac Unbound");
+            if(machineGuid == null){
+                redirectAttribute.addAttribute("msg","MachineGuid Unbound");
                 return new ModelAndView("redirect:/admin/accountBaseline");
             }
-            List<AccountBaseline> result = this.accountBaselineService.selectByMac(mac);
-            UserProfile userProfile = this.userProfileService.selectByMac(mac);
+
+            List<AccountBaseline> result = this.accountBaselineService.selectByMachineGuid(machineGuid);
+            System.out.println(machineGuid);
+            UserProfile userProfile = this.userProfileService.selectByMachineGuid(machineGuid);
+            System.out.println(userProfile.toString());
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("accountBaseline",result);
             return new ModelAndView("admin/userAccount");

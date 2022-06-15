@@ -165,11 +165,11 @@
                             </div>
                         </div>
 
-                        <h4>设备MAC地址</h4>
-                        <td th:if="${profile.mac eq null}">
+                        <h4>设备MachineGuid</h4>
+                        <td th:if="${profile.machineguid eq null}">
                         </td>
-                        <p class="text-muted" th:if="${profile.mac eq null}">未绑定设备</p>
-                        <p class="text-muted" th:text="${profile.mac}"></p>
+                        <p class="text-muted" th:if="${profile.machineguid eq null}">未绑定设备</p>
+                        <p class="text-muted" th:text="${profile.machineguid}"></p>
                         <ul class="card-profile__info">
                             <li><strong class="text-dark mr-4">最近检测时间</strong> <span th:text="${#dates.format(profile.updateTime,'yyyy-MM-dd HH:mm:ss')}"></span></li>
                         </ul>
@@ -189,10 +189,10 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form method="post" action="/bindMac" id="bindMac">
+                                            <form method="post" action="/bindMachineGuid" id="bindMachineGuid">
                                                 <div class="form-group">
-                                                    <label for="mac" class="col-form-label">Mac地址:</label>
-                                                    <input type="text" class="form-control" id="mac" name="mac">
+                                                    <label for="machineGuid" class="col-form-label">MachineGuid:</label>
+                                                    <input type="text" class="form-control" id="machineGuid" name="machineGuid">
                                                 </div>
                                             </form>
                                         </div>
@@ -264,18 +264,18 @@
 
     <script th:inline="javascript">
         function save(){
-            $("#bindMac").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。
+            $("#bindMachineGuid").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。
         }
     </script>
 
     <script th:inline="javascript">
         window.onload= function (){
             var msg = [[${msg}]];
-            if (msg == "Mac already exist"){
-                sweetAlert("Oops...", "Mac already exist!", "error");
+            if (msg == "MachineGuid already exist"){
+                sweetAlert("Oops...", "MachineGuid already exist!", "error");
             }
             if (msg == "success"){
-                sweetAlert("Success!", "Mac has been bound", "success");
+                sweetAlert("Success!", "Machine has been bound", "success");
             }
         }
     </script>

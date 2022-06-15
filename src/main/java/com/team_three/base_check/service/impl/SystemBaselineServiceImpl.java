@@ -27,8 +27,8 @@ public class SystemBaselineServiceImpl {
      *
      * @return 返回查询到的总个数
      */
-    public int selectCount(String mac) {
-        return this.systemBaselineMapper.selectCount(mac);
+    public int selectCount(String machineGuid) {
+        return this.systemBaselineMapper.selectCount(machineGuid);
     }
 
     /**
@@ -50,12 +50,10 @@ public class SystemBaselineServiceImpl {
 
     /**
      * 通过ID查询单条数据
-     *
-     * @param mac 主键
      * @return 实例对象
      */
-    public SystemBaseline selectByMac(String mac) {
-        return this.systemBaselineMapper.selectByMac(mac);
+    public SystemBaseline selectByMachineGuid(String machineGuid) {
+        return this.systemBaselineMapper.selectByMachineGuid(machineGuid);
     }
 
     /**
@@ -103,8 +101,8 @@ public class SystemBaselineServiceImpl {
      * @param systemBaseline 实例对象
      * @return 实例对象
      */
-    public Map<String, Object> updateByMac(SystemBaseline systemBaseline) {
-        this.systemBaselineMapper.updateByMac(systemBaseline);
+    public Map<String, Object> updateByMachineGuid(SystemBaseline systemBaseline) {
+        this.systemBaselineMapper.updateByMachienGuid(systemBaseline);
         Map<String, Object> map = new HashMap<>();
         map.put("code", 200);   // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
         map.put("msg", "更新成功");
@@ -113,11 +111,9 @@ public class SystemBaselineServiceImpl {
 
     /**
      * 通过主键删除数据
-     *
-     * @param mac 主键
      * @return 是否成功
      */
-    public int deleteByMac(String mac) {
-        return this.systemBaselineMapper.deleteByMac(mac);
+    public int deleteByMachineGuid(String machineGuid) {
+        return this.systemBaselineMapper.deleteByMachineGuid(machineGuid);
     }
 }

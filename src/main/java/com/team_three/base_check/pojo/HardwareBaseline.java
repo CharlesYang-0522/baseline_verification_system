@@ -15,8 +15,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class HardwareBaseline implements Serializable {
     private static final long serialVersionUID = -47118516525791306L;
     
-	@ApiModelProperty(name = "mac",notes = "${column.comment}",dataType = "String",required = true)
-    private String mac;
+	@ApiModelProperty(name = "machineguid",notes = "${column.comment}",dataType = "String",required = true)
+    private String machineguid;
     
 	@ApiModelProperty(name = "infoOs",notes = "${column.comment}",dataType = "String",required = true)
     private String infoOs;
@@ -72,13 +72,13 @@ public class HardwareBaseline implements Serializable {
 	@ApiModelProperty(name = "infoL3Cache",notes = "${column.comment}",dataType = "String",required = true)
     private String infoL3Cache;
 
-        
-    public String getMac() {
-        return mac;
+
+    public String getMachineguid() {
+        return machineguid;
     }
 
-    public void setMac(String mac) {
-        this.mac = mac;
+    public void setMachineguid(String machineguid) {
+        this.machineguid = machineguid;
     }
         
     public String getInfoOs() {

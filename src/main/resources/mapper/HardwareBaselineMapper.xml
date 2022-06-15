@@ -3,7 +3,7 @@
 <mapper namespace="com.team_three.base_check.mapper.HardwareBaselineMapper">
 
     <resultMap type="com.team_three.base_check.pojo.HardwareBaseline" id="HardwareBaselineMap">
-    <result property="mac" column="mac" jdbcType="VARCHAR"/>
+    <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
     <result property="infoOs" column="info_os" jdbcType="VARCHAR"/>
     <result property="infoVersion" column="info_version" jdbcType="VARCHAR"/>
     <result property="infoFullname" column="info_fullname" jdbcType="VARCHAR"/>
@@ -26,14 +26,14 @@
 
     <resultMap type="com.team_three.base_check.vo.UserHardwareVO" id="UserHardware">
         <result property="username" column="username" jdbcType="VARCHAR"/>
-        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
         <result property="infoCpuName" column="info_cpu_name" jdbcType="VARCHAR"/>
         <result property="infoBoardModel" column="info_board_model" jdbcType="VARCHAR"/>
         <result property="infoPhysicalMemory" column="info_physical_memory" jdbcType="VARCHAR"/>
     </resultMap>
     
     <sql id="Beas_Column_List">
-        mac, info_os, info_version, info_fullname, info_os_architecture, info_mu_languages, info_SerialNumber, info_cpu_count, info_mainboard, info_board_model, info_systemtype, info_physical_memory, info_cpu_name, info_clock_speed, info_number_core, info_data_width, info_socket_desigination, info_l2_cache, info_l3_cache
+        machineguid, info_os, info_version, info_fullname, info_os_architecture, info_mu_languages, info_SerialNumber, info_cpu_count, info_mainboard, info_board_model, info_systemtype, info_physical_memory, info_cpu_name, info_clock_speed, info_number_core, info_data_width, info_socket_desigination, info_l2_cache, info_l3_cache
     </sql>
 
     <!--查询所有主键和名称-->
@@ -42,8 +42,8 @@
             <include refid="Beas_Column_List"/>
         from baseline_check.hardware_baseline
         <where>
-            <if test="mac != null and mac != ''">
-                mac = #{mac},
+            <if test="machineguid != null and machineguid != ''">
+                machineguid = #{machineguid},
             </if>
             <if test="infoOs != null and infoOs != ''">
                 info_os = #{infoOs},
@@ -103,29 +103,29 @@
     </select>
 
     <!--查询单个-->
-    <select id="selectByMac" resultMap="HardwareBaselineMap">
+    <select id="selectByMachineGuid" resultMap="HardwareBaselineMap">
         select
             <include refid="Beas_Column_List"/>
         from baseline_check.hardware_baseline
-        where  mac = #{mac}
+        where  machineguid = #{machineguid}
     </select>
 
     <select id="selectAllByUser" resultMap="UserHardware">
         select
-        username, baseline_check.user_profile.mac, info_cpu_name, info_board_model, info_physical_memory
+        username, baseline_check.user_profile.machineguid, info_cpu_name, info_board_model, info_physical_memory
         from baseline_check.user_profile
         LEFT JOIN baseline_check.hardware_baseline
-        ON  baseline_check.user_profile.mac = baseline_check.hardware_baseline.mac
+        ON  baseline_check.user_profile.machineguid = baseline_check.hardware_baseline.machineguid
     </select>
     
     <!--根据条件查询当前表的满足条件的个数-->
     <select id="selectCount" resultType="int">
         select
-          count(mac)
+          count(machineguid)
         from baseline_check.hardware_baseline
         <where>
             <if test="name != null and name != ''">
-                mac like "%"#{mac}"%"
+                machineguid like "%"#{machineguid}"%"
             </if>
         </where>
     </select>
@@ -145,16 +145,16 @@
 
     <!--新增所有列-->
     <insert id="insert" parameterType="com.team_three.base_check.pojo.HardwareBaseline">
-        insert into baseline_check.hardware_baseline(mac, info_os, info_version, info_fullname, info_os_architecture, info_mu_languages, info_SerialNumber, info_cpu_count, info_mainboard, info_board_model, info_systemtype, info_physical_memory, info_cpu_name, info_clock_speed, info_number_core, info_data_width, info_socket_desigination, info_l2_cache, info_l3_cache)
-        values (#{mac}, #{infoOs}, #{infoVersion}, #{infoFullname}, #{infoOsArchitecture}, #{infoMuLanguages}, #{infoSerialnumber}, #{infoCpuCount}, #{infoMainboard}, #{infoBoardModel}, #{infoSystemtype}, #{infoPhysicalMemory}, #{infoCpuName}, #{infoClockSpeed}, #{infoNumberCore}, #{infoDataWidth}, #{infoSocketDesigination}, #{infoL2Cache}, #{infoL3Cache})
+        insert into baseline_check.hardware_baseline(machineguid, info_os, info_version, info_fullname, info_os_architecture, info_mu_languages, info_SerialNumber, info_cpu_count, info_mainboard, info_board_model, info_systemtype, info_physical_memory, info_cpu_name, info_clock_speed, info_number_core, info_data_width, info_socket_desigination, info_l2_cache, info_l3_cache)
+        values (#{machineguid}, #{infoOs}, #{infoVersion}, #{infoFullname}, #{infoOsArchitecture}, #{infoMuLanguages}, #{infoSerialnumber}, #{infoCpuCount}, #{infoMainboard}, #{infoBoardModel}, #{infoSystemtype}, #{infoPhysicalMemory}, #{infoCpuName}, #{infoClockSpeed}, #{infoNumberCore}, #{infoDataWidth}, #{infoSocketDesigination}, #{infoL2Cache}, #{infoL3Cache})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="updateById" parameterType="com.team_three.base_check.pojo.HardwareBaseline">
         update baseline_check.hardware_baseline
         <set>
-            <if test="mac != null and mac != ''">
-                mac = #{mac},
+            <if test="machineguid != null and machineguid != ''">
+                machineguid = #{machineguid},
             </if>
             <if test="infoOs != null and infoOs != ''">
                 info_os = #{infoOs},
@@ -215,8 +215,8 @@
     </update>
 
     <!--通过主键删除-->
-    <delete id="deleteByMac">
-        delete from baseline_check.hardware_baseline where mac = #{mac}
+    <delete id="deleteByMachineGuid">
+        delete from baseline_check.hardware_baseline where machineguid = #{machineguid}
     </delete>
 
 </mapper>

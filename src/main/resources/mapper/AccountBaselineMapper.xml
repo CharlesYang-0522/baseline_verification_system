@@ -4,7 +4,7 @@
 
     <resultMap type="com.team_three.base_check.pojo.AccountBaseline" id="AccountBaselineMap">
         <result property="caption" column="caption" jdbcType="VARCHAR"/>
-        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="machineguid" column="mac" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="domain" column="domain" jdbcType="VARCHAR"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
@@ -15,14 +15,14 @@
 
     <resultMap type="com.team_three.base_check.vo.UserAccountVO" id="UserAccount">
         <result property="username" column="username" jdbcType="VARCHAR"/>
-        <result property="mac" column="mac" jdbcType="VARCHAR"/>
+        <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
         <result property="domain" column="domain" jdbcType="VARCHAR"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="account" column="account" jdbcType="BIGINT"/>
     </resultMap>
     
     <sql id="Beas_Column_List">
-        caption, mac, description, domain, name, passwordRequired, sid, status        
+        caption, machineguid, description, domain, name, passwordRequired, sid, status
     </sql>
 
     <!--查询所有主键和名称-->
@@ -31,8 +31,8 @@
             <include refid="Beas_Column_List"/>
         from baseline_check.account_baseline
         <where>
-            <if test="mac != null and mac != ''">
-                mac = #{mac},
+            <if test="machineguid != null and machineguid != ''">
+                machineguid = #{machineguid},
             </if>
             <if test="description != null and description != ''">
                 description = #{description},
@@ -56,20 +56,20 @@
     </select>
 
     <!--查询单个-->
-    <select id="selectByMac" resultMap="AccountBaselineMap">
+    <select id="selectByMachineGuid" resultMap="AccountBaselineMap">
         select
             <include refid="Beas_Column_List"/>
         from baseline_check.account_baseline
-        where mac = #{mac}
+        where machineguid = #{machineguid}
     </select>
 
     <select id="selectAllByUser" resultMap="UserAccount">
         select
-        MAX(username) AS username,baseline_check.user_profile.mac,Max(domain) AS domain, MAX(name) AS name,count(name) AS account
+        MAX(username) AS username,baseline_check.user_profile.machineguid,Max(domain) AS domain, MAX(name) AS name,count(name) AS account
         FROM baseline_check.user_profile
         LEFT JOIN baseline_check.account_baseline
-        ON  baseline_check.user_profile.mac = baseline_check.account_baseline.mac
-		GROUP BY baseline_check.user_profile.mac
+        ON  baseline_check.user_profile.machineguid = baseline_check.account_baseline.machineguid
+		GROUP BY baseline_check.user_profile.machineguid
     </select>
     
     <!--根据条件查询当前表的满足条件的个数-->
@@ -99,16 +99,16 @@
 
     <!--新增所有列-->
     <insert id="insert" parameterType="com.team_three.base_check.pojo.AccountBaseline">
-        insert into baseline_check.account_baseline(caption, mac, description, domain, name, passwordRequired, sid, status)
-        values (#{caption}, #{mac}, #{description}, #{domain}, #{name}, #{passwordrequired}, #{sid}, #{status})
+        insert into baseline_check.account_baseline(caption, machineguid, description, domain, name, passwordRequired, sid, status)
+        values (#{caption}, #{machineguid}, #{description}, #{domain}, #{name}, #{passwordrequired}, #{sid}, #{status})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="updateById" parameterType="com.team_three.base_check.pojo.AccountBaseline">
         update baseline_check.account_baseline
         <set>
-            <if test="mac != null and mac != ''">
-                mac = #{mac},
+            <if test="machineguid != null and machineguid != ''">
+                machineguid = #{machineguid},
             </if>
             <if test="description != null and description != ''">
                 description = #{description},
@@ -137,8 +137,8 @@
         delete from baseline_check.account_baseline where caption = #{caption}
     </delete>
 
-    <delete id="deleteByMac">
-        delete from baseline_check.account_baseline where mac = #{mac}
+    <delete id="deleteByMachineGuid">
+        delete from baseline_check.account_baseline where machineguid = #{machineguid}
     </delete>
 
 </mapper>

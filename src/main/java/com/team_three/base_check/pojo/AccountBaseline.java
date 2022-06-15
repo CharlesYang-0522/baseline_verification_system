@@ -17,8 +17,8 @@ public class AccountBaseline implements Serializable {
 	@ApiModelProperty(name = "caption",notes = "${column.comment}",dataType = "String",required = true)
     private String caption;
     
-	@ApiModelProperty(name = "mac",notes = "${column.comment}",dataType = "String",required = true)
-    private String mac;
+	@ApiModelProperty(name = "machineguid",notes = "${column.comment}",dataType = "String",required = true)
+    private String machineguid;
     
 	@ApiModelProperty(name = "description",notes = "${column.comment}",dataType = "String",required = true)
     private String description;
@@ -47,12 +47,12 @@ public class AccountBaseline implements Serializable {
         this.caption = caption;
     }
         
-    public String getMac() {
-        return mac;
+    public String getMachineguid() {
+        return machineguid;
     }
 
-    public void setMac(String mac) {
-        this.mac = mac;
+    public void setMachineguid(String machineguid) {
+        this.machineguid = machineguid;
     }
         
     public String getDescription() {

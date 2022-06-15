@@ -28,14 +28,14 @@ public interface HardwareBaselineMapper {
      * @param  主键
      * @return 实例对象
      */
-    HardwareBaseline selectByMac(@Param("mac")  String mac);
+    HardwareBaseline selectByMachineGuid(@Param("machineguid")  String machineguid);
 
     /**
      * 根据模糊条件查询总个数
      *
      * @return 返回查询到的总个数
      */
-    int selectCount(String mac);
+    int selectCount(String machineguid);
 
     /**
      * 通过实体作为筛选条件查询
@@ -57,6 +57,6 @@ public interface HardwareBaselineMapper {
     /**
      * @return 影响行数
      */
-    int deleteByMac(@Param("mac") String mac);
+    int deleteByMachineGuid(@Param("machineguid") String machineguid);
 
 }

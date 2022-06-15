@@ -7,7 +7,7 @@ public class UserSystemVO {
 
     private String username;
 
-    private String mac;
+    private String machineguid;
 
     private String oscaption;
 
