@@ -120,6 +120,10 @@ public class UserProfileServiceImpl {
         return this.userProfileMapper.updateMachineGuid(machineGuid, id);
     }
 
+    public int updateTime(String updateTime, String machineGuid) {
+        return this.userProfileMapper.updateTime(updateTime, machineGuid);
+    }
+
     /**
      * 通过主键删除数据
      *

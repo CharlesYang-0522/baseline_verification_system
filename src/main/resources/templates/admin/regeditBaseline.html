@@ -142,7 +142,7 @@
                 <div class="col p-md-0">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">System Baseline</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Regedit Baseline</a></li>
                     </ol>
                 </div>
             </div>
@@ -151,29 +151,31 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">硬件信息</h4>
+                                <h4 class="card-title">基线检测结果</h4>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                         <tr>
                                             <th scope="col">Username</th>
-                                            <th scope="col">OSCaption</th>
-                                            <th scope="col">OSVersion</th>
-                                            <th scope="col">UpdateHotFixID</th>
+                                            <th scope="col">MachineGuid</th>
+                                            <th scope="col">Baseline Number</th>
+                                            <th scope="col">Danger Items</th>
+                                            <th scope="col">Safe Items</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="s:${systemBaseline}">
-                                            <td th:text="${s.username}"></td>
-                                            <td th:text="${s.oscaption}"></td>
-                                            <td th:text="${s.osversion}"></td>
-                                            <td th:text="${s.updatehotfixid}"></td>
+                                        <tr th:each="r:${regeditBaseline}">
+                                            <td th:text="${r.username}"></td>
+                                            <td th:text="${r.machineguid}"></td>
+                                            <td th:text="${r.baseline}"></td>
+                                            <td th:text="${r.danger}"></td>
+                                            <td th:text="${r.safe}"></td>
                                             <td><span>
-                                                <a th:href="@{/admin/userSystemRecord/{machineGuid}(machineGuid = ${s.machineguid})}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <a th:href="@{/admin/userRegeditRecord/{machineGuid}(machineGuid = ${r.machineguid})}" data-toggle="tooltip" data-placement="top" title="Check">
                                                     <i class="fa fa-pencil color-muted m-r-5"></i>
                                                 </a>
-                                                <a th:href="@{/delete/deleteSystemRecord/{machineGuid}(machineGuid = ${s.machineguid})}" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <a th:href="@{/delete/deleteRegeditRecord/{machineGuid}(machineGuid = ${r.machineguid})}" data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <i class="fa fa-close color-danger"></i>
                                                 </a>
                                             </span></td>

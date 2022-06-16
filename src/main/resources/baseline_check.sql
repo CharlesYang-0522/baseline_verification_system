@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 15/06/2022 13:57:34
+ Date: 16/06/2022 11:09:35
 */
 
 SET NAMES utf8mb4;
@@ -60,6 +60,22 @@ CREATE TABLE `hardware_baseline`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for regedit_baseline
+-- ----------------------------
+DROP TABLE IF EXISTS `regedit_baseline`;
+CREATE TABLE `regedit_baseline`  (
+  `MachineGuid` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `State` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Importance` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `StandardValue` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `ActualValue` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `CompareMethod` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Description` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `UpdateTime` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for system_baseline
 -- ----------------------------
 DROP TABLE IF EXISTS `system_baseline`;
@@ -98,7 +114,7 @@ CREATE TABLE `user_profile`  (
   `id` int(0) NOT NULL,
   `username` varchar(24) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `MachineGuid` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `update_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `user_profile_mac_uindex`(`MachineGuid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;

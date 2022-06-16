@@ -24,8 +24,8 @@ public class UserProfile implements Serializable {
 	@ApiModelProperty(name = "machineguid",notes = "${column.comment}",dataType = "String",required = true)
     private String machineguid;
     
-	@ApiModelProperty(name = "updateTime",notes = "${column.comment}",dataType = "Date",required = true)
-    private Date updateTime;
+	@ApiModelProperty(name = "updateTime",notes = "${column.comment}",dataType = "String",required = true)
+    private String updateTime;
 
         
     public Integer getId() {
@@ -52,11 +52,11 @@ public class UserProfile implements Serializable {
         this.machineguid = machineguid;
     }
         
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 

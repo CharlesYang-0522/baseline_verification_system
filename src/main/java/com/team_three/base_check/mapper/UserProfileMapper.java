@@ -63,6 +63,8 @@ public interface UserProfileMapper {
 
     int updateMachineGuid(@Param("machineguid") String machineguid, @Param("id") Integer id);
 
+    int updateTime(@Param("update_time") String update_time, @Param("machineguid") String machineguid);
+
     /**
      * 通过主键删除数据
      *

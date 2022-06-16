@@ -4,6 +4,7 @@ import com.team_three.base_check.pojo.*;
 import com.team_three.base_check.service.impl.*;
 import com.team_three.base_check.vo.UserAccountVO;
 import com.team_three.base_check.vo.UserHardwareVO;
+import com.team_three.base_check.vo.UserRegeditVO;
 import com.team_three.base_check.vo.UserSystemVO;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -25,6 +26,8 @@ public class AdminController {
     private AccountBaselineServiceImpl accountBaselineService;
     @Resource
     private SystemBaselineServiceImpl systemBaselineService;
+    @Resource
+    private RegeditBaselineServiceImpl regeditBaselineService;
     @Resource
     private UserProfileServiceImpl userProfileService;
     @Resource
@@ -148,6 +151,43 @@ public class AdminController {
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("accountBaseline",result);
             return new ModelAndView("admin/userAccount");
+        }
+        else{
+            return new ModelAndView(("error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = "/regeditBaseline", method = RequestMethod.GET)
+    public ModelAndView regeditBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            List<UserRegeditVO> list= regeditBaselineService.selectAllByUser();
+            if(msg != null){
+                model.addAttribute("msg",msg);
+            }
+            model.addAttribute("regeditBaseline",list);
+            return new ModelAndView("admin/regeditBaseline");
+        }
+        else{
+            return new ModelAndView(("error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = {"/userRegeditRecord/{machineGuid}", "/userRegeditRecord/"}, method = RequestMethod.GET)
+    public ModelAndView userRegeditRecord(@PathVariable(value = "machineGuid", required = false) String machineGuid, Model model, RedirectAttributes redirectAttribute) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            if(machineGuid == null){
+                redirectAttribute.addAttribute("msg","MachineGuid Unbound");
+                return new ModelAndView("redirect:/admin/regeditBaseline");
+            }
+
+            List<RegeditBaseline> result = this.regeditBaselineService.selectByMachineGuid(machineGuid);
+            UserProfile userProfile = this.userProfileService.selectByMachineGuid(machineGuid);
+            System.out.println(userProfile.toString());
+            model.addAttribute("username",userProfile.getUsername());
+            model.addAttribute("regeditBaseline",result);
+            return new ModelAndView("admin/userRegedit");
         }
         else{
             return new ModelAndView(("error/AuthorityError"));

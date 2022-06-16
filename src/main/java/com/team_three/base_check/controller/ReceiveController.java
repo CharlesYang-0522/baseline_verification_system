@@ -5,14 +5,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.team_three.base_check.mapper.SystemBaselineMapper;
 import com.team_three.base_check.pojo.AccountBaseline;
 import com.team_three.base_check.pojo.HardwareBaseline;
+import com.team_three.base_check.pojo.RegeditBaseline;
 import com.team_three.base_check.pojo.SystemBaseline;
-import com.team_three.base_check.service.impl.AccountBaselineServiceImpl;
-import com.team_three.base_check.service.impl.HardwareBaselineServiceImpl;
-import com.team_three.base_check.service.impl.SystemBaselineServiceImpl;
-import com.team_three.base_check.service.impl.UserProfileServiceImpl;
+import com.team_three.base_check.service.impl.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +26,15 @@ import java.util.Map;
 public class ReceiveController {
 
     @Resource
+    private UserProfileServiceImpl userProfileService;
+    @Resource
     private HardwareBaselineServiceImpl hardwareBaselineService;
     @Resource
     private AccountBaselineServiceImpl accountBaselineService;
     @Resource
     private SystemBaselineServiceImpl systemBaselineService;
+    @Resource
+    private RegeditBaselineServiceImpl regeditBaselineService;
 
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.POST)
     public Map<String, Object> HardwareBaseline(@RequestBody JSONObject json) throws Exception {
@@ -121,4 +128,26 @@ public class ReceiveController {
         map.put("msg", json.getString("describe") + "上传成功");
         return map;
     }
+
+    @RequestMapping(value = "/regeditBaseline", method = RequestMethod.POST)
+    public Map<String, Object> RegeditBaseline(@RequestBody JSONObject json) throws Exception {
+        JSONObject object= JSONObject.parseObject(json.toString());
+        List<RegeditBaseline> list = JSON.parseArray((object.get("account")).toString(), RegeditBaseline.class);
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(dateTime.format(formatter));
+        for(int i=0;i<list.size();i++){
+            list.get(i).setUpdatetime(dateTime.format(formatter));
+            System.out.println(list.get(i).toString());
+            regeditBaselineService.insert(list.get(i));
+        }
+        if(userProfileService.existMachine(list.get(0).getMachineguid()) != 0){
+            userProfileService.updateTime(dateTime.format(formatter), list.get(0).getMachineguid());
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", 200);
+        map.put("msg", "RegeditBaseline"+ "上传成功");
+        return map;
+    }
+
 }

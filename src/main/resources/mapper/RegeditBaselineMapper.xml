@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team_three.base_check.mapper.RegeditBaselineMapper">
+
+    <resultMap type="com.team_three.base_check.pojo.RegeditBaseline" id="RegeditBaselineMap">
+        <result property="machineguid" column="MachineGuid" jdbcType="VARCHAR"/>
+        <result property="name" column="Name" jdbcType="VARCHAR"/>
+        <result property="state" column="State" jdbcType="VARCHAR"/>
+        <result property="importance" column="Importance" jdbcType="VARCHAR"/>
+        <result property="standardvalue" column="StandardValue" jdbcType="VARCHAR"/>
+        <result property="actualvalue" column="ActualValue" jdbcType="VARCHAR"/>
+        <result property="comparemethod" column="CompareMethod" jdbcType="VARCHAR"/>
+        <result property="description" column="Describe" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.team_three.base_check.vo.UserRegeditVO" id="UserRegedit">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
+        <result property="baseline" column="baseline" jdbcType="BIGINT"/>
+        <result property="danger" column="danger" jdbcType="BIGINT"/>
+        <result property="safe" column="safe" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Beas_Column_List">
+        MachineGuid, Name, State, Importance, StandardValue, ActualValue, CompareMethod, Description, UpdateTime
+    </sql>
+
+
+    <!--查询单个-->
+    <select id="selectByMachineGuid" resultMap="RegeditBaselineMap">
+        SELECT * FROM
+		    (SELECT * FROM
+		    baseline_check.regedit_baseline t
+		    WHERE(updateTime =
+		        (SELECT MAX(updateTime)
+		        FROM baseline_check.regedit_baseline
+		        WHERE machineguid = t.machineguid and name = t.name))) m
+		WHERE MachineGuid = #{machineguid}
+    </select>
+
+<!--    <select id="selectAllByUser" resultMap="RegeditBaselineMap">-->
+<!--		SELECT * FROM-->
+<!--		baseline_check.regedit_baseline t-->
+<!--		WHERE(updateTime =-->
+<!--		    (SELECT MAX(updateTime)-->
+<!--		    FROM baseline_check.regedit_baseline-->
+<!--		    WHERE machineguid = t.machineguid and name = t.name))-->
+<!--    </select>-->
+
+    <select id="selectAllByUser" resultMap="UserRegedit">
+		SELECT
+        MAX(username) AS username,baseline_check.user_profile.machineguid,count(name) as baseline, count(if(state = "danger",1,null)) as danger, count(if(state = "safe",1,null)) as safe
+        FROM baseline_check.user_profile
+        LEFT JOIN (SELECT * FROM baseline_check.regedit_baseline t
+                    WHERE(updateTime = (
+                        SELECT MAX(updateTime)
+                        FROM baseline_check.regedit_baseline
+                        WHERE machineguid = t.machineguid)))m
+        ON  baseline_check.user_profile.machineguid = m.machineguid
+		GROUP BY baseline_check.user_profile.machineguid
+    </select>
+
+    <select id="selectByUser" resultMap="UserRegedit">
+		SELECT machineguid, count(name) as baseline, count(if(state = "danger",1,null)) as danger, count(if(state = "safe",1,null)) as safe FROM
+				(SELECT * FROM baseline_check.regedit_baseline t
+				WHERE(updateTime = (SELECT MAX(updateTime) FROM baseline_check.regedit_baseline WHERE machineguid = t.machineguid and name = t.name))) m
+				WHERE MachineGuid = #{machineguid}
+    </select>
+
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="com.team_three.base_check.pojo.RegeditBaseline">
+        insert into baseline_check.regedit_baseline(MachineGuid, Name, State, Importance, StandardValue, ActualValue, CompareMethod, Description, UpdateTime)
+        values (#{machineguid}, #{name}, #{state}, #{importance}, #{standardvalue}, #{actualvalue}, #{comparemethod}, #{description}, #{updatetime})
+    </insert>
+
+    <delete id="deleteByMachineGuid">
+        delete from baseline_check.regedit_baseline where machineguid = #{machineguid}
+    </delete>
+
+</mapper>

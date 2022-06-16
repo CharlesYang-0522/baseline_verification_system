@@ -23,6 +23,8 @@ public class DeleteController {
     @Resource
     private SystemBaselineServiceImpl systemBaselineService;
     @Resource
+    private RegeditBaselineServiceImpl regeditBaselineService;
+    @Resource
     private UserProfileServiceImpl userProfileService;
     @Resource
     private UserServiceImpl userService;
@@ -106,6 +108,28 @@ public class DeleteController {
                 redirectAttribute.addAttribute("msg","No record");
             }
             return new ModelAndView("redirect:/admin/accountBaseline");
+        }
+        else{
+            return new ModelAndView(("error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = {"/deleteRegeditRecord/{machineGuid}", "/deleteRegeditRecord/"}, method = RequestMethod.GET)
+    public ModelAndView deleteRegedit(@PathVariable(value = "machineGuid", required = false) String machineGuid, RedirectAttributes redirectAttribute) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            if(machineGuid == null){
+                redirectAttribute.addAttribute("msg","MachineGuid Unbound");
+                return new ModelAndView("redirect:/admin/regeditBaseline");
+            }
+            int affectRoles = regeditBaselineService.deleteByMachineGuid(machineGuid);
+            if(affectRoles != 0){
+                redirectAttribute.addAttribute("msg","success");
+            }
+            else{
+                redirectAttribute.addAttribute("msg","No record");
+            }
+            return new ModelAndView("redirect:/admin/regeditBaseline");
         }
         else{
             return new ModelAndView(("error/AuthorityError"));

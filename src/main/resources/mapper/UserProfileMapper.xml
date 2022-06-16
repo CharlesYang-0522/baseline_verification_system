@@ -6,7 +6,7 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
-        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="VARCHAR"/>
     </resultMap>
     
     <sql id="Beas_Column_List">
@@ -113,6 +113,16 @@
             </if>
         </set>
         where id = #{id}
+    </update>
+
+    <update id="updateTime">
+        update baseline_check.user_profile
+        <set>
+            <if test="update_time != null and update_time != ''">
+                update_time = #{update_time},
+            </if>
+        </set>
+        where machineguid = #{machineguid}
     </update>
 
     <!--通过主键删除-->

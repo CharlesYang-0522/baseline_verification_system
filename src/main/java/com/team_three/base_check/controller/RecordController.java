@@ -1,10 +1,7 @@
 package com.team_three.base_check.controller;
 
 import com.team_three.base_check.pojo.*;
-import com.team_three.base_check.service.impl.AccountBaselineServiceImpl;
-import com.team_three.base_check.service.impl.HardwareBaselineServiceImpl;
-import com.team_three.base_check.service.impl.SystemBaselineServiceImpl;
-import com.team_three.base_check.service.impl.UserProfileServiceImpl;
+import com.team_three.base_check.service.impl.*;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -25,6 +22,8 @@ public class RecordController {
     private AccountBaselineServiceImpl accountBaselineService;
     @Resource
     private SystemBaselineServiceImpl systemBaselineService;
+    @Resource
+    private RegeditBaselineServiceImpl regeditBaselineService;
     @Resource
     private UserProfileServiceImpl userProfileService;
 
@@ -80,6 +79,17 @@ public class RecordController {
         SystemBaseline result = this.systemBaselineService.selectByMachineGuid(machineGuid);
         model.addAttribute("systemBaseline",result);
         ModelAndView mv = new ModelAndView("user/systemBaseline");
+        return mv;
+    }
+
+    @RequestMapping(value = "/regeditBaseline", method = RequestMethod.GET)
+    public ModelAndView regeditBaseline(Model model) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        UserProfile userProfile = this.userProfileService.selectById(user.getId());
+        String machineGuid = userProfile.getMachineguid();
+        List<RegeditBaseline> result = this.regeditBaselineService.selectByMachineGuid(machineGuid);
+        model.addAttribute("regedits",result);
+        ModelAndView mv = new ModelAndView("user/regeditBaseline");
         return mv;
     }
 
