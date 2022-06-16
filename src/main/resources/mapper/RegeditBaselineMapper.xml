@@ -10,7 +10,7 @@
         <result property="standardvalue" column="StandardValue" jdbcType="VARCHAR"/>
         <result property="actualvalue" column="ActualValue" jdbcType="VARCHAR"/>
         <result property="comparemethod" column="CompareMethod" jdbcType="VARCHAR"/>
-        <result property="description" column="Describe" jdbcType="VARCHAR"/>
+        <result property="description" column="Description" jdbcType="VARCHAR"/>
         <result property="updatetime" column="UpdateTime" jdbcType="VARCHAR"/>
     </resultMap>
 

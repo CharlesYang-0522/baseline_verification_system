@@ -184,7 +184,6 @@ public class AdminController {
 
             List<RegeditBaseline> result = this.regeditBaselineService.selectByMachineGuid(machineGuid);
             UserProfile userProfile = this.userProfileService.selectByMachineGuid(machineGuid);
-            System.out.println(userProfile.toString());
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("regeditBaseline",result);
             return new ModelAndView("admin/userRegedit");
