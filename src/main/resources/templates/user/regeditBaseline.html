@@ -177,7 +177,8 @@
                                             <td th:text="${regedit.standardvalue}"></td>
                                             <td th:text="${regedit.actualvalue}"></td>
                                             <td th:text="${regedit.description}"></td>
-                                            <td th:text="${regedit.state}"></td>
+                                            <td style="text-align: center;" th:if="${regedit.state eq 'danger'}"><span class="label label-danger">Danger</span></td>
+                                            <td style="text-align: center;" th:if="${regedit.state eq 'safe'}"><span class="label label-success">&ensp;Safe&ensp;</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
