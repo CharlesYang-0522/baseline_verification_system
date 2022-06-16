@@ -170,7 +170,7 @@
                         <p class="text-muted" th:if="${profile.machineguid eq null}">未绑定设备</p>
                         <p class="text-muted" th:text="${profile.machineguid}"></p>
                         <ul class="card-profile__info">
-                            <li><strong class="text-dark mr-4">最近检测时间</strong> <span th:text="${#dates.format(profile.updateTime,'yyyy-MM-dd HH:mm:ss')}"></span></li>
+                            <li><strong class="text-dark mr-4">最近检测时间</strong> <span th:text="${profile.updateTime}"></span></li>
                         </ul>
 
                         <div class="bootstrap-modal">
