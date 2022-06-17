@@ -24,7 +24,7 @@
     <!--查询所有主键和名称-->
     <select id="selectAllByUser" resultMap="UserShadow">
         SELECT
-        username,baseline_check.user_profile.machineguid, detect, shadowuser, UpdateTime
+        any_value(username) username,baseline_check.user_profile.machineguid, any_value(detect) detect, any_value(shadowuser) shadowuser, any_value(UpdateTime) Updatetime
         FROM baseline_check.user_profile
         LEFT JOIN (SELECT * FROM baseline_check.shadow_baseline t
                     WHERE(updateTime = (
