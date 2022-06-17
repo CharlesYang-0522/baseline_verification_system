@@ -25,6 +25,8 @@ public class DeleteController {
     @Resource
     private RegeditBaselineServiceImpl regeditBaselineService;
     @Resource
+    private ShadowBaselineServiceImpl shadowBaselineService;
+    @Resource
     private UserProfileServiceImpl userProfileService;
     @Resource
     private UserServiceImpl userService;
@@ -130,6 +132,28 @@ public class DeleteController {
                 redirectAttribute.addAttribute("msg","No record");
             }
             return new ModelAndView("redirect:/admin/regeditBaseline");
+        }
+        else{
+            return new ModelAndView(("error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = {"/deleteShadowRecord/{machineGuid}", "/deleteShadowRecord/"}, method = RequestMethod.GET)
+    public ModelAndView deleteShadow(@PathVariable(value = "machineGuid", required = false) String machineGuid, RedirectAttributes redirectAttribute) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            if(machineGuid == null){
+                redirectAttribute.addAttribute("msg","MachineGuid Unbound");
+                return new ModelAndView("redirect:/admin/shadowBaseline");
+            }
+            int affectRoles = shadowBaselineService.deleteByMachineGuid(machineGuid);
+            if(affectRoles != 0){
+                redirectAttribute.addAttribute("msg","success");
+            }
+            else{
+                redirectAttribute.addAttribute("msg","No record");
+            }
+            return new ModelAndView("redirect:/admin/shadowBaseline");
         }
         else{
             return new ModelAndView(("error/AuthorityError"));

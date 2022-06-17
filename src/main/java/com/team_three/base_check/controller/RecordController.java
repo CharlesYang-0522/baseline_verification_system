@@ -25,6 +25,8 @@ public class RecordController {
     @Resource
     private RegeditBaselineServiceImpl regeditBaselineService;
     @Resource
+    private ShadowBaselineServiceImpl shadowBaselineService;
+    @Resource
     private UserProfileServiceImpl userProfileService;
 
     @RequestMapping(value = "/userProfile", method = RequestMethod.GET)
@@ -90,6 +92,17 @@ public class RecordController {
         List<RegeditBaseline> result = this.regeditBaselineService.selectByMachineGuid(machineGuid);
         model.addAttribute("regedits",result);
         ModelAndView mv = new ModelAndView("user/regeditBaseline");
+        return mv;
+    }
+
+    @RequestMapping(value = "/shadowBaseline", method = RequestMethod.GET)
+    public ModelAndView shadowBaseline(Model model) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        UserProfile userProfile = this.userProfileService.selectById(user.getId());
+        String machineGuid = userProfile.getMachineguid();
+        ShadowBaseline result = this.shadowBaselineService.selectByMachineGuid(machineGuid);
+        model.addAttribute("shadow",result);
+        ModelAndView mv = new ModelAndView("user/shadowBaseline");
         return mv;
     }
 

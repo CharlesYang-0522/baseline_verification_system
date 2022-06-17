@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team_three.base_check.mapper.ShadowBaselineMapper">
+
+    <resultMap type="com.team_three.base_check.pojo.ShadowBaseline" id="ShadowBaselineMap">
+        <result property="machineguid" column="MachineGuid" jdbcType="VARCHAR"/>
+        <result property="detect" column="Detect" jdbcType="VARCHAR"/>
+        <result property="shadowuser" column="ShadowUser" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap type="com.team_three.base_check.vo.UserShadowVO" id="UserShadow">
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="machineguid" column="machineguid" jdbcType="VARCHAR"/>
+        <result property="detect" column="Detect" jdbcType="VARCHAR"/>
+        <result property="shadowuser" column="ShadowUser" jdbcType="VARCHAR"/>
+        <result property="updatetime" column="UpdateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <sql id="Beas_Column_List">
+        MachineGuid, Detect, ShadowUser, UpdateTime        
+    </sql>
+
+    <!--查询所有主键和名称-->
+    <select id="selectAllByUser" resultMap="UserShadow">
+        SELECT
+        username,baseline_check.user_profile.machineguid, detect, shadowuser, UpdateTime
+        FROM baseline_check.user_profile
+        LEFT JOIN (SELECT * FROM baseline_check.shadow_baseline t
+                    WHERE(updateTime = (
+                        SELECT MAX(updateTime)
+                        FROM baseline_check.shadow_baseline
+                        WHERE machineguid = t.machineguid)))m
+        ON  baseline_check.user_profile.machineguid = m.machineguid
+		GROUP BY baseline_check.user_profile.machineguid
+    </select>
+
+    <!--查询单个-->
+    <select id="selectByMachineGuid" resultMap="ShadowBaselineMap">
+        SELECT * FROM
+        (SELECT * FROM baseline_check.shadow_baseline t
+        WHERE(updateTime = (SELECT MAX(updateTime) FROM baseline_check.shadow_baseline WHERE machineguid = t.machineguid))) m
+        WHERE MachineGuid = #{machineguid}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="com.team_three.base_check.pojo.ShadowBaseline">
+        insert into baseline_check.shadow_baseline(MachineGuid, Detect, ShadowUser, UpdateTime)
+        values (#{machineguid}, #{detect}, #{shadowuser}, #{updatetime})
+    </insert>
+
+    <!--通过主键删除-->
+    <delete id="deleteByMachineGuid">
+        delete from baseline_check.shadow_baseline where MachineGuid = #{machineguid}
+    </delete>
+
+</mapper>

@@ -3,10 +3,7 @@ package com.team_three.base_check.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.team_three.base_check.mapper.SystemBaselineMapper;
-import com.team_three.base_check.pojo.AccountBaseline;
-import com.team_three.base_check.pojo.HardwareBaseline;
-import com.team_three.base_check.pojo.RegeditBaseline;
-import com.team_three.base_check.pojo.SystemBaseline;
+import com.team_three.base_check.pojo.*;
 import com.team_three.base_check.service.impl.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +32,8 @@ public class ReceiveController {
     private SystemBaselineServiceImpl systemBaselineService;
     @Resource
     private RegeditBaselineServiceImpl regeditBaselineService;
+    @Resource
+    private ShadowBaselineServiceImpl shadowBaselineService;
 
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.POST)
     public Map<String, Object> HardwareBaseline(@RequestBody JSONObject json) throws Exception {
@@ -147,6 +146,23 @@ public class ReceiveController {
         Map<String, Object> map = new HashMap<>();
         map.put("code", 200);
         map.put("msg", "RegeditBaseline"+ "上传成功");
+        return map;
+    }
+
+    @RequestMapping(value = "/shadowBaseline", method = RequestMethod.POST)
+    public Map<String, Object> ShadowBaseline(@RequestBody JSONObject json) throws Exception {
+        ShadowBaseline shadowBaseline = new ShadowBaseline();
+        shadowBaseline.setMachineguid(json.getString("MachineGuid"));
+        shadowBaseline.setDetect(json.getString("detect"));
+        shadowBaseline.setShadowuser(json.getString("shadowuser"));
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        shadowBaseline.setUpdatetime(dateTime.format(formatter));
+        shadowBaselineService.insert(shadowBaseline);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", 200);
+        map.put("msg", json.getString("describe") + "上传成功");
         return map;
     }
 

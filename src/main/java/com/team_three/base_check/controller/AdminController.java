@@ -2,10 +2,7 @@ package com.team_three.base_check.controller;
 
 import com.team_three.base_check.pojo.*;
 import com.team_three.base_check.service.impl.*;
-import com.team_three.base_check.vo.UserAccountVO;
-import com.team_three.base_check.vo.UserHardwareVO;
-import com.team_three.base_check.vo.UserRegeditVO;
-import com.team_three.base_check.vo.UserSystemVO;
+import com.team_three.base_check.vo.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.ui.Model;
@@ -28,6 +25,8 @@ public class AdminController {
     private SystemBaselineServiceImpl systemBaselineService;
     @Resource
     private RegeditBaselineServiceImpl regeditBaselineService;
+    @Resource
+    private ShadowBaselineServiceImpl shadowBaselineService;
     @Resource
     private UserProfileServiceImpl userProfileService;
     @Resource
@@ -187,6 +186,22 @@ public class AdminController {
             model.addAttribute("username",userProfile.getUsername());
             model.addAttribute("regeditBaseline",result);
             return new ModelAndView("admin/userRegedit");
+        }
+        else{
+            return new ModelAndView(("error/AuthorityError"));
+        }
+    }
+
+    @RequestMapping(value = "/shadowBaseline", method = RequestMethod.GET)
+    public ModelAndView shadowBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            List<UserShadowVO> list= shadowBaselineService.selectAllByUser();
+            if(msg != null){
+                model.addAttribute("msg",msg);
+            }
+            model.addAttribute("shadowBaseline",list);
+            return new ModelAndView("admin/shadowBaseline");
         }
         else{
             return new ModelAndView(("error/AuthorityError"));
