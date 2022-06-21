@@ -180,7 +180,7 @@
                                             <td th:text="${h.infoBoardModel}"></td>
                                             <td th:text="${h.infoPhysicalMemory}"></td>
                                             <td><span>
-                                                <a th:href="@{/admin/userHardwareRecord/{machineGuid}(machineGuid = ${h.machineguid})}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <a th:href="@{/admin/userHardwareRecord/{machineGuid}(machineGuid = ${h.machineguid})}" data-toggle="tooltip" data-placement="top" title="Check">
                                                     <i class="fa fa-search color-muted m-r-5"></i>
                                                 </a>
                                                 <a th:href="@{/delete/deleteHardwareRecord/{machineGuid}(machineGuid = ${h.machineguid})}" data-toggle="tooltip" data-placement="top" title="Delete">

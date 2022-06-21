@@ -178,7 +178,7 @@
                                             <td th:text="${a.domain}"></td>
                                             <td th:text="${a.account}"></td>
                                             <td><span>
-                                                <a th:href="@{/admin/userAccountRecord/{machineGuid}(machineGuid = ${a.machineguid})}" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <a th:href="@{/admin/userAccountRecord/{machineGuid}(machineGuid = ${a.machineguid})}" data-toggle="tooltip" data-placement="top" title="Check">
                                                     <i class="fa fa-search color-muted m-r-5"></i>
                                                 </a>
                                                 <a th:href="@{/delete/deleteAccountRecord/{machineGuid}(machineGuid = ${a.machineguid})}" data-toggle="tooltip" data-placement="top" title="Delete">
