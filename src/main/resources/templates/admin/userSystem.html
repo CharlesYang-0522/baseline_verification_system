@@ -188,11 +188,11 @@
                                     <td>MACAddress</td>
                                     <td th:text="${systemBaseline?.macaddress}"></td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${systemBaseline?.updatehotfixid} != null">
                                     <td>UpdateHotFixID</td>
                                     <td th:text="${systemBaseline?.updatehotfixid}"></td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${systemBaseline?.installedon} != null">
                                     <td>InstalledOn</td>
                                     <td th:text="${systemBaseline?.installedon}"></td>
                                 </tr>
