@@ -67,7 +67,7 @@ public class ReceiveController {
         hardwareBaselineService.insert(hardwareBaseline);
         Map<String, Object> map = new HashMap<>();
         map.put("code", 200);
-        map.put("msg", json.getString("describe") + "上传成功");
+        map.put("msg", "上传成功");
         return map;
     }
 
@@ -97,7 +97,7 @@ public class ReceiveController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("code", 200);
-        map.put("msg", json.getString("describe") + "上传成功");
+        map.put("msg", "上传成功");
         return map;
     }
 
@@ -124,7 +124,7 @@ public class ReceiveController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("code", 200);
-        map.put("msg", json.getString("describe") + "上传成功");
+        map.put("msg", "上传成功");
         return map;
     }
 
@@ -145,7 +145,7 @@ public class ReceiveController {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("code", 200);
-        map.put("msg", "RegeditBaseline"+ "上传成功");
+        map.put("msg", "上传成功");
         return map;
     }
 
@@ -162,7 +162,7 @@ public class ReceiveController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("code", 200);
-        map.put("msg", json.getString("describe") + "上传成功");
+        map.put("msg", "上传成功");
         return map;
     }
 

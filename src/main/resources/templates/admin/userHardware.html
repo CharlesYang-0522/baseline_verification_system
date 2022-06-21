@@ -164,17 +164,13 @@
                                     <td>系统版本</td>
                                     <td th:text="${hardwareBaseline?.infoOs}"></td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${hardwareBaseline?.infoVersion} != null">
                                     <td>可更新版本</td>
                                     <td th:text="${hardwareBaseline?.infoVersion}"></td>
                                 </tr>
                                 <tr>
                                     <td>计算机名称</td>
                                     <td th:text="${hardwareBaseline?.infoFullname}"></td>
-                                </tr>
-                                <tr>
-                                    <td>MachineGuid</td>
-                                    <td th:text="${hardwareBaseline?.machineguid}"></td>
                                 </tr>
                                 <tr>
                                     <td>操作系统类型</td>
@@ -189,10 +185,6 @@
                                     <td th:text="${hardwareBaseline?.infoSerialnumber}"></td>
                                 </tr>
                                 <tr>
-                                    <td>CPU数量</td>
-                                    <td th:text="${hardwareBaseline?.infoCpuCount}"></td>
-                                </tr>
-                                <tr>
                                     <td>CPU类型</td>
                                     <td th:text="${hardwareBaseline?.infoCpuName}"></td>
                                 </tr>
@@ -204,7 +196,7 @@
                                     <td>CPU数据宽度</td>
                                     <td th:text="${hardwareBaseline?.infoDataWidth}"></td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${hardwareBaseline?.infoL2Cache} != null">
                                     <td>CPU二级缓存</td>
                                     <td th:text="${hardwareBaseline?.infoL2Cache}"></td>
                                 </tr>
@@ -220,11 +212,11 @@
                                     <td>主板型号</td>
                                     <td th:text="${hardwareBaseline?.infoBoardModel}"></td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${hardwareBaseline?.infoSystemtype} != null">
                                     <td>主板架构类型</td>
                                     <td th:text="${hardwareBaseline?.infoSystemtype}"></td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${hardwareBaseline?.infoSocketDesigination} != null">
                                     <td>主板CPU接口</td>
                                     <td th:text="${hardwareBaseline?.infoSocketDesigination}"></td>
                                 </tr>
@@ -232,7 +224,7 @@
                                     <td>内存容量</td>
                                     <td th:text="${hardwareBaseline?.infoPhysicalMemory}"></td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${hardwareBaseline?.infoClockSpeed} != null">
                                     <td>操作系统主频</td>
                                     <td th:text="${hardwareBaseline?.infoClockSpeed}"></td>
                                 </tr>
@@ -254,7 +246,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+                <p>Copyright &copy; Designed & Developed by <a href="javascript:void(0)">TX今天吃什么</a> 2022</p>
             </div>
         </div>
         <!--**********************************

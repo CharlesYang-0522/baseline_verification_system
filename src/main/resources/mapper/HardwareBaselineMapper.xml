@@ -125,7 +125,7 @@
         from baseline_check.hardware_baseline
         <where>
             <if test="name != null and name != ''">
-                machineguid like "%"#{machineguid}"%"
+                machineguid = #{machineguid}
             </if>
         </where>
     </select>
