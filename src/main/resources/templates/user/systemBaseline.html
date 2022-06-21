@@ -182,7 +182,7 @@
                                     <td>InterfaceType</td>
                                     <td th:text="${systemBaseline?.interfacetype}"></td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${systemBaseline?.networkcaption} != null">
                                     <td>NetworkCaption</td>
                                     <td th:text="${systemBaseline?.networkcaption}"></td>
                                 </tr>
