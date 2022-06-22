@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <title>System Baseline</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon.png">
     <!-- Pignose Calender -->
     <link href="../plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -136,7 +136,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="http://1.15.143.8:5212/s/nbhl" aria-expanded="false" target="_blank">
+                        <a href="javascript:void()" aria-expanded="false" target="_blank" data-toggle="modal" data-target="#modalGrid">
                             <i class="icon-grid menu-icon"></i><span class="nav-text">客户端下载</span>
                         </a>
                     </li>
@@ -159,6 +159,54 @@
                     </ol>
                 </div>
             </div>
+
+            <div class="modal fade bd-example-modal-lg" id="modalGrid">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">客户端下载</h5>
+                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card gradient-1">
+                                            <a href="javascript:void(0)">
+                                                <div class="card-body">
+                                                    <div class="d-inline-block">
+                                                        <h4 class="text-white">Download Client For</h4>
+                                                        <h2 class="text-white">Windows</h2>
+                                                    </div>
+                                                    <span class="float-right display-6 opacity-5"><i class="fa fa-windows"></i></span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card gradient-2">
+                                            <a href="javascript:void(0)">
+                                                <div class="card-body">
+                                                    <div class="d-inline-block">
+                                                        <h4 class="text-white">Download Client For</h4>
+                                                        <h2 class="text-white">Linux</h2>
+                                                    </div>
+                                                    <span class="float-right display-6 opacity-5"><i class="fa fa-linux"></i></span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-body">
