@@ -32,6 +32,29 @@ public class AdminController {
     @Resource
     private UserServiceImpl userService;
 
+    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
+    public ModelAndView homepage(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.hasRole("admin")){
+            int WindowsBaselineNumber = regeditBaselineService.WindowsBaselineNumber();
+            int LinuxBaselineNumber = regeditBaselineService.LinuxBaselineNumber();
+            BaselineVO WindowsBaseline = regeditBaselineService.WindowsBaseline();
+            BaselineVO LinuxBaseline = regeditBaselineService.LinuxBaseline();
+            int TotalUser = userProfileService.selectCount();
+            int CheckedUser = hardwareBaselineService.selectUser();
+            model.addAttribute("WindowsBaselineNumber",WindowsBaselineNumber);
+            model.addAttribute("LinuxBaselineNumber",LinuxBaselineNumber);
+            model.addAttribute("WindowsBaseline",WindowsBaseline);
+            model.addAttribute("LinuxBaseline",LinuxBaseline);
+            model.addAttribute("TotalUser",TotalUser);
+            model.addAttribute("CheckedUser",CheckedUser);
+            return new ModelAndView("admin/homepage");
+        }
+        else{
+            return new ModelAndView(("error/AuthorityError"));
+        }
+    }
+
     @RequestMapping(value = "/allUser", method = RequestMethod.GET)
     public ModelAndView userProfile(@RequestParam(value = "msg", required = false) String msg, Model model) {
         Subject subject = SecurityUtils.getSubject();

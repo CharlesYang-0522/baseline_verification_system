@@ -51,11 +51,6 @@
         select
           count(id)
         from baseline_check.user_profile
-        <where>
-            <if test="name != null and name != ''">
-                username like "%"#{name}"%"
-            </if>
-        </where>
     </select>
 
     <select id="existMachine" resultType="int">

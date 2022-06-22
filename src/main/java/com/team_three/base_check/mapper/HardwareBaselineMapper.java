@@ -37,6 +37,8 @@ public interface HardwareBaselineMapper {
      */
     int selectCount(String machineguid);
 
+    int selectUser();
+
     /**
      * 通过实体作为筛选条件查询
      * 

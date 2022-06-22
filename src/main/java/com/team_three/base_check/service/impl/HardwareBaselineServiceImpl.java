@@ -30,6 +30,10 @@ public class HardwareBaselineServiceImpl {
         return this.hardwareBaselineMapper.selectCount(machineGuid);
     }
 
+    public int selectUser() {
+        return this.hardwareBaselineMapper.selectUser();
+    }
+
     /**
      * 查询所有数据
      * @return  返回所有数据

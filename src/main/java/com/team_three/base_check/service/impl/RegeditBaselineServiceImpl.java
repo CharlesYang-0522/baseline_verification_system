@@ -2,6 +2,7 @@ package com.team_three.base_check.service.impl;
 
 import com.team_three.base_check.pojo.RegeditBaseline;
 import com.team_three.base_check.mapper.RegeditBaselineMapper;
+import com.team_three.base_check.vo.BaselineVO;
 import com.team_three.base_check.vo.UserRegeditVO;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -40,6 +41,22 @@ public class RegeditBaselineServiceImpl {
 
     public int deleteByMachineGuid(String machineGuid) {
         return this.regeditBaselineMapper.deleteByMachineGuid(machineGuid);
+    }
+
+    public int WindowsBaselineNumber() {
+        return this.regeditBaselineMapper.WindowsBaselineNumber();
+    }
+
+    public int LinuxBaselineNumber() {
+        return this.regeditBaselineMapper.LinuxBaselineNumber();
+    }
+
+    public BaselineVO WindowsBaseline(){
+        return this.regeditBaselineMapper.WindowsBaseline();
+    }
+
+    public BaselineVO LinuxBaseline(){
+        return this.regeditBaselineMapper.LinuxBaseline();
     }
 
 }

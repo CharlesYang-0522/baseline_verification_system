@@ -26,13 +26,8 @@ public class UserProfileServiceImpl {
      *
      * @return 返回查询到的总个数
      */
-    public Map<String, Object> selectCount(String name) {
-        Map<String, Object> map = new HashMap<>();
-        // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
-        map.put("code", 200);
-        map.put("msg", "查询成功");
-        map.put("list", this.userProfileMapper.selectCount(name));
-        return map;
+    public int selectCount() {
+        return this.userProfileMapper.selectCount();
     }
 
     public int existMachine(String machineGuid) {
@@ -63,29 +58,6 @@ public class UserProfileServiceImpl {
         return userProfile;
     }
 
-    /**
-     * 查询分页数据
-     *
-     * @param page 查询起始位置
-     * @param name 查询条数
-     * @return 对象列表
-     */
-    public Map<String, Object> selectByPage(int page, String name) {
-    // 获取当前表中的总记录
-        int tableCount = this.userProfileMapper.selectCount(name);
-        // 总页码计算   (总条数 - 1) / 每页显示条数  + 1
-        // (100 - 1) / 10 + 1 = 10        (101 - 1) / 10 + 1 = 11      (99 - 1) / 10 + 1 = 10
-        int pageCount = (tableCount - 1) / 10 + 1;
-        // 计算每页开始的下标值
-        int index = (page - 1) * 10;
-        Map<String, Object> map = new HashMap<>();
-        map.put("code", 0);   // 前端端分离时，前端人员会首先判断code值是否满足200，如果不是200，则提醒用户失败
-        map.put("msg", "查询成功");
-        map.put("pageCount", pageCount);  // 查询的记录总页码
-        map.put("count", tableCount);     // 当前表中的总条数
-        map.put("data", this.userProfileMapper.selectByPage(index, name));
-        return map;
-    }
 
     /**
      * 新增数据

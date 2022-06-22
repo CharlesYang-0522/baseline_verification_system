@@ -129,6 +129,14 @@
             </if>
         </where>
     </select>
+
+    <select id="selectUser" resultType="int">
+        select
+        count(baseline_check.user_profile.machineguid)
+        from baseline_check.user_profile
+        LEFT JOIN baseline_check.hardware_baseline
+        ON  baseline_check.user_profile.machineguid = baseline_check.hardware_baseline.machineguid
+    </select>
     
     <!--通过实体作为筛选条件查询-->
     <select id="selectByPage" resultMap="HardwareBaselineMap">

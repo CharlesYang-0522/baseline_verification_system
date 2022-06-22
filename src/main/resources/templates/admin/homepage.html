@@ -146,49 +146,73 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-            <div class="row page-titles mx-0">
-                <div class="col p-md-0">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">View</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Account Baseline</a></li>
-                    </ol>
+            <div class="container-fluid mt-3">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradient-1">
+                            <div class="card-body">
+                                <h3 class="card-title text-white">Windows Baseline</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white" th:text="${WindowsBaselineNumber}"></h2>
+                                    <p class="text-white mb-0" id="date1"></p>
+                                </div>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-windows"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradient-2">
+                            <div class="card-body">
+                                <h3 class="card-title text-white">Linux Baseline</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white" th:text="${LinuxBaselineNumber}"></h2>
+                                    <p class="text-white mb-0" id="date2"></p>
+                                </div>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-linux"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradient-3">
+                            <div class="card-body">
+                                <h3 class="card-title text-white">Number of User</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white" th:text="${TotalUser}"></h2>
+                                    <p class="text-white mb-0" id="date3"></p>
+                                </div>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradient-4">
+                            <div class="card-body">
+                                <h3 class="card-title text-white">Checked User</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white" th:text="${CheckedUser}"></h2>
+                                    <p class="text-white mb-0" id="date4"></p>
+                                </div>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-check-square-o"></i></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">账户信息</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered zero-configuration">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Identifier</th>
-                                            <th scope="col">Domain</th>
-                                            <th scope="col">Account Number</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="a:${accountBaseline}">
-                                            <td th:text="${a.username}"></td>
-                                            <td th:text="${a.machineguid}"></td>
-                                            <td th:text="${a.domain}"></td>
-                                            <td th:text="${a.account}"></td>
-                                            <td><span>
-                                                <a th:href="@{/admin/userAccountRecord/{machineGuid}(machineGuid = ${a.machineguid})}" data-toggle="tooltip" data-placement="top" title="Check">
-                                                    <i class="fa fa-search color-muted m-r-5"></i>
-                                                </a>
-                                                <a th:href="@{/delete/deleteAccountRecord/{machineGuid}(machineGuid = ${a.machineguid})}" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="fa fa-close color-danger"></i>
-                                                </a>
-                                            </span></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <h4 class="card-title">Windows Baseline</h4>
+                                <div id="windows-donut-chart" style="height: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Linux Baseline</h4>
+                                <div id="linux-donut-chart" style="height: 60%"></div>
                             </div>
                         </div>
                     </div>
@@ -251,24 +275,71 @@
     <script src="../plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="../plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
+    <script src="../plugins/raphael/raphael.min.js"></script>
+    <script src="../plugins/morris/morris.min.js"></script>
+
     <script src="../../static/js/dashboard/dashboard-1.js"></script>
 
     <script th:inline="javascript">
-        window.onload= function (){
-            var msg = [[${msg}]];
-            if (msg == "success"){
-                sweetAlert("Success!", "User deleted!", "success");
-            }
-            if (msg == "error"){
-                sweetAlert("Oops...", "Something went wrong!", "error");
-            }
-            if (msg == "MachineGuid Unbound"){
-                sweetAlert("Oops...", "User MachineGuid Unbound", "error");
-            }
-            if (msg == "No record"){
-                sweetAlert("Oops...", "No record of this user", "error");
+        $(function () {
+            "use strict";
+            Morris.Donut({
+                element: 'windows-donut-chart',
+                data: [{
+                    label: "High Importance",
+                    value: [[${WindowsBaseline.high}]]
+                }, {
+                    label: "Middle Importance",
+                    value: [[${WindowsBaseline.middle}]]
+                }, {
+                    label: "Low Importance",
+                    value: [[${WindowsBaseline.low}]]
+                }],
+                colors: ['#4d7cff', '#7571F9', '#9097c4']
+            });
+
+            Morris.Donut({
+                element: 'linux-donut-chart',
+                data: [{
+                    label: "High Importance",
+                    value: [[${LinuxBaseline.high}]]
+                }, {
+                    label: "Middle Importance",
+                    value: [[${LinuxBaseline.middle}]]
+                }, {
+                    label: "Low Importance",
+                    value: [[${LinuxBaseline.low}]]
+                }],
+                resize: true,
+                colors: ['#4d7cff', '#7571F9', '#9097c4']
+            });
+
+        });
+    </script>
+
+    <script th:inline="javascript">
+        var dt = new Date();
+        var m=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Spt","Oct","Nov","Dec");
+        var w=new Array("Monday","Tuseday","Wednesday","Thursday","Friday","Saturday","Sunday");
+        var d=new Array("st","nd","rd","th");
+        mn=dt.getMonth();
+        wn=dt.getDay();
+        dn=dt.getDate();
+        var dns;
+        if(((dn%10)<1) ||((dn%10)>3)){
+            dns=d[3];
+        }
+        else
+        {
+            dns=d[(dn%10)-1];
+            if((dn==11)||(dn==12)){
+                dns=d[3];
             }
         }
+        document.getElementById("date1").innerHTML = (m[mn]+" "+dn+dns+" - "+dt.getFullYear());
+        document.getElementById("date2").innerHTML = (m[mn]+" "+dn+dns+" - "+dt.getFullYear());
+        document.getElementById("date3").innerHTML = (m[mn]+" "+dn+dns+" - "+dt.getFullYear());
+        document.getElementById("date4").innerHTML = (m[mn]+" "+dn+dns+" - "+dt.getFullYear());
     </script>
 
 </body>

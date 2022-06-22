@@ -23,7 +23,7 @@ public class LoginController {
             User user = (User) subject.getPrincipal();
             subject.getSession().setAttribute("user",user);
             if(subject.hasRole( "admin" )){
-                ModelAndView mv = new ModelAndView("redirect:/admin/allUser");
+                ModelAndView mv = new ModelAndView("redirect:/admin/homepage");
                 return mv;
             }
             else{

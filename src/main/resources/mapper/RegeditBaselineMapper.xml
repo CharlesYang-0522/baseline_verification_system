@@ -22,6 +22,12 @@
         <result property="safe" column="safe" jdbcType="BIGINT"/>
     </resultMap>
 
+    <resultMap type="com.team_three.base_check.vo.BaselineVO" id="Baseline">
+        <result property="high" column="high" jdbcType="BIGINT"/>
+        <result property="middle" column="middle" jdbcType="BIGINT"/>
+        <result property="low" column="low" jdbcType="BIGINT"/>
+    </resultMap>
+
     <sql id="Beas_Column_List">
         MachineGuid, Name, State, Importance, StandardValue, ActualValue, CompareMethod, Description, UpdateTime
     </sql>
@@ -37,6 +43,70 @@
 		        FROM baseline_check.regedit_baseline
 		        WHERE machineguid = t.machineguid and name = t.name))) m
 		WHERE MachineGuid = #{machineguid}
+    </select>
+
+    <select id="WindowsBaselineNumber" resultType="int">
+        SELECT MAX(baseline) as baselineNumber FROM(
+			SELECT
+            MAX(username) AS username,n.machineguid,count(name) as baseline
+            FROM (SELECT * FROM baseline_check.user_profile WHERE machineguid = any(SELECT machineguid FROM baseline_check.system_baseline WHERE baseline_check.system_baseline.OSCaption like "%Windows%"))n
+            LEFT JOIN (SELECT * FROM baseline_check.regedit_baseline t
+                        WHERE(updateTime = (
+                            SELECT MAX(updateTime)
+                            FROM baseline_check.regedit_baseline
+                            WHERE machineguid = t.machineguid)))m
+            ON  n.machineguid = m.machineguid
+			GROUP BY n.machineguid)k
+    </select>
+
+    <select id="LinuxBaselineNumber" resultType="int">
+        SELECT MAX(baseline) as baselineNumber FROM(
+			SELECT
+            MAX(username) AS username,n.machineguid,count(name) as baseline
+            FROM (SELECT * FROM baseline_check.user_profile WHERE machineguid = any(SELECT machineguid FROM baseline_check.system_baseline WHERE baseline_check.system_baseline.OSCaption = "Linux"))n
+            LEFT JOIN (SELECT * FROM baseline_check.regedit_baseline t
+                        WHERE(updateTime = (
+                            SELECT MAX(updateTime)
+                            FROM baseline_check.regedit_baseline
+                            WHERE machineguid = t.machineguid)))m
+            ON  n.machineguid = m.machineguid
+			GROUP BY n.machineguid)k
+    </select>
+
+    <select id="WindowsBaseline" resultMap="Baseline">
+        SELECT count(if(importance = "High",1,null)) as high, count(if(importance = "Middle",1,null)) as middle, count(if(importance = "Low",1,null)) as low FROM
+				(SELECT * FROM baseline_check.regedit_baseline x
+				WHERE(updateTime = (SELECT MAX(updateTime) FROM baseline_check.regedit_baseline WHERE machineguid = x.machineguid and name = x.name))) m
+				WHERE MachineGuid = (SELECT machineguid FROM(
+				SELECT
+        MAX(username) AS username,n.machineguid,count(name) as baseline
+        FROM (SELECT * FROM baseline_check.user_profile WHERE machineguid = any(SELECT machineguid FROM baseline_check.system_baseline WHERE baseline_check.system_baseline.OSCaption like "%Windows%"))n
+        LEFT JOIN (SELECT * FROM baseline_check.regedit_baseline t
+                    WHERE(updateTime = (
+                        SELECT MAX(updateTime)
+                        FROM baseline_check.regedit_baseline
+                        WHERE machineguid = t.machineguid)))m
+        ON  n.machineguid = m.machineguid
+				GROUP BY n.machineguid) k
+				ORDER BY baseline DESC LIMIT 1)
+    </select>
+
+    <select id="LinuxBaseline" resultMap="Baseline">
+        SELECT count(if(importance = "High",1,null)) as high, count(if(importance = "Middle",1,null)) as middle, count(if(importance = "Low",1,null)) as low FROM
+				(SELECT * FROM baseline_check.regedit_baseline x
+				WHERE(updateTime = (SELECT MAX(updateTime) FROM baseline_check.regedit_baseline WHERE machineguid = x.machineguid and name = x.name))) m
+				WHERE MachineGuid = (SELECT machineguid FROM(
+				SELECT
+        MAX(username) AS username,n.machineguid,count(name) as baseline
+        FROM (SELECT * FROM baseline_check.user_profile WHERE machineguid = any(SELECT machineguid FROM baseline_check.system_baseline WHERE baseline_check.system_baseline.OSCaption = "Linux"))n
+        LEFT JOIN (SELECT * FROM baseline_check.regedit_baseline t
+                    WHERE(updateTime = (
+                        SELECT MAX(updateTime)
+                        FROM baseline_check.regedit_baseline
+                        WHERE machineguid = t.machineguid)))m
+        ON  n.machineguid = m.machineguid
+				GROUP BY n.machineguid) k
+				ORDER BY baseline DESC LIMIT 1)
     </select>
 
 <!--    <select id="selectAllByUser" resultMap="RegeditBaselineMap">-->
@@ -67,6 +137,8 @@
 				WHERE(updateTime = (SELECT MAX(updateTime) FROM baseline_check.regedit_baseline WHERE machineguid = t.machineguid and name = t.name))) m
 				WHERE MachineGuid = #{machineguid}
     </select>
+
+
 
 
     <!--新增所有列-->

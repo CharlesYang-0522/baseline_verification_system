@@ -33,7 +33,7 @@ public interface UserProfileMapper {
      *
      * @return 返回查询到的总个数
      */
-    int selectCount(String name);
+    int selectCount();
 
     int existMachine(String machineguid);
 
