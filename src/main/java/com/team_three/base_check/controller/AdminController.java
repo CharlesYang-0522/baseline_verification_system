@@ -36,8 +36,8 @@ public class AdminController {
     public ModelAndView homepage(Model model) {
         Subject subject = SecurityUtils.getSubject();
         if(subject.hasRole("admin")){
-            int WindowsBaselineNumber = regeditBaselineService.WindowsBaselineNumber();
-            int LinuxBaselineNumber = regeditBaselineService.LinuxBaselineNumber();
+            Integer WindowsBaselineNumber = regeditBaselineService.WindowsBaselineNumber();
+            Integer LinuxBaselineNumber = regeditBaselineService.LinuxBaselineNumber();
             BaselineVO WindowsBaseline = regeditBaselineService.WindowsBaseline();
             BaselineVO LinuxBaseline = regeditBaselineService.LinuxBaseline();
             int TotalUser = userProfileService.selectCount();

@@ -43,11 +43,11 @@ public class RegeditBaselineServiceImpl {
         return this.regeditBaselineMapper.deleteByMachineGuid(machineGuid);
     }
 
-    public int WindowsBaselineNumber() {
+    public Integer WindowsBaselineNumber() {
         return this.regeditBaselineMapper.WindowsBaselineNumber();
     }
 
-    public int LinuxBaselineNumber() {
+    public Integer LinuxBaselineNumber() {
         return this.regeditBaselineMapper.LinuxBaselineNumber();
     }
 

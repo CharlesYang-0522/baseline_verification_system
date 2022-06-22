@@ -26,9 +26,9 @@ public interface RegeditBaselineMapper {
 
     int deleteByMachineGuid(@Param("machineguid") String machineguid);
 
-    int WindowsBaselineNumber();
+    Integer WindowsBaselineNumber();
 
-    int LinuxBaselineNumber();
+    Integer LinuxBaselineNumber();
 
     BaselineVO WindowsBaseline();
 
