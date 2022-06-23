@@ -1,6 +1,10 @@
 package com.team_three.base_check.controller;
 
 import com.team_three.base_check.pojo.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -12,8 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+@Api(value = "登录专用接口", tags = "登录专用接口API")
 @RestController
 public class LoginController {
+
+    @ApiOperation(value = "登录接口",notes = "用户/管理员进行登录",httpMethod = "post")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username",value = "用户名",dataType = "String",required = true),
+            @ApiImplicitParam(name = "password",value = "密码",dataType = "String",required = true)
+    })
     @PostMapping("/toLogin")
     public ModelAndView toLogin(String username, String password, Model model){
         Subject subject = SecurityUtils.getSubject();
@@ -43,12 +54,14 @@ public class LoginController {
         }
     }
 
+    @ApiOperation(value = "登录成功接口",notes = "展示登录后页面",httpMethod = "get")
     @GetMapping(value = "/login")
     public ModelAndView login(){
         ModelAndView mv = new ModelAndView("page-login");
         return mv;
     }
 
+    @ApiOperation(value = "登出接口",notes = "用户/管理员登出系统",httpMethod = "get")
     @GetMapping("/logout")
     public ModelAndView logout(){
         Subject subject = SecurityUtils.getSubject();
@@ -57,6 +70,7 @@ public class LoginController {
         return mv;
     }
 
+    @ApiOperation(value = "登录异常接口",notes = "登录出错",httpMethod = "get")
     @GetMapping("/loginError")
     public String error(Model model){
         model.addAttribute("msg","error");

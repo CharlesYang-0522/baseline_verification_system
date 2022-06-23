@@ -3,6 +3,9 @@ package com.team_three.base_check.controller;
 import com.team_three.base_check.pojo.*;
 import com.team_three.base_check.service.impl.*;
 import com.team_three.base_check.vo.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+@Api(value = "管理员接口", tags = "管理员接口API")
 public class AdminController {
 
     @Resource
@@ -32,6 +36,7 @@ public class AdminController {
     @Resource
     private UserServiceImpl userService;
 
+    @ApiOperation(value = "主页展示",notes = "大屏展示基线检测信息",httpMethod = "get")
     @RequestMapping(value = "/homepage", method = RequestMethod.GET)
     public ModelAndView homepage(Model model) {
         Subject subject = SecurityUtils.getSubject();
@@ -55,6 +60,8 @@ public class AdminController {
         }
     }
 
+    @ApiOperation(value = "展示用户信息",notes = "查看所有用户信息",httpMethod = "get")
+    @ApiImplicitParam(name = "msg",value = "参数信息",required = false,dataType = "String")
     @RequestMapping(value = "/allUser", method = RequestMethod.GET)
     public ModelAndView userProfile(@RequestParam(value = "msg", required = false) String msg, Model model) {
         Subject subject = SecurityUtils.getSubject();
@@ -71,6 +78,9 @@ public class AdminController {
         }
     }
 
+
+    @ApiOperation(value = "展示硬件核查信息",notes = "展示所有硬件基线核查信息",httpMethod = "get")
+    @ApiImplicitParam(name = "msg",value = "参数信息",required = false,dataType = "String")
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.GET)
     public ModelAndView hardwareBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
         Subject subject = SecurityUtils.getSubject();
@@ -87,6 +97,9 @@ public class AdminController {
         }
     }
 
+
+    @ApiOperation(value = "展示某用户硬件核查信息",notes = "根据id查询某用户硬件基线核查信息",httpMethod = "get")
+    @ApiImplicitParam(name = "machineGuid",value = "用户设备唯一标识符",required = false,dataType = "String")
     @RequestMapping(value = {"/userHardwareRecord/{machineGuid}","/userHardwareRecord/"}, method = RequestMethod.GET)
     public ModelAndView userHardwareRecord(@PathVariable(value = "machineGuid", required = false) String machineGuid, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -106,6 +119,8 @@ public class AdminController {
         }
     }
 
+    @ApiOperation(value = "展示系统核查信息",notes = "展示所有系统基线核查信息",httpMethod = "get")
+    @ApiImplicitParam(name = "msg",value = "参数信息",required = false,dataType = "String")
     @RequestMapping(value = "/systemBaseline", method = RequestMethod.GET)
     public ModelAndView systemBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
         Subject subject = SecurityUtils.getSubject();
@@ -122,6 +137,8 @@ public class AdminController {
         }
     }
 
+    @ApiOperation(value = "展示某用户系统核查信息",notes = "根据id查询某用户系统基线核查信息",httpMethod = "get")
+    @ApiImplicitParam(name = "machineGuid",value = "用户设备唯一标识符",required = false,dataType = "String")
     @RequestMapping(value = {"/userSystemRecord/{machineGuid}", "/userSystemRecord/"}, method = RequestMethod.GET)
     public ModelAndView userSystemRecord(@PathVariable(value = "machineGuid", required = false) String machineGuid, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -141,6 +158,8 @@ public class AdminController {
         }
     }
 
+    @ApiOperation(value = "展示账户核查信息",notes = "展示所有账户基线核查信息",httpMethod = "get")
+    @ApiImplicitParam(name = "msg",value = "参数信息",required = false,dataType = "String")
     @RequestMapping(value = "/accountBaseline", method = RequestMethod.GET)
     public ModelAndView accountBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
         Subject subject = SecurityUtils.getSubject();
@@ -157,6 +176,8 @@ public class AdminController {
         }
     }
 
+    @ApiOperation(value = "展示某用户账户核查信息",notes = "根据id查询某用户账户基线核查信息",httpMethod = "get")
+    @ApiImplicitParam(name = "machineGuid",value = "用户设备唯一标识符",required = false,dataType = "String")
     @RequestMapping(value = {"/userAccountRecord/{machineGuid}", "/userAccountRecord/"}, method = RequestMethod.GET)
     public ModelAndView userAccountRecord(@PathVariable(value = "machineGuid", required = false) String machineGuid, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -179,6 +200,8 @@ public class AdminController {
         }
     }
 
+    @ApiOperation(value = "管理基线扫描结果",notes = "查看所有基线检测结果",httpMethod = "get")
+    @ApiImplicitParam(name = "msg",value = "参数信息",required = false,dataType = "String")
     @RequestMapping(value = "/regeditBaseline", method = RequestMethod.GET)
     public ModelAndView regeditBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
         Subject subject = SecurityUtils.getSubject();
@@ -195,6 +218,8 @@ public class AdminController {
         }
     }
 
+    @ApiOperation(value = "展示某用户基线扫描结果",notes = "根据id查询某用户基线扫描信息",httpMethod = "get")
+    @ApiImplicitParam(name = "machineGuid",value = "用户设备唯一标识符",required = false,dataType = "String")
     @RequestMapping(value = {"/userRegeditRecord/{machineGuid}", "/userRegeditRecord/"}, method = RequestMethod.GET)
     public ModelAndView userRegeditRecord(@PathVariable(value = "machineGuid", required = false) String machineGuid, Model model, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -215,6 +240,8 @@ public class AdminController {
         }
     }
 
+    @ApiOperation(value = "展示影子账户信息",notes = "展示所有影子账户基线核查信息",httpMethod = "get")
+    @ApiImplicitParam(name = "msg",value = "参数信息",required = false,dataType = "String")
     @RequestMapping(value = "/shadowBaseline", method = RequestMethod.GET)
     public ModelAndView shadowBaseline(@RequestParam(value = "msg", required = false) String msg, Model model) {
         Subject subject = SecurityUtils.getSubject();

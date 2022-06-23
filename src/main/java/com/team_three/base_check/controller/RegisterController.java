@@ -5,6 +5,10 @@ import com.team_three.base_check.pojo.UserProfile;
 import com.team_three.base_check.service.UserService;
 import com.team_three.base_check.service.impl.UserProfileServiceImpl;
 import com.team_three.base_check.service.impl.UserServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.beanutils.BeanMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.codec.Base64;
@@ -21,6 +25,7 @@ import org.springframework.web.util.HtmlUtils;
 import javax.annotation.Resource;
 import java.util.Map;
 
+@Api(value = "注册专用接口", tags = "注册专用接口API")
 @RestController
 public class RegisterController {
 
@@ -29,6 +34,12 @@ public class RegisterController {
     @Resource
     private UserProfileServiceImpl userProfileService;
 
+    @ApiOperation(value = "用户注册接口",notes = "注册用户信息",httpMethod = "post")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username",value = "用户名",dataType = "String",required = true),
+            @ApiImplicitParam(name = "password",value = "密码",dataType = "String",required = true),
+            @ApiImplicitParam(name = "passwordConfirm",value = "确认密码",dataType = "String",required = true)
+    })
     @PostMapping("/toRegister")
     public ModelAndView toRegister(@RequestParam String username, @RequestParam String password,@RequestParam String passwordConfirm, Model model) {
 
@@ -68,12 +79,15 @@ public class RegisterController {
         return mv;
     }
 
+    @ApiOperation(value = "用户注册成功接口",notes = "展示注册成功后页面",httpMethod = "get")
     @GetMapping(value = "/register")
     public ModelAndView register(){
         ModelAndView mv = new ModelAndView("page-register");
         return mv;
     }
 
+    @ApiOperation(value = "绑定用户系统唯一标识符",notes = "绑定用户系统唯一标识符",httpMethod = "post")
+    @ApiImplicitParam(name = "machineGuid",value = "系统唯一标识符",required = true,dataType = "String")
     @PostMapping(value = "/bindMachineGuid")
     public ModelAndView bindMac(@RequestParam String machineGuid, RedirectAttributes redirectAttribute){
 
