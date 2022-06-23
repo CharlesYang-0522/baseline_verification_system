@@ -130,12 +130,11 @@ if __name__ == '__main__':
     post = PostJson()
     MachineGuid = data.getMachineGuid()
 
-    print('-' * 20 + "欢迎来到老王后宫的检测系统" + '-' * 20)
+    print('-' * 20 + "欢迎来到BCVS基线检测系统" + '-' * 20)
 
     try:
         print("MachineGuid是唯一标识符, 用于绑定设备, 请复制此值! ! !")
         print('MachineGuid:', MachineGuid)
-        input('Press Enter to exit…')
         print("上传硬件信息...")
         post.postHardwareBaseline(data.get_HardwareBaseline_json())
         print("上传账户信息...")

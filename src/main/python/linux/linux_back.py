@@ -31,11 +31,9 @@ class LinuxBack:
     def get_BackCheck(self):
         back_dict = {}
         back_dict['MachineGuid'] = self.get_mac_address()
-        back_dict['detect'] = False
         back_dict['shadowuser'] = ""
         a = []
         if self.check():
-            back_dict['detect'] = True
             for i in self.check():
                 a.append(i)
             back_dict['shadowuser'] = ','.join(a)
