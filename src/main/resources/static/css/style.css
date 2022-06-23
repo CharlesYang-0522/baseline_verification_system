@@ -7600,7 +7600,8 @@ sub {
   .nav-header .brand-logo {
     z-index: 999; }
     .nav-header .brand-logo a {
-      padding: 1.607rem 1.8125rem;
+      /*padding: 1.607rem 1.8125rem;*/
+      padding: 1rem 1.5rem;
       display: block; }
       .nav-header .brand-logo a i {
         font-size: 1.375rem; }
