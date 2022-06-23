@@ -1,8 +1,0 @@
-
-\\DESKTOP-ROSGR3H 的用户帐户
-
--------------------------------------------------------------------------------
-Administrator            DefaultAccount           Guest                    
-WDAGUtilityAccount       憨猪                     
-命令成功完成。
-
