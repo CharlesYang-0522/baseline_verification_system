@@ -156,7 +156,7 @@ public class ReceiveController {
         return map;
     }
 
-    @ApiOperation(value = "接收影子账户检测信息",notes = "接收影子账户基线检测信息",httpMethod = "post")
+    @ApiOperation(value = "接收后门检测信息",notes = "接收后门检测信息",httpMethod = "post")
     @RequestMapping(value = "/shadowBaseline", method = RequestMethod.POST)
     public Map<String, Object> ShadowBaseline(@RequestBody JSONObject json) throws Exception {
         ShadowBaseline shadowBaseline = new ShadowBaseline();

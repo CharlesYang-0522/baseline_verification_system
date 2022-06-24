@@ -79,14 +79,14 @@ public class RegisterController {
         return mv;
     }
 
-    @ApiOperation(value = "用户注册成功接口",notes = "展示注册成功后页面",httpMethod = "get")
+    @ApiOperation(value = "跳转注册接口",notes = "跳转至注册页面",httpMethod = "get")
     @GetMapping(value = "/register")
     public ModelAndView register(){
         ModelAndView mv = new ModelAndView("page-register");
         return mv;
     }
 
-    @ApiOperation(value = "绑定用户系统唯一标识符",notes = "绑定用户系统唯一标识符",httpMethod = "post")
+    @ApiOperation(value = "绑定用户唯一标识符",notes = "绑定用户唯一标识符",httpMethod = "post")
     @ApiImplicitParam(name = "machineGuid",value = "系统唯一标识符",required = true,dataType = "String")
     @PostMapping(value = "/bindMachineGuid")
     public ModelAndView bindMac(@RequestParam String machineGuid, RedirectAttributes redirectAttribute){

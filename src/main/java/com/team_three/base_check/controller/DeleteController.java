@@ -147,7 +147,7 @@ public class DeleteController {
         }
     }
 
-    @ApiOperation(value = "删除影子账户检测信息",notes = "通过设备唯一标识符删除影子账户检测信息",httpMethod = "get")
+    @ApiOperation(value = "删除后门检测信息",notes = "通过设备唯一标识符删除后门检测信息",httpMethod = "get")
     @RequestMapping(value = {"/deleteShadowRecord/{machineGuid}", "/deleteShadowRecord/"}, method = RequestMethod.GET)
     public ModelAndView deleteShadow(@PathVariable(value = "machineGuid", required = false) String machineGuid, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();

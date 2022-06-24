@@ -54,7 +54,7 @@ public class LoginController {
         }
     }
 
-    @ApiOperation(value = "登录成功接口",notes = "展示登录后页面",httpMethod = "get")
+    @ApiOperation(value = "登录页面跳转",notes = "跳转至登录页面",httpMethod = "get")
     @GetMapping(value = "/login")
     public ModelAndView login(){
         ModelAndView mv = new ModelAndView("page-login");
