@@ -22,3 +22,4 @@ Windows和Linux客户端使用Python开发
 3.  Linux基线检查系统在python/linux目录下，运行linux_main函数即可进行检测(需要root权限)，包含账户检测、硬件检测、系统检测、基线检测、后门检测
 4.  Java服务端测试可运行位于/src/main/java/com/team_three/base_check目录下的DemoApplication.java文件
 5.  release/client_release中的可执行文件内置上传路径已固定，无法直接使用
+6.  Windows客户端后门检测功能中的影子账户检测需要手动修改注册表，为Administrator用户赋予HKEY_LOCAL_MACHINE\SAM\SAM的控制与读取权限，否则默认检测结果为无影子账户
