@@ -38,7 +38,7 @@ public class ReceiveController {
     @Resource
     private ShadowBaselineServiceImpl shadowBaselineService;
 
-    @ApiOperation(value = "接收硬件检测信息",notes = "接收硬件基线检测信息",httpMethod = "post")
+    @ApiOperation(value = "接收硬件检测信息",notes = "接收硬件基线检测信息",httpMethod = "POST")
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.POST)
     public Map<String, Object> HardwareBaseline(@RequestBody JSONObject json) throws Exception {
         if(hardwareBaselineService.selectCount(json.getString("MachineGuid")) != 0){
@@ -75,7 +75,7 @@ public class ReceiveController {
         return map;
     }
 
-    @ApiOperation(value = "接收账户检测信息",notes = "接收账户基线检测信息",httpMethod = "post")
+    @ApiOperation(value = "接收账户检测信息",notes = "接收账户基线检测信息",httpMethod = "POST")
     @RequestMapping(value = "/accountBaseline", method = RequestMethod.POST)
     public Map<String, Object> AccountBaseline(@RequestBody JSONObject json) throws Exception {
         JSONObject object= JSONObject.parseObject(json.toString());
@@ -106,7 +106,7 @@ public class ReceiveController {
         return map;
     }
 
-    @ApiOperation(value = "接收系统检测信息",notes = "接收系统基线检测信息",httpMethod = "post")
+    @ApiOperation(value = "接收系统检测信息",notes = "接收系统基线检测信息",httpMethod = "POST")
     @RequestMapping(value = "/systemBaseline", method = RequestMethod.POST)
     public Map<String, Object> SystemBaseline(@RequestBody JSONObject json) throws Exception {
         if(systemBaselineService.selectCount(json.getString("MachineGuid")) != 0){
@@ -134,7 +134,7 @@ public class ReceiveController {
         return map;
     }
 
-    @ApiOperation(value = "接收注册表检测信息",notes = "接收注册表基线检测信息",httpMethod = "post")
+    @ApiOperation(value = "接收注册表检测信息",notes = "接收注册表基线检测信息",httpMethod = "POST")
     @RequestMapping(value = "/regeditBaseline", method = RequestMethod.POST)
     public Map<String, Object> RegeditBaseline(@RequestBody JSONObject json) throws Exception {
         JSONObject object= JSONObject.parseObject(json.toString());
@@ -156,7 +156,7 @@ public class ReceiveController {
         return map;
     }
 
-    @ApiOperation(value = "接收后门检测信息",notes = "接收后门检测信息",httpMethod = "post")
+    @ApiOperation(value = "接收后门检测信息",notes = "接收后门检测信息",httpMethod = "POST")
     @RequestMapping(value = "/shadowBaseline", method = RequestMethod.POST)
     public Map<String, Object> ShadowBaseline(@RequestBody JSONObject json) throws Exception {
         ShadowBaseline shadowBaseline = new ShadowBaseline();
