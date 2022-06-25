@@ -35,7 +35,7 @@ public class DeleteController {
     @Resource
     private UserServiceImpl userService;
 
-    @ApiOperation(value = "删除用户",notes = "通过id删除用户",httpMethod = "get")
+    @ApiOperation(value = "删除用户",notes = "通过id删除用户",httpMethod = "GET")
     @RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.GET)
     public ModelAndView deleteUser(@PathVariable Integer id, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -55,7 +55,7 @@ public class DeleteController {
         }
     }
 
-    @ApiOperation(value = "删除硬件检测信息",notes = "通过设备唯一标识符删除硬件检测信息",httpMethod = "get")
+    @ApiOperation(value = "删除硬件检测信息",notes = "通过设备唯一标识符删除硬件检测信息",httpMethod = "GET")
     @RequestMapping(value = {"/deleteHardwareRecord/{machineGuid}", "/deleteHardwareRecord/"}, method = RequestMethod.GET)
     public ModelAndView deleteHardware(@PathVariable(value = "machineGuid", required = false) String machineGuid, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -78,7 +78,7 @@ public class DeleteController {
         }
     }
 
-    @ApiOperation(value = "删除系统检测信息",notes = "通过设备唯一标识符删除系统检测信息",httpMethod = "get")
+    @ApiOperation(value = "删除系统检测信息",notes = "通过设备唯一标识符删除系统检测信息",httpMethod = "GET")
     @RequestMapping(value = {"/deleteSystemRecord/{machineGuid}", "/deleteSystemRecord/"}, method = RequestMethod.GET)
     public ModelAndView deleteSystem(@PathVariable(value = "machineGuid", required = false) String machineGuid, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -101,7 +101,7 @@ public class DeleteController {
         }
     }
 
-    @ApiOperation(value = "删除账户检测信息",notes = "通过设备唯一标识符删除账户检测信息",httpMethod = "get")
+    @ApiOperation(value = "删除账户检测信息",notes = "通过设备唯一标识符删除账户检测信息",httpMethod = "GET")
     @RequestMapping(value = {"/deleteAccountRecord/{machineGuid}", "/deleteAccountRecord/"}, method = RequestMethod.GET)
     public ModelAndView deleteAccount(@PathVariable(value = "machineGuid", required = false) String machineGuid, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -124,7 +124,7 @@ public class DeleteController {
         }
     }
 
-    @ApiOperation(value = "删除基线扫描信息",notes = "通过设备唯一标识符删除基线扫描信息",httpMethod = "get")
+    @ApiOperation(value = "删除基线扫描信息",notes = "通过设备唯一标识符删除基线扫描信息",httpMethod = "GET")
     @RequestMapping(value = {"/deleteRegeditRecord/{machineGuid}", "/deleteRegeditRecord/"}, method = RequestMethod.GET)
     public ModelAndView deleteRegedit(@PathVariable(value = "machineGuid", required = false) String machineGuid, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
@@ -147,7 +147,7 @@ public class DeleteController {
         }
     }
 
-    @ApiOperation(value = "删除后门检测信息",notes = "通过设备唯一标识符删除后门检测信息",httpMethod = "get")
+    @ApiOperation(value = "删除后门检测信息",notes = "通过设备唯一标识符删除后门检测信息",httpMethod = "GET")
     @RequestMapping(value = {"/deleteShadowRecord/{machineGuid}", "/deleteShadowRecord/"}, method = RequestMethod.GET)
     public ModelAndView deleteShadow(@PathVariable(value = "machineGuid", required = false) String machineGuid, RedirectAttributes redirectAttribute) {
         Subject subject = SecurityUtils.getSubject();
