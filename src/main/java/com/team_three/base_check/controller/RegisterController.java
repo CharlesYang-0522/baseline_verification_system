@@ -34,7 +34,7 @@ public class RegisterController {
     @Resource
     private UserProfileServiceImpl userProfileService;
 
-    @ApiOperation(value = "用户注册接口",notes = "注册用户信息",httpMethod = "post")
+    @ApiOperation(value = "用户注册接口",notes = "注册用户信息",httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username",value = "用户名",dataType = "String",required = true),
             @ApiImplicitParam(name = "password",value = "密码",dataType = "String",required = true),
@@ -79,14 +79,14 @@ public class RegisterController {
         return mv;
     }
 
-    @ApiOperation(value = "跳转注册接口",notes = "跳转至注册页面",httpMethod = "get")
+    @ApiOperation(value = "跳转注册接口",notes = "跳转至注册页面",httpMethod = "GET")
     @GetMapping(value = "/register")
     public ModelAndView register(){
         ModelAndView mv = new ModelAndView("page-register");
         return mv;
     }
 
-    @ApiOperation(value = "绑定用户唯一标识符",notes = "绑定用户唯一标识符",httpMethod = "post")
+    @ApiOperation(value = "绑定用户唯一标识符",notes = "绑定用户唯一标识符",httpMethod = "POST")
     @ApiImplicitParam(name = "machineGuid",value = "系统唯一标识符",required = true,dataType = "String")
     @PostMapping(value = "/bindMachineGuid")
     public ModelAndView bindMac(@RequestParam String machineGuid, RedirectAttributes redirectAttribute){
