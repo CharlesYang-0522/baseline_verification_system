@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Api(value = "错误信息接口", tags = "错误信息接口API")
 public class ErrorController {
 
-    @ApiOperation(value = "权限错误接口",notes = "提示权限错误信息",httpMethod = "get")
+    @ApiOperation(value = "权限错误接口",notes = "提示权限错误信息",httpMethod = "GET")
     @RequestMapping(value = "/AuthorityError", method = RequestMethod.GET)
     public ModelAndView deleteUser(@PathVariable Integer id, RedirectAttributes redirectAttribute) {
         return new ModelAndView(("/AuthorityError"));
