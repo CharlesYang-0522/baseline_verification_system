@@ -32,7 +32,7 @@ public class RecordController {
     @Resource
     private UserProfileServiceImpl userProfileService;
 
-    @ApiOperation(value = "查询用户配置信息",notes = "查询用户配置信息",httpMethod = "get")
+    @ApiOperation(value = "查询用户配置信息",notes = "查询用户配置信息",httpMethod = "GET")
     @RequestMapping(value = "/userProfile", method = RequestMethod.GET)
     public ModelAndView userProfile(@RequestParam(value = "msg", required = false) String msg, Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -44,7 +44,7 @@ public class RecordController {
         return new ModelAndView("user/user-profile");
     }
 
-    @ApiOperation(value = "查询用户硬件检测信息",notes = "查询用户硬件基线检测信息",httpMethod = "get")
+    @ApiOperation(value = "查询用户硬件检测信息",notes = "查询用户硬件基线检测信息",httpMethod = "GET")
     @RequestMapping(value = "/hardwareBaseline", method = RequestMethod.GET)
     public ModelAndView hardwareBaseline(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -56,7 +56,7 @@ public class RecordController {
         return mv;
     }
 
-    @ApiOperation(value = "根据id查询用户硬件检测信息",notes = "根据id查询用户硬件基线检测信息",httpMethod = "get")
+    @ApiOperation(value = "根据id查询用户硬件检测信息",notes = "根据id查询用户硬件基线检测信息",httpMethod = "GET")
     @RequestMapping(value = "/hardwareBaselineByID/{id}", method = RequestMethod.GET)
     public ModelAndView hardwareBaseline(@PathVariable String id,Model model) {
         Integer uid = Integer.parseInt(id);
@@ -68,7 +68,7 @@ public class RecordController {
         return mv;
     }
 
-    @ApiOperation(value = "查询用户账户检测信息",notes = "查询用户账户基线检测信息",httpMethod = "get")
+    @ApiOperation(value = "查询用户账户检测信息",notes = "查询用户账户基线检测信息",httpMethod = "GET")
     @RequestMapping(value = "/accountBaseline", method = RequestMethod.GET)
     public ModelAndView accountBaseline(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -80,7 +80,7 @@ public class RecordController {
         return mv;
     }
 
-    @ApiOperation(value = "查询用户系统检测信息",notes = "查询用户系统基线检测信息",httpMethod = "get")
+    @ApiOperation(value = "查询用户系统检测信息",notes = "查询用户系统基线检测信息",httpMethod = "GET")
     @RequestMapping(value = "/systemBaseline", method = RequestMethod.GET)
     public ModelAndView systemBaseline(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -92,7 +92,7 @@ public class RecordController {
         return mv;
     }
 
-    @ApiOperation(value = "查询用户注册表检测信息",notes = "查询用户注册表基线检测信息",httpMethod = "get")
+    @ApiOperation(value = "查询用户注册表检测信息",notes = "查询用户注册表基线检测信息",httpMethod = "GET")
     @RequestMapping(value = "/regeditBaseline", method = RequestMethod.GET)
     public ModelAndView regeditBaseline(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
@@ -104,7 +104,7 @@ public class RecordController {
         return mv;
     }
 
-    @ApiOperation(value = "查询用户后门检测信息",notes = "查询用户后门检测信息",httpMethod = "get")
+    @ApiOperation(value = "查询用户后门检测信息",notes = "查询用户后门检测信息",httpMethod = "GET")
     @RequestMapping(value = "/shadowBaseline", method = RequestMethod.GET)
     public ModelAndView shadowBaseline(Model model) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
