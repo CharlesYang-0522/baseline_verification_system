@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class LoginController {
 
-    @ApiOperation(value = "登录接口",notes = "用户/管理员进行登录",httpMethod = "post")
+    @ApiOperation(value = "登录接口",notes = "用户/管理员进行登录",httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username",value = "用户名",dataType = "String",required = true),
             @ApiImplicitParam(name = "password",value = "密码",dataType = "String",required = true)
@@ -54,14 +54,14 @@ public class LoginController {
         }
     }
 
-    @ApiOperation(value = "登录页面跳转",notes = "跳转至登录页面",httpMethod = "get")
+    @ApiOperation(value = "登录页面跳转",notes = "跳转至登录页面",httpMethod = "GET")
     @GetMapping(value = "/login")
     public ModelAndView login(){
         ModelAndView mv = new ModelAndView("page-login");
         return mv;
     }
 
-    @ApiOperation(value = "登出接口",notes = "用户/管理员登出系统",httpMethod = "get")
+    @ApiOperation(value = "登出接口",notes = "用户/管理员登出系统",httpMethod = "GET")
     @GetMapping("/logout")
     public ModelAndView logout(){
         Subject subject = SecurityUtils.getSubject();
@@ -70,7 +70,7 @@ public class LoginController {
         return mv;
     }
 
-    @ApiOperation(value = "登录异常接口",notes = "登录出错",httpMethod = "get")
+    @ApiOperation(value = "登录异常接口",notes = "登录出错",httpMethod = "GET")
     @GetMapping("/loginError")
     public String error(Model model){
         model.addAttribute("msg","error");
